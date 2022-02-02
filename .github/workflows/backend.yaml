@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       branch: ${{ steps.extract_branch.outputs.branch }}
-      api-tag: ${{ secrets.DOCKER_API_REPOSITORY }}:${{ steps.extract_branch.outputs.branch }}-${{ github.sha }}
-      web-tag: ${{ secrets.DOCKER_WEB_REPOSITORY }}:${{ steps.extract_branch.outputs.branch }}-${{ github.sha }}
       environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'staging' || '' }}
+      api-tag: ${{ steps.compose_api_docker_tag.outputs.tag }}
+      web-tag: ${{ steps.compose_web_docker_tag.outputs.tag }}
 
     steps:
       - name: Checkout
@@ -27,6 +27,13 @@ jobs:
         id: extract_branch
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      - name: Compose API docker image tag
+        id: compose_api_docker_tag
+        run: echo "::set-output name=tag::${{ secrets.DOCKER_API_REPOSITORY }}:${{ steps.extract_branch.outputs.branch }}-${{ github.sha }}"
+
+      - name: Compose WEB docker image tag
+        id: compose_web_docker_tag
+        run: echo "::set-output name=tag::${{ secrets.DOCKER_WEB_REPOSITORY }}:${{ steps.extract_branch.outputs.branch }}-${{ github.sha }}"
 
   build-api:
     runs-on: ubuntu-latest
@@ -95,12 +102,12 @@ jobs:
       - name: Build Docker image
         working-directory: frontend
         run: |
-          docker build --file deployment/docker/Dockerfile -t ${{ needs.prepare.outputs.api-tag }} .
+          docker build --file deployment/docker/Dockerfile -t ${{ needs.prepare.outputs.web-tag }} .
 
       - name: Push Docker image
         working-directory: frontend
         run: |
-          docker push ${{ needs.prepare.outputs.api-tag }}
+          docker push ${{ needs.prepare.outputs.web-tag }}
 
   deploy:
     runs-on: ubuntu-latest
