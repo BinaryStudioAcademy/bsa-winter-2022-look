@@ -11,34 +11,8 @@ on:
       - develop
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    outputs:
-      branch: ${{ steps.extract_branch.outputs.branch }}
-      environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'staging' || '' }}
-      api-tag: ${{ steps.compose_api_docker_tag.outputs.tag }}
-      web-tag: ${{ steps.compose_web_docker_tag.outputs.tag }}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Extract branch name
-        id: extract_branch
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      - name: Compose API docker image tag
-        id: compose_api_docker_tag
-        run: echo "::set-output name=tag::${{ secrets.DOCKER_API_REPOSITORY }}:${{ steps.extract_branch.outputs.branch }}-${{ github.sha }}"
-
-      - name: Compose WEB docker image tag
-        id: compose_web_docker_tag
-        run: echo "::set-output name=tag::${{ secrets.DOCKER_WEB_REPOSITORY }}:${{ steps.extract_branch.outputs.branch }}-${{ github.sha }}"
-
   build-api:
     runs-on: ubuntu-latest
-    needs:
-      - prepare
 
     steps:
       - name: Checkout
@@ -79,15 +53,14 @@ jobs:
         run: docker-compose exec -T api php artisan test
 
       - name: Push Docker image
-        if: ${{ needs.prepare.outputs.branch == 'develop' || needs.prepare.outputs.branch == 'main' }}
+        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
         run: |
-          docker image tag bsa-look-api ${{ needs.prepare.outputs.api-tag }}
-          docker push ${{ needs.prepare.outputs.api-tag }}
+          DOCKER_API_TAG=${{ secrets.DOCKER_API_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
+          docker image tag bsa-look-api $DOCKER_API_TAG
+          docker push $DOCKER_API_TAG
 
   build-web:
     runs-on: ubuntu-latest
-    needs:
-      - prepare
 
     steps:
       - name: Checkout
@@ -102,20 +75,21 @@ jobs:
       - name: Build Docker image
         working-directory: frontend
         run: |
-          docker build --file deployment/docker/Dockerfile -t ${{ needs.prepare.outputs.web-tag }} .
+          DOCKER_WEB_TAG=${{ secrets.DOCKER_WEB_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
+          docker build --file deployment/docker/Dockerfile -t $DOCKER_WEB_TAG .
 
       - name: Push Docker image
         working-directory: frontend
         run: |
-          docker push ${{ needs.prepare.outputs.web-tag }}
+          DOCKER_WEB_TAG=${{ secrets.DOCKER_WEB_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
+          docker push $DOCKER_WEB_TAG
 
   deploy:
     runs-on: ubuntu-latest
     needs:
-      - prepare
       - build-api
       - build-web
-    environment: ${{ needs.prepare.outputs.environment }}
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'staging' || '' }}
 
     steps:
       - name: Checkout
@@ -128,17 +102,19 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker pull ${{ needs.prepare.outputs.api-tag }}
-            docker pull ${{ needs.prepare.outputs.web-tag }}
+            DOCKER_API_TAG=${{ secrets.DOCKER_API_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
+            DOCKER_WEB_TAG=${{ secrets.DOCKER_WEB_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
+            docker pull $DOCKER_API_TAG
+            docker pull $DOCKER_WEB_TAG
             docker stop bsa-look-api || true
             docker container rm bsa-look-api || true
             docker run -dit \
               --name=bsa-look-api \
               --restart unless-stopped \
-              ${{ needs.prepare.outputs.api-tag }}
+              $DOCKER_API_TAG
             docker stop bsa-look-web || true
             docker container rm bsa-look-web || true
             docker run -dit \
               --name=bsa-look-web \
               --restart unless-stopped \
-              ${{ needs.prepare.outputs.web-tag }}
+              $DOCKER_WEB_TAG
