@@ -95,15 +95,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Prepare variables
+        id: prepare_variables
+        run: |
+          echo "::set-output name=api_tag::${{ secrets.DOCKER_API_REPOSITORY }}:${GITHUB_REF#refs/heads/}-${{ github.sha }}"
+          echo "::set-output name=web_tag::${{ secrets.DOCKER_WEB_REPOSITORY }}:${GITHUB_REF#refs/heads/}-${{ github.sha }}"
+
       - name: Deploy
         uses: appleboy/ssh-action@master
+        env:
+          DOCKER_API_TAG: ${{ steps.prepare_variables.outputs.api_tag }}
+          DOCKER_WEB_TAG: ${{ steps.prepare_variables.outputs.web_tag }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          envs: DOCKER_API_TAG,DOCKER_WEB_TAG
           script: |
-            DOCKER_API_TAG=${{ secrets.DOCKER_API_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
-            DOCKER_WEB_TAG=${{ secrets.DOCKER_WEB_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
             docker pull $DOCKER_API_TAG
             docker pull $DOCKER_WEB_TAG
             docker stop bsa-look-api || true
