@@ -36,6 +36,10 @@ jobs:
         working-directory: backend
         run: docker-compose config --quiet
 
+      - name: Copy testing environment variables
+        working-directory: backend
+        run: cp .env.testing.example .env.testing
+
       - name: Build images
         working-directory: backend
         run: docker-compose build
