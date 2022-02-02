@@ -5,12 +5,8 @@ services:
     build:
       args:
         PHP_ENVIRONMENT: "development"
-    volumes:
-      - ./:/app
     depends_on:
       - database
-    ports:
-      - "8080:80"
 
   database:
     image: mysql:8.0.28
@@ -19,10 +15,3 @@ services:
       MYSQL_USER: "look"
       MYSQL_PASSWORD: "secret"
       MYSQL_ROOT_PASSWORD: "root_secret"
-    volumes:
-      - mysql-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-
-volumes:
-  mysql-data:

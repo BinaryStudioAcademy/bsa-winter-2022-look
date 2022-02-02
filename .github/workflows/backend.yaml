@@ -1,0 +1,78 @@
+name: Look API - CI/CD
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+    branches:
+      - main
+      - develop
+  pull_request:
+    paths:
+      - 'backend/**'
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Copy docker-compose configuration
+        working-directory: backend
+        run: cp docker-compose.test.yml docker-compose.override.yml
+
+      - name: Validate docker-compose configuration
+        working-directory: backend
+        run: docker-compose config --quiet
+
+      - name: Build images
+        working-directory: backend
+        run: docker-compose build
+
+      - name: Start containers
+        working-directory: backend
+        run: docker-compose up -d
+
+      - name: Validate Composer configuration
+        working-directory: backend
+        run: docker-compose exec -T api composer validate --no-check-publish
+
+      - name: Run tests
+        working-directory: backend
+        run: docker-compose exec -T api php artisan test
+
+      - name: Extract branch name
+        id: extract_branch
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+
+      - name: Compose Docker tag
+        id: compose_docker_tag
+        run: echo "##[set-output name=tag;]$(echo ${{ secrets.DOCKER_API_REPOSITORY }}:${{ steps.extract_branch.outputs.branch }}-${{ github.sha }})"
+
+      - name: Push Docker image
+        if: ${{ steps.extract_branch.outputs.branch == 'develop' || steps.extract_branch.outputs.branch == 'main' }}
+        run: |
+          docker image tag bsa-look-api ${{ steps.compose_docker_tag.outputs.tag }}
+          docker push ${{ steps.compose_docker_tag.outputs.tag }}
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        if: ${{ steps.extract_branch.outputs.branch == 'develop' || steps.extract_branch.outputs.branch == 'main' }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            echo "Deployment process..."
