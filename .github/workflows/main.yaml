@@ -95,6 +95,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Copy secret files
+        run: |
+          aws s3 cp s3://${{ secrets.AWS_BUCKET_NAME }}/${{ secrets.AWS_BUCKET_API_SECRETS_PATH }} api_secrets
+
       - name: Prepare variables
         id: prepare_variables
         run: |
@@ -118,11 +129,14 @@ jobs:
             docker container rm bsa-look-api || true
             docker run -dit \
               --name=bsa-look-api \
+              --network=bsa-look-network \
               --restart unless-stopped \
+              --env-file api_secrets \
               $DOCKER_API_TAG
             docker stop bsa-look-web || true
             docker container rm bsa-look-web || true
             docker run -dit \
               --name=bsa-look-web \
+              --network=bsa-look-network \
               --restart unless-stopped \
               $DOCKER_WEB_TAG
