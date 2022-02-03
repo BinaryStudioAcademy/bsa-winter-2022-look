@@ -75,13 +75,14 @@ jobs:
       - name: Build Docker image
         working-directory: frontend
         run: |
-          DOCKER_WEB_TAG=${{ secrets.DOCKER_WEB_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
-          docker build --file deployment/docker/Dockerfile -t $DOCKER_WEB_TAG .
+          docker build --file deployment/docker/Dockerfile -t bsa-look-web .
 
       - name: Push Docker image
+        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
         working-directory: frontend
         run: |
           DOCKER_WEB_TAG=${{ secrets.DOCKER_WEB_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
+          docker image tag bsa-look-web $DOCKER_WEB_TAG
           docker push $DOCKER_WEB_TAG
 
   deploy:
