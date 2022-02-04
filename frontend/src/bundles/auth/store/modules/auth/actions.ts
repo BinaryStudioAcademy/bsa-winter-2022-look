@@ -12,7 +12,7 @@ export function getActions<R>(): ActionTree<AuthState, R> {
       return userRepository.create(data)
         .then(result => commit(SET_USER, result));
     },
-    [LOGIN_USER]({}, data: UserLoginRequest): Promise<void> {
+    [LOGIN_USER](args, data: UserLoginRequest): Promise<void> {
       return userRepository.login(data);
     },
   };
