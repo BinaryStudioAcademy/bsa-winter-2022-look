@@ -1,0 +1,1 @@
+export const FETCH_SESSION_USER = 'FETCH_SESSION_USER';
