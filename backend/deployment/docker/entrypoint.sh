@@ -4,8 +4,15 @@ set -e
 
 if [ "$PHP_ENVIRONMENT" = "development" ]; then \
     echo "Fixing permissions for the mounted volume..."
-    setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX storage bootstrap/cache; \
-    setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX storage bootstrap/cache; \
+    setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX storage bootstrap/cache
+    setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX storage bootstrap/cache
+fi
+
+if [ "$PHP_ENVIRONMENT" = "production" ]; then \
+    echo "Caching configuration..."
+    php artisan config:cache
+    php artisan route:cache
+    php artisan view:cache
 fi
 
 echo "Waiting for db to be ready..."

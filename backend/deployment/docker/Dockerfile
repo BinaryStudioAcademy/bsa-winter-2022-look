@@ -51,9 +51,6 @@ RUN chown -R www-data:www-data \
 # Install project dependencies
 RUN if [ "$PHP_ENVIRONMENT" = "production" ]; then \
         composer install --optimize-autoloader --no-dev; \
-        php artisan config:cache; \
-        php artisan route:cache; \
-        php artisan view:cache; \
     else \
         composer install; \
     fi
