@@ -1,11 +1,7 @@
-name: Look - CI/CD
+name: Look - CD
 
 on:
   push:
-    branches:
-      - main
-      - develop
-  pull_request:
     branches:
       - main
       - develop
@@ -24,36 +20,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
-      - name: Copy docker-compose configuration
+      - name: Build Docker image
         working-directory: backend
-        run: cp docker-compose.test.yml docker-compose.override.yml
-
-      - name: Validate docker-compose configuration
-        working-directory: backend
-        run: docker-compose config --quiet
-
-      - name: Copy testing environment variables
-        working-directory: backend
-        run: cp .env.testing.example .env.testing
-
-      - name: Build images
-        working-directory: backend
-        run: docker-compose build
-
-      - name: Start containers
-        working-directory: backend
-        run: docker-compose up -d
-
-      - name: Validate Composer configuration
-        working-directory: backend
-        run: docker-compose exec -T api composer validate --no-check-publish
-
-      - name: Run tests
-        working-directory: backend
-        run: docker-compose exec -T api php artisan test
+        run: |
+          docker build --file deployment/docker/Dockerfile --build-arg PHP_ENVIRONMENT=production -t bsa-look-api .
 
       - name: Push Docker image
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
         run: |
           DOCKER_API_TAG=${{ secrets.DOCKER_API_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
           docker image tag bsa-look-api $DOCKER_API_TAG
@@ -61,6 +33,7 @@ jobs:
 
   build-web:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'staging' }}
 
     steps:
       - name: Checkout
@@ -72,13 +45,24 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Load secret files
+        working-directory: frontend
+        run: |
+          aws s3 cp s3://${{ secrets.AWS_BUCKET_NAME }}/${{ secrets.AWS_BUCKET_WEB_SECRETS_PATH }} .env.local
+
       - name: Build Docker image
         working-directory: frontend
         run: |
           docker build --file deployment/docker/Dockerfile -t bsa-look-web .
 
       - name: Push Docker image
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
         working-directory: frontend
         run: |
           DOCKER_WEB_TAG=${{ secrets.DOCKER_WEB_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
@@ -90,7 +74,7 @@ jobs:
     needs:
       - build-api
       - build-web
-    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'staging' || '' }}
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'staging' }}
 
     steps:
       - name: Checkout
