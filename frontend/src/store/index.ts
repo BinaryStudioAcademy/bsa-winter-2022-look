@@ -1,7 +1,7 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 import { getAuthModule, authNamespace } from '@/bundles/auth/store/modules/auth';
-import { getUserModule, userNamespace } from './../bundles/common/store/modules/user/index';
+import { getUserModule, userNamespace } from '../bundles/common/store/modules/user/index';
 
 Vue.use(Vuex);
 
