@@ -4,19 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserSettings extends Migration
+class CreateUserParametersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('user_settings', function (Blueprint $table) {
+        Schema::create('user_parameters', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->text('settings');
+            $table->string('parameter_key');
+            $table->integer('parameter_value');
             $table->timestamps();
 
             $table
@@ -26,13 +22,8 @@ class CreateUserSettings extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('user_settings');
+        Schema::dropIfExists('user_parameters');
     }
 }

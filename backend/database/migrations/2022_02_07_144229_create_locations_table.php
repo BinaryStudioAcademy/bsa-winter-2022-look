@@ -4,20 +4,15 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventTypes extends Migration
+class CreateLocationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('event_types', function (Blueprint $table) {
+        Schema::create('locations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->text('description');
-            $table->unsignedBigInteger('user_id');
             $table->float('longitude');
             $table->float('latitude');
             $table->tinyInteger('is_hidden');
@@ -30,13 +25,8 @@ class CreateEventTypes extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('event_types');
+        Schema::dropIfExists('locations');
     }
 }
