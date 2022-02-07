@@ -1,7 +1,9 @@
 import User from '@/bundles/common/entity/User';
 import HttpTransport from '@/services/contracts/HttpTransport';
 import UserRepository from '../contracts/UserRepository';
+import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
+import Storage from '@/services/storage';
 
 export default class HttpUserRepository implements UserRepository {
   private readonly httpTransport: HttpTransport;
@@ -13,8 +15,27 @@ export default class HttpUserRepository implements UserRepository {
   public create(payload: UserRequest): Promise<User> {
     return this.httpTransport
       .post(
-        '/user',
+        '/auth/register ',
         payload,
       );
+  }
+
+  public login(payload: UserLoginRequest): Promise<void> {
+    return this.httpTransport
+      .post(
+        '/auth/login',
+        payload,
+      ).then(({
+        access_token: accessToken,
+        token_type: tokenType,
+      }) => {
+        Storage.setToken(accessToken);
+        Storage.setTokenType(tokenType);
+      });
+  }
+
+  public get(): Promise<User> {
+    return this.httpTransport
+      .get('/auth/me');
   }
 }

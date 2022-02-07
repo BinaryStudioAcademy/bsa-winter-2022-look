@@ -1,4 +1,5 @@
 import User from '@/bundles/common/entity/User';
+import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 
 export default interface UserRepository {
@@ -8,4 +9,15 @@ export default interface UserRepository {
      * @param {UserRequest} payload
      */
   create(payload: UserRequest): Promise<User>;
+  /**
+     * Login User
+     *
+     * @param {UserLoginRequest} payload
+     */
+  login(payload: UserLoginRequest): Promise<void>;
+  /**
+     * Get User
+     *
+     */
+  get(): Promise<User>;
 }

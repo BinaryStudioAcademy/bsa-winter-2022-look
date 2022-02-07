@@ -1,7 +1,7 @@
-import { RouteRecordRaw } from 'vue-router';
+import { RouteConfig } from 'vue-router';
 const LayoutPage = () => import('./pages/LayoutPage.vue').then(m => m.default);
 
-export function getAuthRoutes(): Array<RouteRecordRaw> {
+export function getAuthRoutes(): RouteConfig[] {
   return [
     {
       path: 'auth',

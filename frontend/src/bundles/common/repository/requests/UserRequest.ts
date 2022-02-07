@@ -1,6 +1,5 @@
 export default interface UserRequest {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
   password: string;
 }
