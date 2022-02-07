@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateUserMedia extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('user_media', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->unsignedBigInteger('user_id');
+            $table->string('media_type');
+            $table->string('format');
+            $table->string('filename');
             $table->timestamps();
 
             $table
-                ->foreign('role_id')
+                ->foreign('user_id')
                 ->references('id')
                 ->on('users');
         });
@@ -37,6 +35,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('user_media');
     }
 }
