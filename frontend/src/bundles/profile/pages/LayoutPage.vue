@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      v-model="drawer"
       app
     >
       <router-link to="/">
@@ -31,7 +30,7 @@
             <v-icon>{{ menu.icon }}</v-icon>
           </v-list-item-icon>
 
-          <v-list-item-content>
+          <v-list-item-content @click="handleShow(menu.title)">
             <v-list-item-title>{{ menu.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
@@ -41,8 +40,8 @@
       <v-container>
         <v-row>
           <v-col>
-            <AccountSettings v-if="show" />
-            <Profile />
+            <AccountSettings v-if="showAcc" />
+            <Profile v-if="showProfile" />
           </v-col>
         </v-row>
       </v-container>
@@ -60,16 +59,26 @@ export default {
   },
   data() {
     return {
-      show: false,
+      showAcc: false,
+      showProfile: true,
       items: ['Sign Out', 'Profile'],
       menus: [
-        { title: 'Profile', icon: 'mdi-account' }, { title: 'Acount', icon: 'mdi-account' }],
+        { title: 'Profile', icon: 'mdi-account' }, { title: 'Account', icon: 'mdi-account' }],
     };
   },
 
   methods: {
-    drawer() {
-      return 3;
+    handleShow(type) {
+      switch (type) {
+      case 'Profile':
+        this.showProfile = true;
+        this.showAcc = false;
+        break;
+      case 'Account':
+        this.showAcc = true;
+        this.showProfile = false;
+        break;
+      }
     },
   },
 };
