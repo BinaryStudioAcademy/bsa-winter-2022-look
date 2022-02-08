@@ -4,7 +4,9 @@
       v-model="drawer"
       app
     >
-      <h1>Logo</h1>
+      <router-link to="/">
+        <h1>Logo</h1>
+      </router-link>
       <v-avatar color="primary" size="56">
         <img
           alt="Avatar"
@@ -12,7 +14,8 @@
         />
       </v-avatar>
       <v-toolbar-title>John Dohe</v-toolbar-title>
-      <v-select :items="items" label="Outlined style" outlined />
+      <v-divider />
+      <v-select :items="items" />
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6"> Profile </v-list-item-title>
@@ -38,7 +41,8 @@
       <v-container>
         <v-row>
           <v-col>
-            <AccountSettings />
+            <AccountSettings v-if="show" />
+            <Profile />
           </v-col>
         </v-row>
       </v-container>
@@ -48,13 +52,16 @@
 
 <script>
 import AccountSettings from '../components/AccountSettings.vue';
+import Profile from './Profile.vue';
 export default {
   components: {
     AccountSettings,
+    Profile,
   },
   data() {
     return {
-      items: ['foo', 'bar', 'baz', 'bad'],
+      show: false,
+      items: ['Sign Out', 'Profile'],
       menus: [
         { title: 'Profile', icon: 'mdi-account' }, { title: 'Acount', icon: 'mdi-account' }],
     };
