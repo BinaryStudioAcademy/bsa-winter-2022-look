@@ -2,6 +2,7 @@
   <v-app>
     <v-container fluid>
       <v-navigation-drawer>
+        <h1>Logo</h1>
         <v-avatar color="primary" size="56">
           <img
             alt="Avatar"
