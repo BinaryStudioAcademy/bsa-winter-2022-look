@@ -11,7 +11,6 @@
         name="select"
         rules="required"
       >
-        <v-header>Jobs</v-header>
         <v-select
           v-model="select"
           :items="items"

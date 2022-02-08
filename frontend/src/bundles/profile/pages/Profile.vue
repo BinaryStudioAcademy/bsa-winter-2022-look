@@ -1,24 +1,22 @@
 <template>
-  <v-card>
-    <v-card-title>
-      Profile
-    </v-card-title>
+  <v-main>
     <v-container>
-      <Media />
+      <Photos />
       <WorkAndEducation />
       <PurposeAndLocation />
     </v-container>
-  </v-card>
+  </v-main>
+
 </template>
 
 <script>
 
-import Media from '../components/profile/Media.vue';
+import Photos from '../components/profile/Photos.vue';
 import WorkAndEducation from '../components/profile/WorkAndEducation.vue';
 import PurposeAndLocation from '../components/profile/PurposeAndLocation.vue';
 export default {
   components: {
-    Media,
+    Photos,
     WorkAndEducation,
     PurposeAndLocation,
   },

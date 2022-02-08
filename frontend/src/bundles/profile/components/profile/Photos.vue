@@ -1,5 +1,4 @@
 <template>
-
   <v-row>
     <v-col v-for="n in 3" :key="n" class="d-flex child-flex" cols="4">
       <v-img
