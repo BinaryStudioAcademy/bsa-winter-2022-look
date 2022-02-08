@@ -1,6 +1,6 @@
 <template>
   <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
-    <user-set-up-form
+    <set-up-form
       :invalid="invalid"
       :processing="processing"
       @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
@@ -13,12 +13,12 @@ import { ValidationObserver } from 'vee-validate';
 import { CREATE_USER } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
-import UserSetUpForm from '../components/UserSetUpForm';
+import SetUpForm from '../components/SetUpForm';
 
 export default {
   components: {
     ValidationObserver,
-    UserSetUpForm,
+    SetUpForm,
   },
 
   data() {
