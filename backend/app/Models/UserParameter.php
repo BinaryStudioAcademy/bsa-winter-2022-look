@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserParameter extends Model
+final class UserParameter extends Model
 {
     use HasFactory;
 
