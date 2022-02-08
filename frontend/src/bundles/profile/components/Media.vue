@@ -1,7 +1,9 @@
 <template>
-  <h1>Profile</h1>
+  <h1>Media </h1>
 </template>
 
 <script>
-export default {};
+export default {
+
+};
 </script>
