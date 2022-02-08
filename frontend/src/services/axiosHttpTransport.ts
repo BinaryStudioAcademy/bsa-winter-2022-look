@@ -62,4 +62,4 @@ class AxiosHttpTransport implements HttpTransport {
   }
 }
 
-export default new AxiosHttpTransport(process.env.APP_API_URL);
+export default new AxiosHttpTransport(process.env.VUE_APP_API_URL);
