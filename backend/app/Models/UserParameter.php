@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserParameter extends Model
 {
     use HasFactory;
+
+    protected $table = 'user_parameters';
+
 }

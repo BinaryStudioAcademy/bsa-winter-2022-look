@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserSetting extends Model
 {
     use HasFactory;
+
+    protected $table = 'user_settings';
 }
