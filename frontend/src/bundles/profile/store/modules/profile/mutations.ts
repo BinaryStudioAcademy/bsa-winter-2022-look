@@ -1,4 +1,3 @@
-import User from '@/bundles/common/entity/User';
 import { MutationTree } from 'vuex';
 import ProfileState from './ProfileState';
 
