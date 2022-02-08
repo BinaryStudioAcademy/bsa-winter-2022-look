@@ -1,8 +1,6 @@
 import { RouteConfig } from 'vue-router';
 const LayoutPage = () => import('./pages/LayoutPage.vue').then(m => m.default);
 const AccountSettings = () => import('./components/AccountSettings.vue');
-const Profile = () => import('./components/Profile.vue');
-
 export function getProfileRoutes(): RouteConfig[] {
   return [
     {

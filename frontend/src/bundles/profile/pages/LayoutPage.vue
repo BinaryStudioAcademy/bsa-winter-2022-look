@@ -59,5 +59,11 @@ export default {
         { title: 'Profile', icon: 'mdi-account' }, { title: 'Acount', icon: 'mdi-account' }],
     };
   },
+
+  methods: {
+    drawer() {
+      return 3;
+    },
+  },
 };
 </script>
