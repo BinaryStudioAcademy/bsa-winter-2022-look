@@ -6,6 +6,7 @@
     <v-container>
       <Media />
       <WorkAndEducation />
+      <PurposeAndLocation />
     </v-container>
   </v-card>
 </template>
@@ -14,10 +15,12 @@
 
 import Media from '../components/profile/Media.vue';
 import WorkAndEducation from '../components/profile/WorkAndEducation.vue';
+import PurposeAndLocation from '../components/profile/PurposeAndLocation.vue';
 export default {
   components: {
     Media,
     WorkAndEducation,
+    PurposeAndLocation,
   },
 
 };
