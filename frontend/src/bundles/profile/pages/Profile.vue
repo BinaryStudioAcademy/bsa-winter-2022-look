@@ -7,14 +7,6 @@
       <Media />
       <WorkAndEducation />
     </v-container>
-
-    <!-- <h3>Tell people more about yourself by adding your work and education details</h3>
-    Job title -> Add title
-    Company name -> Add company
-    School or university -> Add education
-    <h2>Location</h2> -> Town Select
-    <h2>I'm here to</h2> radio
-    <h2>Interests</h2> square select plitku -->
   </v-card>
 </template>
 

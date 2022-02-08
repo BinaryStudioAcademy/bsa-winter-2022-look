@@ -3,12 +3,15 @@
     ref="observer"
     v-slot="{ invalid }"
   >
+    <h2>Work & Education</h2>
+    <v-spacer />
     <form @submit.prevent="submit">
       <validation-provider
         v-slot="{ errors }"
         name="select"
         rules="required"
       >
+        <v-header>Jobs</v-header>
         <v-select
           v-model="select"
           :items="items"
@@ -20,49 +23,30 @@
       </validation-provider>
       <validation-provider
         v-slot="{ errors }"
-        name="Name"
-        rules="required|max:10"
+        name="Company field"
+        rules="required|max:30"
       >
         <v-text-field
           v-model="name"
-          :counter="10"
+          :counter="30"
           :error-messages="errors"
-          label="Name"
+          label="Company Name"
           required
         />
       </validation-provider>
       <validation-provider
         v-slot="{ errors }"
-        name="phoneNumber"
-        :rules="{
-          required: true,
-          digits: 7,
-          regex: '^(71|72|74|76|81|82|84|85|86|87|88|89)\\d{5}$'
-        }"
+        name="School or University"
+        rules="required|max:255"
       >
         <v-text-field
-          v-model="phoneNumber"
-          :counter="7"
+          v-model="name"
+          :counter="255"
           :error-messages="errors"
-          label="Phone Number"
+          label="School or University"
           required
         />
       </validation-provider>
-      <validation-provider
-        v-slot="{ errors }"
-        rules="required"
-        name="checkbox"
-      >
-        <v-checkbox
-          v-model="checkbox"
-          :error-messages="errors"
-          value="1"
-          label="Option"
-          type="checkbox"
-          required
-        />
-      </validation-provider>
-
       <v-btn
         class="mr-4"
         type="submit"
@@ -77,15 +61,10 @@
   </validation-observer>
 </template>
 <script>
-import { required, digits, max, regex } from 'vee-validate/dist/rules';
+import { required, max } from 'vee-validate/dist/rules';
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate';
 
 setInteractionMode('eager');
-
-extend('digits', {
-  ...digits,
-  message: '{_field_} needs to be {length} digits. ({_value_})',
-});
 
 extend('required', {
   ...required,
@@ -97,11 +76,6 @@ extend('max', {
   message: '{_field_} may not be greater than {length} characters',
 });
 
-extend('regex', {
-  ...regex,
-  message: '{_field_} {_value_} does not match {regex}',
-});
-
 export default {
   components: {
     ValidationProvider,
@@ -109,15 +83,13 @@ export default {
   },
   data: () => ({
     name: '',
-    phoneNumber: '',
     select: null,
     items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
+      'Agent',
+      'Builder',
+      'Conductor',
+      'Mainer',
     ],
-    checkbox: null,
   }),
 
   methods: {
@@ -126,9 +98,7 @@ export default {
     },
     clear() {
       this.name = '';
-      this.phoneNumber = '';
       this.select = null;
-      this.checkbox = null;
       this.$refs.observer.reset();
     },
   },
