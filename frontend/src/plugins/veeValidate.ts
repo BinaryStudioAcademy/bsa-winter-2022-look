@@ -3,7 +3,7 @@ import {
   required,
   email,
   confirmed,
-  min
+  min,
 } from 'vee-validate/dist/rules';
 
 extend('required', {
@@ -18,11 +18,11 @@ extend('email', {
 
 extend('confirmed', {
   ...confirmed,
-  message: 'This field must match'
+  message: 'This field must match',
 });
 
 extend('min', {
   ...min,
   params: ['length', 'name'],
-  message: 'Your {name} must be at least {length} characters'
+  message: 'Your {name} must be at least {length} characters',
 });
