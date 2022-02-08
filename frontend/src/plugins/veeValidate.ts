@@ -1,10 +1,12 @@
-import { extend } from 'vee-validate';
+import { extend, setInteractionMode } from 'vee-validate';
 import {
   required,
   email,
   confirmed,
   min,
 } from 'vee-validate/dist/rules';
+
+setInteractionMode('eager');
 
 extend('required', {
   ...required,

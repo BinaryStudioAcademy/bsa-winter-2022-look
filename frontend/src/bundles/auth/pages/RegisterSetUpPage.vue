@@ -24,7 +24,6 @@ export default {
   data() {
     return {
       processing: undefined,
-      email: undefined,
     };
   },
 
@@ -36,6 +35,8 @@ export default {
       if (this.processing) {
         return Promise.resolve();
       }
+
+      this.processing = true;
 
       return this.createUser(payload)
         .then(() =>
