@@ -16,7 +16,7 @@ class ForgotPasswordEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(public array $token)
     {
         //
     }
@@ -28,6 +28,6 @@ class ForgotPasswordEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('e4cf174c8e-361746@inbox.mailtrap.io', 'Mailtrap')->subject('New comment like!')->view('email.newCommentLike');
+        return $this->subject('Restore password')->view('email.forgot_password');
     }
 }

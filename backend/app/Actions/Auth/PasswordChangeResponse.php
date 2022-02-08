@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Actions\Auth;
 
 
-class ForgotPasswordResponse
+class PasswordChangeResponse
 {
     public function response()
     {
-        return 'Message to your email has been send';
+        return 'Password has been changed';
     }
 }

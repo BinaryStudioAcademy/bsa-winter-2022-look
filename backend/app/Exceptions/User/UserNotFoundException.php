@@ -13,4 +13,9 @@ final class UserNotFoundException extends ModelNotFoundException
     {
         parent::__construct($message, $code, $previous);
     }
+
+    public function render()
+    {
+        return response()->json(['error' => $this->message], $this->code);
+    }
 }
