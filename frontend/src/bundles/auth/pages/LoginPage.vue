@@ -1,11 +1,14 @@
 <template>
-  <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
-    <login-form
-      :invalid="invalid"
-      :processing="processing"
-      @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
-    />
-  </validation-observer>
+  <div>
+    <h1>Log In</h1>
+    <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
+      <login-form
+        :invalid="invalid"
+        :processing="processing"
+        @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
+      />
+    </validation-observer>
+  </div>
 </template>
 
 <script>
