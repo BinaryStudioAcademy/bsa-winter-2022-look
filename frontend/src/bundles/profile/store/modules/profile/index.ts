@@ -5,7 +5,7 @@ import { getGetters } from './getters';
 import ProfileState, { createProfileState } from './ProfileState';
 import namespace from './namespace';
 
-export function getAuthModule<R>(): Module<ProfileState, R> {
+export function getProfileModule<R>(): Module<ProfileState, R> {
   return {
     namespaced: true,
     mutations,
@@ -15,4 +15,4 @@ export function getAuthModule<R>(): Module<ProfileState, R> {
   };
 }
 
-export const authNamespace = namespace;
+export const profileNamespace = namespace;
