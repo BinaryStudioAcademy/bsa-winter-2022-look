@@ -12,6 +12,6 @@ final class UserInterestRepository extends BaseRepository implements UserInteres
 
     public function findAll(): array
     {
-        return UserInterest::all();
+        return UserInterest::all()->toArray();
     }
 }

@@ -12,11 +12,11 @@ final class LocationRepository extends BaseRepository implements LocationReposit
 
     public function findAll(): array
     {
-        return Location::all();
+        return Location::all()->toArray();
     }
 
-    public function getById($id): ?Location
+    public function getById($id): Location
     {
-        return Location::find($id);
+        return Location::findOrFail($id);
     }
 }

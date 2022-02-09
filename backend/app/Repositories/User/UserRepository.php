@@ -9,9 +9,9 @@ use App\Repositories\BaseRepository;
 
 final class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
-    public function getById(int $id): ?User
+    public function getById(int $id): User
     {
-        return User::find($id);
+        return User::findOrFail($id);
     }
 
     public function getByEmail(string $email): ?User

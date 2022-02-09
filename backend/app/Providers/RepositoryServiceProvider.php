@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\EventType\EventTypeRepository;
@@ -25,14 +24,10 @@ use App\Repositories\UserParameter\UserParameterRepository;
 use App\Repositories\UserParameter\UserParameterRepositoryInterface;
 use App\Repositories\UserSetting\UserSettingRepository;
 use App\Repositories\UserSetting\UserSettingRepositoryInterface;
+use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     *
-     * @return void
-     */
     public function register()
     {
         $this->app->bind(EventRepositoryInterface::class, EventRepository::class);
@@ -47,13 +42,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(UserSettingRepositoryInterface::class, UserSettingRepository::class);
     }
 
-    /**
-     * Bootstrap services.
-     *
-     * @return void
-     */
     public function boot()
     {
-        //
+
     }
 }

@@ -12,6 +12,6 @@ final class MatchRepository extends BaseRepository implements MatchRepositoryInt
 
     public function findAll(): array
     {
-        return Match::all();
+        return Match::all()->toArray();
     }
 }

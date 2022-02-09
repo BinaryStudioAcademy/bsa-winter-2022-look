@@ -12,11 +12,11 @@ final class EventRepository extends BaseRepository implements EventRepositoryInt
 
     public function findAll(): array
     {
-        return Event::all();
+        return Event::all()->toArray();
     }
 
-    public function getById($id): ?Event
+    public function getById($id): Event
     {
-        return Event::find($id);
+        return Event::findOrFail($id);
     }
 }

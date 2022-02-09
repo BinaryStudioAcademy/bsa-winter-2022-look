@@ -9,5 +9,5 @@ use App\Models\EventType;
 interface EventTypeRepositoryInterface
 {
     public function findAll(): array;
-    public function getById(int $id): ?EventType;
+    public function getById(int $id): EventType;
 }

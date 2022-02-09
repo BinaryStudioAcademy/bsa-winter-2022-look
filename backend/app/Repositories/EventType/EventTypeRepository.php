@@ -12,11 +12,11 @@ final class EventTypeRepository extends BaseRepository implements EventTypeRepos
 
     public function findAll(): array
     {
-        return Event::all();
+        return Event::all()->toArray();
     }
 
-    public function getById($id): ?EventType
+    public function getById($id): EventType
     {
-        return Event::find($id);
+        return Event::findOrFail($id);
     }
 }

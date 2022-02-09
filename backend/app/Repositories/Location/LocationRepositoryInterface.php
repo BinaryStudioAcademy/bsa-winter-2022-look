@@ -9,5 +9,5 @@ use App\Models\Location;
 interface LocationRepositoryInterface
 {
     public function findAll(): array;
-    public function getById(int $id): ?Location;
+    public function getById(int $id): Location;
 }

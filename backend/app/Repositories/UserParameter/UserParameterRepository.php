@@ -12,6 +12,6 @@ final class UserParameterRepository extends BaseRepository implements UserParame
 
     public function findAll(): array
     {
-        return UserParameter::all();
+        return UserParameter::all()->toArray();
     }
 }

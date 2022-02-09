@@ -12,6 +12,6 @@ final class RoleRepository extends BaseRepository implements RoleRepositoryInter
 
     public function all(): array
     {
-        return Role::all();
+        return Role::all()->toArray();
     }
 }

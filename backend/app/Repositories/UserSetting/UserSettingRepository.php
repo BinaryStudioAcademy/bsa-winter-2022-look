@@ -12,6 +12,6 @@ final class UserSettingRepository extends BaseRepository implements UserSettingR
 
     public function findAll(): array
     {
-        return UserSetting::all();
+        return UserSetting::all()->toArray();
     }
 }

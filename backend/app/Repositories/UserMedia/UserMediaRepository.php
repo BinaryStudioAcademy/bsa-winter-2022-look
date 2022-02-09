@@ -12,6 +12,6 @@ final class UserMediaRepository extends BaseRepository implements UserMediaRepos
 
     public function findAll(): array
     {
-        return UserMedia::all();
+        return UserMedia::all()->toArray();
     }
 }
