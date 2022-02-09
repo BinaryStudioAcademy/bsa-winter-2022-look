@@ -13,19 +13,18 @@ final class PasswordChangeAction
 {
     public function execute(PasswordChangeRequest $request): PasswordChangeResponse
     {
-        if (!PasswordResets::where('token', $request->get('token'))) {
+        if (is_null(PasswordResets::where('token', $request->get('token')))) {
             throw new InvalidTokenException();
         }
-
         $resetData = PasswordResets::where('token', $request->get('token'));
+
         if($resetData->get()->first()->toArray()['email'] !== $request->get('email')) {
             throw new InvalidTokenException();
         }
 
-        if(User::where('email', $request->get('email'))->update(array('password' => $request->get('password')))) {
-            return new PasswordChangeResponse();
-        } else {
+        if(is_null(User::where('email', $request->get('email'))->update(array('password' => $request->get('password'))))) {
             throw new InvalidTokenException();
         }
+        return new PasswordChangeResponse();
     }
 }

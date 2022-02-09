@@ -10,8 +10,8 @@ class PasswordChangeRequest extends FormRequest
     {
         return [
             "email" => 'required|email',
-            "password" => 'required',
-            "token" => 'required'
+            "password" => 'required|min:8|string|confirmed',
+            "token" => 'required|string'
         ];
     }
 }

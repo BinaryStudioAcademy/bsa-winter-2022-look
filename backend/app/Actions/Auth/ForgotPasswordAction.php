@@ -16,23 +16,23 @@ use Illuminate\Support\Str;
 
 final class ForgotPasswordAction
 {
+    const TOKEN_LENGTH=60;
+
     public function execute(ForgotPasswordRequest $request): ForgotPasswordResponse
     {
-        if ((new UserRepository())->getByEmail($request->get('email'))) {
-            $random = Str::random(60);
-            $token = [];
-            $token['value'] = hash('sha256', $random);
-            $data['email'] = $request->get('email');
-            $data['token'] = $token['value'];
-            $data['created_at'] = (Carbon::now())->toDateTimeString();
-            $item = new PasswordResets($data);
-            $item->save();
-
-            $emailView = (new ForgotPasswordEmail($token))->build();
-            Mail::to($request)->send($emailView);
-            return new ForgotPasswordResponse();
-        } else {
+        if (is_null((new UserRepository())->getByEmail($request->get('email')))) {
             throw new UserNotFoundException();
         }
+        $random = Str::random(self::TOKEN_LENGTH);
+        $token = Hash::make($random);
+        $data['email'] = $request->get('email');
+        $data['token'] = $token;
+        $data['created_at'] = (Carbon::now())->toDateTimeString();
+        $item = new PasswordResets($data);
+        $item->save();
+
+        $emailView = (new ForgotPasswordEmail($token))->build();
+        Mail::to($request)->send($emailView);
+        return new ForgotPasswordResponse();
     }
 }

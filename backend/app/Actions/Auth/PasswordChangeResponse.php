@@ -7,7 +7,7 @@ namespace App\Actions\Auth;
 
 class PasswordChangeResponse
 {
-    public function response()
+    public function response(): string
     {
         return 'Password has been changed';
     }
