@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+./backend/vendor/bin/phpunit backend/tests/
+#npm run test:unit --prefix frontend/

@@ -9,7 +9,7 @@ use Throwable;
 
 final class UserNotFoundException extends ModelNotFoundException
 {
-    public function __construct($message = "User not found", $code = 404, Throwable $previous = null)
+    public function __construct($message = 'User not found', $code = 404, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

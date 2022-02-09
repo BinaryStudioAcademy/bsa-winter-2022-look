@@ -26,7 +26,7 @@ final class LoginAction
 
         $token = Auth::attempt([
             'email' => $request->getEmail(),
-            'password' => $request->getPassword()
+            'password' => $request->getPassword(),
         ]);
 
         if (!$token) {

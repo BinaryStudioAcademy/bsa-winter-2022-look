@@ -30,7 +30,6 @@ final class AuthController extends ApiController
 
     public function register(RegisterHttpRequest $request)
     {
-
         $response = $this->registerAction->execute(
             new RegisterRequest(
                 $request->get('email'),
