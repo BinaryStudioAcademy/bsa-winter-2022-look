@@ -1,11 +1,12 @@
 import { RouteConfig } from 'vue-router';
 const LayoutPage = () => import('./pages/LayoutPage.vue').then(m => m.default);
 const AccountSettings = () => import('./pages/AccountSettings.vue').then(m => m.default);
-const Profile = () => import('./pages/Profile.vue');
+const EditProfile = () => import('./pages/EditProfile.vue').then(m => m.default);
+const ProfileView = () => import('./pages/ProfileView.vue').then(m => m.default);
 export function getProfileRoutes(): RouteConfig[] {
   return [
     {
-      path: 'profile/:id',
+      path: 'user/:id',
       component: LayoutPage,
       children: [
         {
@@ -14,9 +15,14 @@ export function getProfileRoutes(): RouteConfig[] {
           component: AccountSettings,
         },
         {
-          path: 'details',
-          name: 'details-profile',
-          component: Profile,
+          path: 'edit',
+          name: 'edit-profile',
+          component: EditProfile,
+        },
+        {
+          path: 'profile',
+          name: 'view-profile',
+          component: ProfileView,
         },
       ],
     },

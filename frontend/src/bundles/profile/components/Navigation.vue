@@ -1,12 +1,10 @@
 <template>
-  <v-navigation-drawer
-    app
-  >
+  <v-navigation-drawer app>
     <router-link to="/">
       <v-icon large>$logo</v-icon>
     </router-link>
     <v-sheet class="pa-4">
-      <router-link :to="{name: 'details-profile'}">
+      <router-link :to="{ name: 'view-profile' }">
         <v-avatar color="primary" size="56">
           <img
             alt="Avatar"
@@ -16,15 +14,27 @@
       </router-link>
       <v-toolbar-title>John Dohe</v-toolbar-title>
       <v-divider />
-      <v-select :items="items" background-color="#FFEBF5" />
+      <v-select
+        v-model="select"
+        :items="items"
+        :hint="`${select.title}, ${select.link}`"
+        item-text="title"
+        item-value="path"
+        background-color="#FFEBF5"
+      />
     </v-sheet>
 
     <v-divider />
 
     <v-list dense nav>
-      <v-list-item v-for="menu in menus" :key="menu.title" link :to="{name: menu.link}">
+      <v-list-item
+        v-for="menu in menus"
+        :key="menu.title"
+        link
+        :to="{ name: menu.link }"
+      >
         <v-list-item-icon>
-          <v-icon>{{'$' + menu.icon}}</v-icon>
+          <v-icon>{{ "$" + menu.icon }}</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
@@ -33,13 +43,17 @@
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
-
 </template>
 
 <script>
 export default {
   data: () => ({
-    items: ['Sign Out', 'Profile'],
+    select: { items: 'Settings', link: 'account-settings' },
+    items: [
+      { title: 'Sign Out', link: 'sign-out' },
+      { title: 'Edit Profile', link: 'edit-profile' },
+      { title: 'Setting', link: 'account-settings' },
+    ],
     menus: [
       { title: 'List', icon: 'fire', link: 'account-settings' },
       { title: 'Your match', icon: 'heart', link: 'account-settings' },
@@ -48,5 +62,11 @@ export default {
       { title: 'Settings', icon: 'paper', link: 'account-settings' },
     ],
   }),
+
+  methods: {
+    changeRout(route) {
+      this.$router.push({ name: route });
+    },
+  },
 };
 </script>

@@ -1,17 +1,17 @@
 <template>
   <v-app>
     <v-card>
-      <NavigationProfile />
+      <Navigation />
     </v-card>
     <router-view />
   </v-app>
 </template>
 
 <script>
-import NavigationProfile from '../components/NavigationProfile.vue';
+import Navigation from '../components/Navigation.vue';
 export default {
   components: {
-    NavigationProfile,
+    Navigation,
   },
 };
 </script>
