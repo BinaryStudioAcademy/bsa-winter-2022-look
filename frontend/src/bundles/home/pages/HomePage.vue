@@ -35,7 +35,7 @@
                 large
                 rounded
                 depressed
-                to="/auth"
+                to="/auth/register"
               >
                 Create Account
               </v-btn>
@@ -166,7 +166,7 @@
                 depressed
                 max-width="162"
                 width="100%"
-                to="/auth"
+                to="/auth/register"
               >
                 Join
               </v-btn>

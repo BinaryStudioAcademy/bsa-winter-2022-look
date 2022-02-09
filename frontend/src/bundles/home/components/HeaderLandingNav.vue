@@ -41,7 +41,7 @@
             max-width="162"
             width="100%"
             :ripple="false"
-            to="/auth"
+            to="/auth/sign-in"
           >
             Log in
           </v-btn>
@@ -56,7 +56,7 @@
             depressed
             max-width="162"
             width="100%"
-            to="/auth"
+            to="/auth/register"
           >
             Sign up
           </v-btn>
@@ -113,7 +113,7 @@
         depressed
         width="100%"
         :ripple="false"
-        to="/auth"
+        to="/auth/sign-in"
       >
         Log in
       </v-btn>
@@ -127,7 +127,7 @@
         plain
         depressed
         width="100%"
-        to="/auth"
+        to="/auth/register"
       >
         Sign up
       </v-btn>
