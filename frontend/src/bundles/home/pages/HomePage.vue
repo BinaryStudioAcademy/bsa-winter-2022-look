@@ -100,7 +100,7 @@
                   md="6"
                 >
                   <component :is="item.icon" />
-                  <h4 class="h4 font-weight-bold pb-5">{{ item.title }}</h4>
+                  <h4 class="h4 purple--text font-weight-bold pb-5">{{ item.title }}</h4>
                   <p class="textMain--text">{{ item.text }}</p>
                 </v-col>
               </v-row>
