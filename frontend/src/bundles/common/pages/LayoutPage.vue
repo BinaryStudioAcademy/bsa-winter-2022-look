@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <h1>Common Layout</h1>
     <router-view />
   </v-app>
 </template>

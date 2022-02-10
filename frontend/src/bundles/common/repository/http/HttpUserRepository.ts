@@ -15,7 +15,7 @@ export default class HttpUserRepository implements UserRepository {
   public create(payload: UserRequest): Promise<User> {
     return this.httpTransport
       .post(
-        '/auth/register ',
+        '/auth/register',
         payload,
       );
   }
