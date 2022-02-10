@@ -1,8 +1,9 @@
 <template>
   <div>
     <Header
-      :items="itemsMenu"
+      :menu-items="menuItems"
       :is-authorized="isAuthorized"
+      :user-info="userInfo"
     />
     <v-main>
       <v-parallax
@@ -196,6 +197,7 @@ export default {
   computed: {
     ...mapState(namespace, {
       isAuthorized: 'isAuthorized',
+      userInfo: 'user',
     }),
     itemsAbout() {
       return [
@@ -221,13 +223,28 @@ export default {
         },
       ];
     },
-    itemsMenu() {
+    menuItems() {
       return [
-        { url: 'products', title: 'Products' },
-        { url: 'learn', title: 'Learn' },
-        { url: 'safety', title: 'Safety' },
-        { url: 'support', title: 'Support' },
-        { url: 'download', title: 'Download' },
+        {
+          url: 'products',
+          title: 'Products',
+        },
+        {
+          url: 'learn',
+          title: 'Learn',
+        },
+        {
+          url: 'safety',
+          title: 'Safety',
+        },
+        {
+          url: 'support',
+          title: 'Support',
+        },
+        {
+          url: 'download',
+          title: 'Download',
+        },
       ];
     },
   },
@@ -238,8 +255,8 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/styles/variables.scss";
-@import "@/assets/styles/override.scss";
+@import "@/assets/scss/variables.scss";
+@import "@/assets/scss/override.scss";
 
 ::v-deep .header-person {
   margin: 0 auto -40px;

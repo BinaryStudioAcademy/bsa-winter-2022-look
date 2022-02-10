@@ -19,7 +19,7 @@
           </v-toolbar-title>
           <v-toolbar-items class="hidden-md-and-down">
             <v-btn
-              v-for="(item, index) in items"
+              v-for="(item, index) in menuItems"
               :key="index"
               depressed
               :to="item.url"
@@ -29,7 +29,6 @@
               {{ item.title }}
             </v-btn>
           </v-toolbar-items>
-
           <v-spacer
             class="hidden-lg-and-up"
           />
@@ -84,7 +83,7 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                  <v-list-item-title>John Leider</v-list-item-title>
+                  <v-list-item-title>{{userInfo.name}}</v-list-item-title>
                 </v-list-item-content>
 
               </v-list-item>
@@ -105,7 +104,7 @@
       temporary
     >
       <v-btn
-        v-for="(item, index) in items"
+        v-for="(item, index) in menuItems"
         :key="index"
         block
         depressed
@@ -157,7 +156,7 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>John Leider</v-list-item-title>
+            <v-list-item-title>{{userInfo.name}}</v-list-item-title>
           </v-list-item-content>
 
         </v-list-item>
@@ -169,7 +168,7 @@
 <script>
 export default {
   props: {
-    items: {
+    menuItems: {
       type: Array,
       required: true,
     },
@@ -177,10 +176,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    userInfo: {
+      type: Object,
+      default: undefined,
+    },
   },
   data: () => ({
     drawer: false,
-    group: null,
   }),
   methods: {
     toggleMenu() {
@@ -194,11 +196,16 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/styles/variables.scss";
-@import "@/assets/styles/override.scss";
+@import "@/assets/scss/variables.scss";
+@import "@/assets/scss/override.scss";
 
 .to-user {
   text-decoration: none;
+}
+.menu-header--nav.v-btn {
+  &:hover::before {
+    opacity: 0;
+  }
 }
 .to-user .v-list-item__title {
   font-family: 'Lato', sans-serif;
