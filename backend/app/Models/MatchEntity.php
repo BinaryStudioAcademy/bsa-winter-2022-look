@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-final class Coincidence extends Model
+final class MatchEntity extends Model
 {
     use HasFactory;
 
