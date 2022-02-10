@@ -35,6 +35,14 @@
           </router-link>
           <v-btn class="mr-4" type="submit" :disabled="invalid"> Reset password </v-btn>
         </form>
+
+        <div v-show="error">
+          User with such email not found
+        </div>
+        <div v-show="success">
+          Change password link send to your emil
+        </div>
+
       </v-col>
     </v-container>
   </validation-observer>
@@ -78,6 +86,8 @@ export default {
 
   data: () => ({
     email: '',
+    error: false,
+    success: false,
   }),
 
   methods: {
@@ -85,7 +95,10 @@ export default {
       resetPassword: RESET_PASSWORD,
     }),
     handleSubmit() {
-      return this.resetPassword(this.email);
+      this.resetPassword(this.email).then(
+        success => true,
+        error = >true,
+      );
     },
   },
 };
