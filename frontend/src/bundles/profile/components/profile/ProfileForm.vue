@@ -145,25 +145,13 @@
   </validation-observer>
 </template>
 <script>
-import { required, max } from 'vee-validate/dist/rules';
 import {
-  extend,
   ValidationObserver,
   ValidationProvider,
   setInteractionMode,
 } from 'vee-validate';
 
 setInteractionMode('eager');
-
-extend('required', {
-  ...required,
-  message: '{_field_} can not be empty',
-});
-
-extend('max', {
-  ...max,
-  message: '{_field_} may not be greater than {length} characters',
-});
 
 export default {
   components: {

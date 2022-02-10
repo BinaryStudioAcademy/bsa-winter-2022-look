@@ -1,5 +1,5 @@
 import { extend, setInteractionMode } from 'vee-validate';
-import { required, email, confirmed, min } from 'vee-validate/dist/rules';
+import { required, email, confirmed, min, max } from 'vee-validate/dist/rules';
 
 setInteractionMode('eager');
 
@@ -22,4 +22,9 @@ extend('min', {
   ...min,
   params: ['length', 'name'],
   message: 'Your {name} must be at least {length} characters',
+});
+
+extend('max', {
+  ...max,
+  message: '{_field_} may not be greater than {length} characters',
 });

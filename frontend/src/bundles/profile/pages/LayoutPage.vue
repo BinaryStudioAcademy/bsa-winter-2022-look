@@ -3,12 +3,14 @@
     <v-card>
       <Navigation />
     </v-card>
-    <router-view />
+    <v-main>
+      <router-view />
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import Navigation from '../components/Navigation.vue';
+import Navigation from '../../common/components/Navigation.vue';
 export default {
   components: {
     Navigation,

@@ -1,10 +1,8 @@
 <template>
-  <v-main>
-    <v-container>
-      <Photos />
-      <ProfileForm />
-    </v-container>
-  </v-main>
+  <v-container>
+    <Photos />
+    <ProfileForm />
+  </v-container>
 </template>
 
 <script>
@@ -16,7 +14,6 @@ export default {
   components: {
     Photos,
     ProfileForm,
-    // WorkAndEducation,
   },
 
 };
