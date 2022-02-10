@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <v-app>
     <h1>Common Layout</h1>
     <router-view />
-  </div>
+  </v-app>
 </template>
 
 <script>

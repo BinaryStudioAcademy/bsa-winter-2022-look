@@ -2,53 +2,114 @@
   <form :value="!invalid" @submit.prevent="handleSubmit">
     <validation-provider
       v-slot="{ errors }"
-      name="Name"
-      rules="required"
+      name="Height"
     >
-      <v-text-field
-        v-model="fullName"
+      <v-slider
+        v-model="height"
+        min="50"
+        max="250"
         :error-messages="errors"
-        label="Name"
+        thumb-label="always"
+        label="Height, cm"
       />
     </validation-provider>
     <validation-provider
       v-slot="{ errors }"
-      name="email"
-      rules="required|email"
+      name="Weight"
     >
-      <v-text-field
-        v-model="email"
+      <v-slider
+        v-model="weight"
+        min="30"
+        max="250"
         :error-messages="errors"
-        label="E-mail"
+        thumb-label="always"
+        label="Weight, kg"
       />
     </validation-provider>
     <validation-provider
       v-slot="{ errors }"
-      name="password"
-      rules="required|min:8,password"
+      name="about"
+      rules="required|min:10"
     >
-      <v-text-field
-        v-model="password"
-        type="password"
-        name="password"
-        label="Password"
+      <v-textarea
+        v-model="about"
+        clearable
+        clear-icon="mdi-close-circle"
+        filled
+        auto-grow
+        label="About yourself"
         :error-messages="errors"
-        hint="At least 8 characters"
+        rows="4"
+        row-height="30"
+        hint="At least 10 characters"
+        shaped
         counter
       />
     </validation-provider>
     <validation-provider
       v-slot="{ errors }"
-      name="passwordConfirmation"
-      rules="required|confirmed:password"
+      name="phone"
     >
       <v-text-field
-        v-model="passwordConfirmation"
-        type="password"
-        name="passwordConfirmation"
-        label="Password confirmation"
+        v-model="phone"
+        type="text"
+        name="phone"
+        label="Phone"
         :error-messages="errors"
-        counter
+      />
+    </validation-provider>
+    <validation-provider
+      v-slot="{ errors }"
+      name="location"
+    >
+      <v-autocomplete
+        v-model="location"
+        chips
+        clearable
+        deletable-chips
+        dense
+        filled
+        rounded
+        label="Location"
+        :error-messages="errors"
+      />
+    </validation-provider>
+
+    <validation-provider
+      v-slot="{ errors }"
+      name="interests"
+    >
+      <v-autocomplete
+        v-model="interestSelected"
+        :items="interests"
+        dense
+        chips
+        deletable-chips
+        small-chips
+        label="Interests"
+        multiple
+        filled
+        rounded
+        :error-messages="errors"
+      />
+    </validation-provider>
+
+    <validation-provider
+      v-slot="{ errors }"
+      name="hobbies"
+    >
+      <v-autocomplete
+        v-model="hobbieSelected"
+        :items="hobbies"
+        dense
+        chips
+        deletable-chips
+        small-chips
+        label="Hobbies"
+        multiple
+        filled
+        rounded
+        :error-messages="errors"
       />
     </validation-provider>
 
@@ -77,19 +138,27 @@ export default {
 
   data() {
     return {
-      fullName: undefined,
-      email: undefined,
-      password: undefined,
-      passwordConfirmation: undefined,
+      height: 150,
+      weight: 140,
+      about: undefined,
+      phone: undefined,
+      location: [],
+      interests: ['foo', 'bar', 'fizz', 'buzz'],
+      interestSelected: [],
+      hobbies: ['foo', 'bar', 'fizz', 'buzz'],
+      hobbieSelected: [],
     };
   },
 
   methods: {
     handleSubmit() {
       this.$emit('submit', {
-        name: this.fullName,
-        email: this.email,
-        password: this.password,
+        height: this.height,
+        weight: this.weight,
+        about: this.about,
+        phone: this.phone,
+        interest: this.interestSelected,
+        hobbie: this.hobbieSelected,
       });
     },
   },
