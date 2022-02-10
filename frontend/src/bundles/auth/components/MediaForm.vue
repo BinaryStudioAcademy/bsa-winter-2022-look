@@ -2,6 +2,17 @@
   <form :value="!invalid" @submit.prevent="handleSubmit">
     <validation-provider
       v-slot="{ errors }"
+      name="Name"
+      rules="required"
+    >
+      <v-text-field
+        v-model="fullName"
+        :error-messages="errors"
+        label="Name"
+      />
+    </validation-provider>
+    <validation-provider
+      v-slot="{ errors }"
       name="email"
       rules="required|email"
     >
@@ -26,13 +37,22 @@
         counter
       />
     </validation-provider>
-
-    <router-link
-      :to="{ name: 'auth-reset_password' }"
+    <validation-provider
+      v-slot="{ errors }"
+      name="passwordConfirmation"
+      rules="required|confirmed:password"
     >
-      Forgot your password?
-    </router-link>
-    <v-btn class="mr-4" type="submit" :disabled="invalid"> Sign In </v-btn>
+      <v-text-field
+        v-model="passwordConfirmation"
+        type="password"
+        name="passwordConfirmation"
+        label="Password confirmation"
+        :error-messages="errors"
+        counter
+      />
+    </validation-provider>
+
+    <v-btn class="mr-4" type="submit" :disabled="invalid"> Sign Up </v-btn>
   </form>
 </template>
 
@@ -57,14 +77,17 @@ export default {
 
   data() {
     return {
+      fullName: undefined,
       email: undefined,
       password: undefined,
+      passwordConfirmation: undefined,
     };
   },
 
   methods: {
     handleSubmit() {
       this.$emit('submit', {
+        name: this.fullName,
         email: this.email,
         password: this.password,
       });
