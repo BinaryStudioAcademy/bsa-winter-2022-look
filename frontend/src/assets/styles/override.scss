@@ -4,6 +4,10 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
+.relative {
+  position: relative;
+}
+
 ::v-deep .h1 {
   font-family: 'Lora', serif;
   font-size: 40px;

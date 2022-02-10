@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderLandingNav
+    <Header
       :items="itemsMenu"
       :is-authorized="isAuthorized"
     />
@@ -35,7 +35,7 @@
                 large
                 rounded
                 depressed
-                to="/auth/register"
+                :to="{ name: 'auth-registration-set_up' }"
               >
                 Create Account
               </v-btn>
@@ -98,13 +98,7 @@
                   cols="12"
                   md="6"
                 >
-                  <v-img
-                    max-width="37"
-                    max-height="37"
-                    height="100%"
-                    contain
-                    :src="item.icon"
-                  />
+                  <component :is="item.icon" />
                   <h4 class="h4 font-weight-bold pb-5">{{ item.title }}</h4>
                   <p>{{ item.text }}</p>
                 </v-col>
@@ -166,7 +160,7 @@
                 depressed
                 max-width="162"
                 width="100%"
-                to="/auth/register"
+                :to="{ name: 'auth-registration-set_up' }"
               >
                 Join
               </v-btn>
@@ -175,59 +169,83 @@
         </v-container>
       </div>
     </v-main>
-    <FooterLandingNav />
+    <Footer />
   </div>
 </template>
 
 <script>
 
-import HeaderLandingNav from '../components/HeaderLandingNav';
-import FooterLandingNav from '../components/FooterLandingNav';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import IconSwipe from '../components/icons/IconSwipe';
+import IconVideoChat from '../components/icons/IconVideoChat';
+import IconChat from '../components/icons/IconChat';
+import IconMail from '../components/icons/IconMail';
 import namespace from '@/bundles/common/store/modules/user/namespace';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    HeaderLandingNav,
-    FooterLandingNav,
-  },
-  data() {
-    return {
-      itemsAbout: [
-        {
-          icon: `${require('@/assets/image/landing-icon-1.svg')}`,
-          title: 'More than a swipe',
-          text: 'You decide with a simple swipe who you would be interested in getting to know.',
-        },
-        {
-          icon: `${require('@/assets/image/landing-icon-2.svg')}`,
-          title: 'Get video chatting',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
-        },
-        {
-          icon: `${require('@/assets/image/landing-icon-3.svg')}`,
-          title: 'Get chatting',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
-        },
-        {
-          icon: `${require('@/assets/image/landing-icon-4.svg')}`,
-          title: 'Meet on a date',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
-        },
-      ],
-      itemsMenu: [
-        { url: 'products', title: 'Products' },
-        { url: 'learn', title: 'Learn' },
-        { url: 'safety', title: 'Safety' },
-        { url: 'support', title: 'Support' },
-        { url: 'download', title: 'Download' },
-      ],
-    };
+    Header,
+    Footer,
+    IconSwipe,
+    IconVideoChat,
+    IconChat,
+    IconMail,
   },
   computed: {
     ...mapState(namespace, {
       isAuthorized: 'isAuthorized',
     }),
+    collection() {
+      return [
+        {
+          icon: 'IconSwipe',
+        },
+        {
+          icon: 'IconVideoChat',
+        },
+        {
+          icon: 'IconChat',
+        },
+        {
+          icon: 'IconMail',
+        },
+      ];
+    },
+    itemsAbout() {
+      return [
+        {
+          icon: this.collection[0].icon,
+          title: 'More than a swipe',
+          text: 'You decide with a simple swipe who you would be interested in getting to know.',
+        },
+        {
+          icon: this.collection[1].icon,
+          title: 'Get video chatting',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
+        },
+        {
+          icon: this.collection[2].icon,
+          title: 'Get chatting',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
+        },
+        {
+          icon: this.collection[3].icon,
+          title: 'Meet on a date',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
+        },
+      ];
+    },
+    itemsMenu() {
+      return [
+        { url: 'products', title: 'Products' },
+        { url: 'learn', title: 'Learn' },
+        { url: 'safety', title: 'Safety' },
+        { url: 'support', title: 'Support' },
+        { url: 'download', title: 'Download' },
+      ];
+    },
   },
 };
 </script>
@@ -239,9 +257,6 @@ export default {
 @import "@/assets/styles/variables.scss";
 @import "@/assets/styles/override.scss";
 
-.relative {
-  position: relative;
-}
 ::v-deep .header-person {
   margin: 0 auto -40px;
 }
