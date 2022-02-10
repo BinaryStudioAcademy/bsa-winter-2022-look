@@ -30,7 +30,6 @@ body {
   font-family: 'Lato', serif;
   font-size: 24px;
   line-height: 26px;
-  color: $purple-text;
 }
 
 ::v-deep p {
@@ -38,11 +37,6 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;
-  color: $black-main;
-}
-
-.main--text {
-  color: $black-main;
 }
 
 .main-sub--text {
@@ -55,13 +49,6 @@ body {
   font-family: 'Lato', sans-serif;
   font-size: 16px;
   letter-spacing: 0;
-  background-color: $pink !important;
-}
-
-
-::v-deep .v-btn--outlined {
-  border-color: $pink;
-  color: $pink;
 }
 
 .v-toolbar__items {
@@ -72,6 +59,5 @@ body {
   }
 }
 .theme--light.v-app-bar.v-toolbar.v-sheet.menu-header {
-  background-color: $pink-menu;
   padding: 25px 0;
 }

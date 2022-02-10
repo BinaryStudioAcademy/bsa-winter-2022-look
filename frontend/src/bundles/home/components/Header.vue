@@ -3,7 +3,7 @@
     <v-app-bar
       flat
       height="prominent"
-      class="menu-header"
+      class="menu-header headerMain"
     >
       <v-container>
         <v-row
@@ -40,7 +40,7 @@
           >
             <v-btn
               class="text-capitalize font-weight-bold mr-3"
-              color="button-main"
+              color="primary"
               large
               raised
               rounded
@@ -55,7 +55,7 @@
             </v-btn>
             <v-btn
               class="text-capitalize font-weight-bold mr-3"
-              color="button-main"
+              color="primary"
               large
               raised
               rounded
@@ -119,7 +119,7 @@
       <div v-if="!isAuthorized">
         <v-btn
           class="text-capitalize font-weight-bold"
-          color="button-main"
+          color="primary"
           large
           raised
           rounded
@@ -133,7 +133,7 @@
         </v-btn>
         <v-btn
           class="text-capitalize font-weight-bold"
-          color="button-main"
+          color="primary"
           large
           raised
           rounded
@@ -196,7 +196,6 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/scss/variables.scss";
 @import "@/assets/scss/override.scss";
 
 .to-user {
