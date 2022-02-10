@@ -10,10 +10,12 @@
           align="center"
         >
           <v-toolbar-title>
-            <v-img
-              class="mr-md-16"
-              src="@/assets/image/main_logo.svg"
-            />
+            <router-link to="/">
+              <v-img
+                class="mr-md-16"
+                src="@/assets/image/main_logo.svg"
+              />
+            </router-link>
           </v-toolbar-title>
           <v-toolbar-items class="hidden-md-and-down">
             <v-btn

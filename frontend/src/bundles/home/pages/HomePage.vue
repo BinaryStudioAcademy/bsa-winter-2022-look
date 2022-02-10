@@ -197,41 +197,25 @@ export default {
     ...mapState(namespace, {
       isAuthorized: 'isAuthorized',
     }),
-    collection() {
-      return [
-        {
-          icon: 'IconSwipe',
-        },
-        {
-          icon: 'IconVideoChat',
-        },
-        {
-          icon: 'IconChat',
-        },
-        {
-          icon: 'IconMail',
-        },
-      ];
-    },
     itemsAbout() {
       return [
         {
-          icon: this.collection[0].icon,
+          icon: 'IconSwipe',
           title: 'More than a swipe',
           text: 'You decide with a simple swipe who you would be interested in getting to know.',
         },
         {
-          icon: this.collection[1].icon,
+          icon: 'IconVideoChat',
           title: 'Get video chatting',
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
         },
         {
-          icon: this.collection[2].icon,
+          icon: 'IconChat',
           title: 'Get chatting',
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
         },
         {
-          icon: this.collection[3].icon,
+          icon: 'IconMail',
           title: 'Meet on a date',
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
         },
