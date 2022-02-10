@@ -110,6 +110,9 @@
                 </v-col>
               </v-row>
             </v-col>
+            <div v-for="(item, index) in collection" :key="index">
+              <component :is="item.icon" />
+            </div>
             <v-col
               cols="12"
               md="6"
@@ -183,6 +186,8 @@
 
 import HeaderLandingNav from '../components/HeaderLandingNav';
 import FooterLandingNav from '../components/FooterLandingNav';
+import IconSwipe from '../components/icons/IconSwipe';
+import IconChat from '../components/icons/IconChat';
 import namespace from '@/bundles/common/store/modules/user/namespace';
 import { mapState } from 'vuex';
 
@@ -190,6 +195,8 @@ export default {
   components: {
     HeaderLandingNav,
     FooterLandingNav,
+    IconSwipe,
+    IconChat,
   },
   data() {
     return {
@@ -228,6 +235,16 @@ export default {
     ...mapState(namespace, {
       isAuthorized: 'isAuthorized',
     }),
+    collection() {
+      return [
+        {
+          icon: 'IconSwipe',
+        },
+        {
+          icon: 'IconChat',
+        },
+      ];
+    },
   },
 };
 </script>
