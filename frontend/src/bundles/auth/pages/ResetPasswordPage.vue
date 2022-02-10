@@ -4,14 +4,15 @@
     v-slot="{ invalid }"
   >
     <v-container
-      align="center"
-      justify="center"
+      display="flex"
+      align-items="center"
+      justify-content="center"
     >
       <v-col
-        class="text-center"
-        cols="10"
+        display="flex"
+        align-items="center"
+        justify-content="center"
         md="4"
-        sm="6"
       >
         <form @submit.prevent="handleSubmit">
           <h3>Enter your email to reset password</h3>
@@ -42,6 +43,9 @@
 <script>
 import { required, email } from 'vee-validate/dist/rules';
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate';
+import { mapActions } from 'vuex';
+import { RESET_PASSWORD } from '../store/modules/auth/types/actions';
+import namespace from '@/bundles/auth/store/modules/auth/namespace';
 
 setInteractionMode('eager');
 
@@ -77,8 +81,11 @@ export default {
   }),
 
   methods: {
+    ...mapActions(namespace, {
+      resetPassword: RESET_PASSWORD,
+    }),
     handleSubmit() {
-      alert('test');
+      return this.resetPassword(this.email);
     },
   },
 };
