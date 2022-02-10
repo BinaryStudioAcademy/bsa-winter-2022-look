@@ -20,6 +20,14 @@ export default class HttpUserRepository implements UserRepository {
       );
   }
 
+  /**
+   * TODO: setup endpoint api after api done
+   */
+  public patch(payload: any): Promise<any> {
+    console.log(payload);
+    return new Promise(resolve => resolve({}));
+  }
+
   public login(payload: UserLoginRequest): Promise<void> {
     return this.httpTransport
       .post(

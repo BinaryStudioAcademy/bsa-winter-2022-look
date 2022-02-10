@@ -24,6 +24,7 @@ final class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -58,6 +59,11 @@ final class User extends Authenticatable implements JWTSubject
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    public function getRoleId(): int
+    {
+        return $this->role_id;
     }
 
     public function getJWTIdentifier()

@@ -2,54 +2,40 @@
   <form :value="!invalid" @submit.prevent="handleSubmit">
     <validation-provider
       v-slot="{ errors }"
-      name="Name"
+      name="Photo"
       rules="required"
     >
-      <v-text-field
-        v-model="fullName"
-        :error-messages="errors"
-        label="Name"
-      />
-    </validation-provider>
-    <validation-provider
-      v-slot="{ errors }"
-      name="email"
-      rules="required|email"
-    >
-      <v-text-field
-        v-model="email"
-        :error-messages="errors"
-        label="E-mail"
-      />
-    </validation-provider>
-    <validation-provider
-      v-slot="{ errors }"
-      name="password"
-      rules="required|min:8,password"
-    >
-      <v-text-field
-        v-model="password"
-        type="password"
-        name="password"
-        label="Password"
-        :error-messages="errors"
-        hint="At least 8 characters"
+      <v-file-input
+        v-model="userFiles"
+        color="deep-purple accent-4"
         counter
-      />
-    </validation-provider>
-    <validation-provider
-      v-slot="{ errors }"
-      name="passwordConfirmation"
-      rules="required|confirmed:password"
-    >
-      <v-text-field
-        v-model="passwordConfirmation"
-        type="password"
-        name="passwordConfirmation"
-        label="Password confirmation"
+        label="Photos"
+        multiple
+        placeholder="Select your files"
+        prepend-icon="mdi-paperclip"
+        outlined
+        :show-size="1000"
         :error-messages="errors"
-        counter
-      />
+      >
+        <template #selection="{ index, text }">
+          <v-chip
+            v-if="index < 2"
+            color="deep-purple accent-4"
+            dark
+            label
+            small
+          >
+            {{ text }}
+          </v-chip>
+
+          <span
+            v-else-if="index === 2"
+            class="text-overline grey--text text--darken-3 mx-2"
+          >
+            +{{ userFiles.length - 2 }} File(s)
+          </span>
+        </template>
+      </v-file-input>
     </validation-provider>
 
     <v-btn class="mr-4" type="submit" :disabled="invalid"> Sign Up </v-btn>
@@ -77,19 +63,14 @@ export default {
 
   data() {
     return {
-      fullName: undefined,
-      email: undefined,
-      password: undefined,
-      passwordConfirmation: undefined,
+      userFiles: [],
     };
   },
 
   methods: {
     handleSubmit() {
       this.$emit('submit', {
-        name: this.fullName,
-        email: this.email,
-        password: this.password,
+        userFiles: this.userFiles,
       });
     },
   },
