@@ -6,12 +6,13 @@ namespace App\Repositories\UserInterest;
 
 use App\Models\UserInterest;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 final class UserInterestRepository extends BaseRepository implements UserInterestRepositoryInterface
 {
 
-    public function findAll(): array
+    public function findAll(): Collection
     {
-        return UserInterest::all()->toArray();
+        return UserInterest::all();
     }
 }
