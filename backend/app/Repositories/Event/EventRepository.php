@@ -6,13 +6,14 @@ namespace App\Repositories\Event;
 
 use App\Models\Event;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 final class EventRepository extends BaseRepository implements EventRepositoryInterface
 {
 
-    public function findAll(): array
+    public function findAll(): Collection
     {
-        return Event::all()->toArray();
+        return Event::all();
     }
 
     public function getById($id): Event

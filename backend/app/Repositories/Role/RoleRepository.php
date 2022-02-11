@@ -6,12 +6,13 @@ namespace App\Repositories\Role;
 
 use App\Models\Role;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 final class RoleRepository extends BaseRepository implements RoleRepositoryInterface
 {
 
-    public function all(): array
+    public function all(): Collection
     {
-        return Role::all()->toArray();
+        return Role::all();
     }
 }
