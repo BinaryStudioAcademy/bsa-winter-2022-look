@@ -3,6 +3,7 @@ const LayoutPage = () => import('./pages/LayoutPage.vue').then(m => m.default);
 const AccountSettings = () => import('./pages/AccountSettings.vue').then(m => m.default);
 const EditProfile = () => import('./pages/EditProfile.vue').then(m => m.default);
 const ProfileView = () => import('./pages/ProfileView.vue').then(m => m.default);
+const YouMatches = () => import('./pages/YouMatches.vue').then(m => m.default);
 
 export function getProfileRoutes(): RouteConfig[] {
   return [
@@ -24,6 +25,11 @@ export function getProfileRoutes(): RouteConfig[] {
           path: 'profile',
           name: 'view-profile',
           component: ProfileView,
+        },
+        {
+          path: 'matches',
+          name: 'you-match',
+          component: YouMatches,
         },
       ],
     },
