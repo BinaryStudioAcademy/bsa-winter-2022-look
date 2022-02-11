@@ -6,7 +6,7 @@
 
 import NavbarComponent from '@/bundles/main/components/NavbarComponent';
 export default {
-  name: 'ProfilePage',
+  name: 'LayoutPage',
   components: { NavbarComponent },
 };
 </script>
