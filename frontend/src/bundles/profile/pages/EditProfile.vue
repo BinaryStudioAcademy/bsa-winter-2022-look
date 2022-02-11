@@ -1,12 +1,15 @@
 <template>
   <v-container>
-    <Photos />
-    <ProfileForm />
+    <v-row>
+      <v-col>
+        <Photos />
+        <ProfileForm />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-
 import Photos from '../components/profile/Photos.vue';
 import ProfileForm from '../components/profile/ProfileForm.vue';
 
@@ -15,6 +18,5 @@ export default {
     Photos,
     ProfileForm,
   },
-
 };
 </script>
