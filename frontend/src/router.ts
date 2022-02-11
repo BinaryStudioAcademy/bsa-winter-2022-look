@@ -1,5 +1,6 @@
 import Router from 'vue-router';
 import { getAuthRoutes } from './bundles/auth/routes';
+import { getHomeRoutes } from './bundles/home/routes';
 import LayoutPage from '@/bundles/common/pages/LayoutPage.vue';
 import ProfilePage from '@/bundles/common/pages/ProfilePage.vue';
 import Vue from 'vue';
@@ -15,6 +16,7 @@ const router = new Router({
       path: '/',
       children: [
         ...getAuthRoutes(),
+        ...getHomeRoutes(),
       ],
     },
     {

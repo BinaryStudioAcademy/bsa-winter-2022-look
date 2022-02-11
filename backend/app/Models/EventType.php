@@ -11,5 +11,4 @@ final class EventType extends Model
     use HasFactory;
 
     protected $table = 'event_types';
-
 }
