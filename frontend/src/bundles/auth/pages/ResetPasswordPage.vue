@@ -21,7 +21,29 @@
             label="E-mail"
           />
         </validation-provider>
-        <v-btn class="mr-4" type="submit" :disabled="invalid"> Reset password </v-btn>
+        <v-btn
+          type="submit"
+          :disabled="invalid"
+          class="white--text text-capitalize font-weight-bold mr-4"
+          color="primary"
+          large
+          rounded
+          depressed
+          max-width="215"
+          width="100%"
+        >
+          Reset password
+        </v-btn>
+        <div v-show="error" class="message">
+          <span class="error">
+            User with such email not found
+          </span>
+        </div>
+        <div v-show="success" class="message">
+          <span class="success">
+            Change password link send to your emil
+          </span>
+        </div>
       </form>
     </validation-observer>
 
@@ -85,3 +107,25 @@ export default {
   },
 };
 </script>
+
+<style
+  lang="scss"
+  scoped
+>
+
+.message {
+  padding-top: 10px;
+  background-color: #faf9f9 !important;
+}
+
+.success  {
+  color: green;
+  background-color: #faf9f9 !important;
+}
+
+.error {
+  color: red;
+  background-color: #faf9f9 !important;
+}
+
+</style>

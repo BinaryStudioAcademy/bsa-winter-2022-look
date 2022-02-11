@@ -1,6 +1,7 @@
 import User from '@/bundles/common/entity/User';
 import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
+import ResetPasswordRequest from '../requests/ResetPasswordRequest';
 
 export default interface UserRepository {
   /**
@@ -24,4 +25,10 @@ export default interface UserRepository {
    * TODO: setup endpoint api after api done
    */
   patch(payload: any): Promise<any>
+  /**
+   * Reset password request
+   *
+   * @param {ResetPasswordRequest} payload
+   */
+  resetPassword(payload: ResetPasswordRequest): Promise<void>;
 }

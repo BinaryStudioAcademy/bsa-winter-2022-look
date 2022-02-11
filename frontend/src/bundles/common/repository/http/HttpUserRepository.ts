@@ -4,6 +4,8 @@ import UserRepository from '../contracts/UserRepository';
 import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 import Storage from '@/services/storage';
+import ResetPasswordRequest from '../requests/ResetPasswordRequest';
+import { APP_API_URL } from '@/bundles/auth/store/modules/auth/constants';
 
 export default class HttpUserRepository implements UserRepository {
   private readonly httpTransport: HttpTransport;
@@ -45,5 +47,13 @@ export default class HttpUserRepository implements UserRepository {
   public get(): Promise<User> {
     return this.httpTransport
       .get('/auth/me');
+  }
+
+  public resetPassword(payload: ResetPasswordRequest): Promise<void> {
+    return this.httpTransport
+      .post(
+        APP_API_URL + '/auth/forgot-password',
+        { email: payload },
+      );
   }
 }

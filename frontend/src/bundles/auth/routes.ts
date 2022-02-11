@@ -28,7 +28,7 @@ export function getAuthRoutes(): RouteConfig[] {
           component: ResetPasswordPage,
         },
         {
-          path: 'change-email-password',
+          path: 'change-email-password/:token',
           name: 'auth-change_email_password',
           component: ChangeEmailPasswordPage,
         },
