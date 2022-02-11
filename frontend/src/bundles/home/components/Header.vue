@@ -34,7 +34,28 @@
           />
 
           <v-row
-            v-if="!isAuthorized"
+            v-if="isAuthorized && !!userInfo.name"
+            justify="end"
+          >
+            <router-link
+              :to="{ name: 'auth-login' }"
+              class="to-user hidden-md-and-down"
+            >
+              <v-list-item>
+                <v-list-item-avatar>
+                  <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title>{{userInfo.name}}</v-list-item-title>
+                </v-list-item-content>
+
+              </v-list-item>
+            </router-link>
+          </v-row>
+
+          <v-row
+            v-else
             class="d-lg-flex hidden-md-and-down"
             justify="end"
           >
@@ -68,27 +89,6 @@
               Sign up
             </v-btn>
           </v-row>
-
-          <v-row
-            v-else
-            justify="end"
-          >
-            <router-link
-              :to="{ name: 'auth-login' }"
-              class="to-user hidden-md-and-down"
-            >
-              <v-list-item>
-                <v-list-item-avatar>
-                  <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                  <v-list-item-title>{{userInfo.name}}</v-list-item-title>
-                </v-list-item-content>
-
-              </v-list-item>
-            </router-link>
-          </v-row>
           <v-app-bar-nav-icon
             class="hidden-lg-and-up"
             @click.stop="toggleMenu"
@@ -116,7 +116,23 @@
       </v-btn>
 
       <v-spacer />
-      <div v-if="!isAuthorized">
+      <router-link
+        v-if="isAuthorized && !!userInfo.name"
+        :to="{ name: 'auth-login' }"
+        class="to-user"
+      >
+        <v-list-item>
+          <v-list-item-avatar>
+            <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
+          </v-list-item-avatar>
+
+          <v-list-item-content>
+            <v-list-item-title>{{userInfo.name}}</v-list-item-title>
+          </v-list-item-content>
+
+        </v-list-item>
+      </router-link>
+      <div v-else>
         <v-btn
           class="text-capitalize font-weight-bold"
           color="primary"
@@ -145,22 +161,6 @@
           Sign up
         </v-btn>
       </div>
-      <router-link
-        v-else
-        :to="{ name: 'auth-login' }"
-        class="to-user"
-      >
-        <v-list-item>
-          <v-list-item-avatar>
-            <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>{{userInfo.name}}</v-list-item-title>
-          </v-list-item-content>
-
-        </v-list-item>
-      </router-link>
     </v-navigation-drawer>
   </div>
 </template>

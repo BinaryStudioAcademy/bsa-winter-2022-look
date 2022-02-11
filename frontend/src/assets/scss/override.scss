@@ -15,6 +15,10 @@ a:-webkit-any-link {
   text-decoration: none !important;
 }
 
+.v-autocomplete__content.v-menu__content {
+  border-radius: 30px !important;
+}
+
 ::v-deep .h1 {
   font-family: 'Lora', serif;
   font-size: 40px;
