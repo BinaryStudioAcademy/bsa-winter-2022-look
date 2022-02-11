@@ -11,5 +11,4 @@ final class UserParameter extends Model
     use HasFactory;
 
     protected $table = 'user_parameters';
-
 }

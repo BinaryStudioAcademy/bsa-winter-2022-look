@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class UserInterestRepository extends BaseRepository implements UserInterestRepositoryInterface
 {
-
     public function findAll(): Collection
     {
         return UserInterest::all();

@@ -15,9 +15,9 @@ return [
     |
     */
 
-    'paths' => [],
+    'paths' => ['api/*'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['http://localhost:8080', 'https://staging-api.look-not-a-tinder.xyz', 'https://staging.look-not-a-tinder.xyz'],
     'allowed_origins_patterns' => [],
     'allowed_headers' => ['*'],
     'exposed_headers' => false,

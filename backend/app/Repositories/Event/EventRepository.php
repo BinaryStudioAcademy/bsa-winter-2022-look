@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class EventRepository extends BaseRepository implements EventRepositoryInterface
 {
-
     public function findAll(): Collection
     {
         return Event::all();

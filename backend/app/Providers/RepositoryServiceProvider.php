@@ -44,6 +44,5 @@ class RepositoryServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
     }
 }
