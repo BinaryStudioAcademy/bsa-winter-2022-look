@@ -18,7 +18,7 @@ export default {
   data: () => ({
     menus: [
       { title: 'List', icon: 'fire', link: 'account-settings' },
-      { title: 'Your match', icon: 'heart', link: 'account-settings' },
+      { title: 'Your match', icon: 'heart', link: 'you-match' },
       { title: 'Map', icon: 'badged', link: 'account-settings' },
       { title: 'Message', icon: 'minichat', link: 'account-settings' },
     ],

@@ -5,8 +5,8 @@
     <v-slide-x-transition>
       <v-img
         :src="require('@/assets/images/logos/logo.svg')"
-        height="78px"
-        width="38px"
+        height="38px"
+        width="78px"
         alt="logo"
         contain
         eager

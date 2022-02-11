@@ -46,6 +46,7 @@ $navigation-drawer-border-width: 0;
 .avatar-block {
   position: relative;
   display: flex;
+  margin-top: 26px;
   padding-top: 19px;
   padding-left: 29px;
   padding-bottom: 20px;
