@@ -23,8 +23,9 @@
         <v-img
           max-height="492"
           max-width="492"
+          width="100%"
           contain
-          class="image--auth_dog mx-auto"
+          class="image--auth_dog mx-auto hidden-sm-and-down "
           src="@/assets/image/auth_image.svg"
         />
       </v-col>
@@ -33,7 +34,7 @@
         md="6"
         class="greyBg fill-height--centred"
       >
-        <div class="form--auth mx-auto">
+        <div class="form--auth mx-auto my-auto mt-xs-10">
           <router-link to="/">
             <v-img
               max-height="38"
