@@ -44,7 +44,7 @@ export default class HttpUserRepository implements UserRepository {
   public resetPassword(payload: ResetPasswordRequest): Promise<void> {
     return this.httpTransport
       .post(
-        APP_API_URL + '/api/v1/auth/forgot-password',
+        APP_API_URL + '/auth/forgot-password',
         { email: payload },
       );
   }

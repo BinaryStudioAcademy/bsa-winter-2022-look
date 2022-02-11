@@ -95,10 +95,8 @@ export default {
       resetPassword: RESET_PASSWORD,
     }),
     handleSubmit() {
-      this.resetPassword(this.email).then(
-        success => true,
-        error = >true,
-      );
+      this.error = false;
+      this.resetPassword(this.email).then(() => { this.success = true; }).catch(() => { this.error = true; });
     },
   },
 };
