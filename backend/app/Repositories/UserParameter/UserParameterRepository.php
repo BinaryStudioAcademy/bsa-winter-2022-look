@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class UserParameterRepository extends BaseRepository implements UserParameterRepositoryInterface
 {
-
     public function findAll(): Collection
     {
         return UserParameter::all();

@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class MatchEntityRepository extends BaseRepository implements MatchEntityRepositoryInterface
 {
-
     public function findAll(): Collection
     {
         return MatchEntity::all();
