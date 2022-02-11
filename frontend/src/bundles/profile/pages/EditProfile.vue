@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import Photos from '../components/profile/Photos.vue';
-import ProfileForm from '../components/profile/ProfileForm.vue';
+import Photos from '../components/edit/Photos.vue';
+import ProfileForm from '../components/edit/ProfileForm.vue';
 
 export default {
   components: {

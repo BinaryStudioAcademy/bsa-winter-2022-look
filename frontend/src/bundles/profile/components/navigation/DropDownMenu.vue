@@ -3,9 +3,7 @@
     <v-menu>
       <template #activator="{ attrs, on }">
         <div class="dropdown-menu" v-bind="attrs" v-on="on">
-          <v-list-item-title>
-            Ruben Septimus
-          </v-list-item-title>
+          <v-list-item-title> Ruben Septimus </v-list-item-title>
           <v-icon size="12">
             {{ "$arrow" }}
           </v-icon>
@@ -29,7 +27,7 @@ export default {
     items: [
       {
         title: 'Profile',
-        link: 'view-profile',
+        link: 'edit-profile',
       },
       { title: 'Settings', link: 'account-settings' },
       { title: 'Logout', link: 'logout' },
@@ -49,5 +47,4 @@ export default {
   font-size: 1rem;
   margin-right: 6px;
 }
-
 </style>

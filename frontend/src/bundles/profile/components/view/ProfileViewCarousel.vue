@@ -1,0 +1,20 @@
+<template>
+  <v-carousel
+    :show-arrows="true"
+    hide-delimiter-background
+    height="300"
+  >
+    <v-carousel-item v-for="(color, i) in colors" :key="color" @click="showlog">
+      <v-sheet :color="color" height="100%" tile>
+        <v-row class="fill-height" align="center" justify="center">
+          <div class="text-h2">Slide {{ i + 1 }}</div>
+        </v-row>
+      </v-sheet>
+    </v-carousel-item>
+  </v-carousel>
+</template>
+<script>
+export default {
+
+};
+</script>

@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer :width="381" app permanent>
+  <v-navigation-drawer :width="381" app>
     <Logo />
     <div class="avatar-block">
       <Avatar />

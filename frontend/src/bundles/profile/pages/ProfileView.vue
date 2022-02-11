@@ -2,19 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-carousel
-          :show-arrows="true"
-          hide-delimiter-background
-          height="300"
-        >
-          <v-carousel-item v-for="(color, i) in colors" :key="color" @click="showlog">
-            <v-sheet :color="color" height="100%" tile>
-              <v-row class="fill-height" align="center" justify="center">
-                <div class="text-h2">Slide {{ i + 1 }}</div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
+        <ProfileViewCarouselVue />
         <v-list>
           <v-list-item>
             <v-list-item-content>
@@ -69,7 +57,11 @@
 </template>
 
 <script>
+import ProfileViewCarouselVue from '../components/view/ProfileViewCarousel.vue';
 export default {
+  components: {
+    ProfileViewCarouselVue,
+  },
   data: () => ({
     model: 0,
     colors: ['primary', 'secondary', 'yellow darken-2', 'red', 'orange'],
