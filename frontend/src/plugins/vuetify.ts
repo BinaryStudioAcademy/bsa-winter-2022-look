@@ -7,15 +7,14 @@ import IconDisLike from '@/assets/icons/general/IconDisLike.vue';
 import IconFire from '@/assets/icons/general/IconFire.vue';
 import IconMiniChat from '@/assets/icons/general/IconMiniChat.vue';
 import IconPaper from '@/assets/icons/general/IconPaper.vue';
-import IconLogo from '@/assets/icons/logo/IconLogo.vue';
+import IconArrow from '@/assets/icons/general/IconArrow.vue';
+import IconMaper from '@/assets/icons/general/IconMaper.vue';
+import IconFemale from '@/assets/icons/general/IconFemale.vue';
 Vue.use(Vuetify);
 
 export default new Vuetify({
   icons: {
     values: {
-      logo: {
-        component: IconLogo,
-      },
       heart: {
         component: IconHeart,
       },
@@ -36,6 +35,15 @@ export default new Vuetify({
       },
       paper: {
         component: IconPaper,
+      },
+      arrow: {
+        component: IconArrow,
+      },
+      map: {
+        component: IconMaper,
+      },
+      female: {
+        component: IconFemale,
       },
     },
   },

@@ -1,16 +1,17 @@
 <template>
   <div>
-    <h1>Common Layout</h1>
     <router-view />
   </div>
+
 </template>
 
 <script>
 import namespace from '../store/modules/user/namespace';
 import { mapActions } from 'vuex';
 import { FETCH_SESSION_USER } from '../store/modules/user/types/actions';
-
 export default {
+  components: {
+  },
   created() {
     return this.fetchUser();
   },

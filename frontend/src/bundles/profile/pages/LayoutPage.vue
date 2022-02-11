@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <v-card>
-      <Navigation />
-    </v-card>
+    <Navigation />
     <v-main>
       <router-view />
     </v-main>
@@ -10,7 +8,7 @@
 </template>
 
 <script>
-import Navigation from '../../common/components/Navigation.vue';
+import Navigation from '../components/navigation/Navigation.vue';
 export default {
   components: {
     Navigation,

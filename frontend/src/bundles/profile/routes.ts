@@ -11,7 +11,7 @@ export function getProfileRoutes(): RouteConfig[] {
       component: LayoutPage,
       children: [
         {
-          path: 'account',
+          path: 'settings',
           name: 'account-settings',
           component: AccountSettings,
         },
