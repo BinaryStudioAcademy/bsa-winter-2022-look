@@ -41,7 +41,7 @@
         </div>
         <div v-show="success" class="message">
           <span class="success">
-            Change password link send to your emil
+            Change password link send to your email
           </span>
         </div>
       </form>
@@ -53,7 +53,7 @@
 <script>
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate';
 import { required, email } from 'vee-validate/dist/rules';
-import { RESET_PASSWORD } from '../store/modules/auth/types/actions';
+import { RESET_USER_PASSWORD } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
 
@@ -94,7 +94,7 @@ export default {
 
   methods: {
     ...mapActions(namespace, {
-      resetPassword: RESET_PASSWORD,
+      resetPassword: RESET_USER_PASSWORD,
     }),
     handleSubmit() {
       this.error = false;
