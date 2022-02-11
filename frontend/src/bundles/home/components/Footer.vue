@@ -3,6 +3,7 @@
     padless
   >
     <v-card
+      color="purpleFooter"
       flat
       tile
       width="100%"
@@ -21,13 +22,6 @@
   lang="scss"
   scoped
 >
-@import "@/assets/scss/variables.scss";
-
-.v-footer {
-  ::v-deep .footer {
-    background-color: $purple-footer;
-  }
-}
 .footer--text {
   font-weight: bold;
 }
