@@ -21,6 +21,7 @@ export default new Vuetify({
         orange: '#ff6c6d',
         purple: '#574f8c',
         purpleFooter: '#443748',
+        border: '#979797',
       },
     },
   },

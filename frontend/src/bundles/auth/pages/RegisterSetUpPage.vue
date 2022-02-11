@@ -7,12 +7,6 @@
         @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
       />
     </validation-observer>
-
-    <router-link
-      :to="{ name: 'auth-registration-additional_info' }"
-    >
-      Step 2
-    </router-link>
   </div>
 </template>
 

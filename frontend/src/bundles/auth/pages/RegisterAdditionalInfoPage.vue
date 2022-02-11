@@ -1,7 +1,5 @@
 <template>
   <div>
-    <div>Additional Info Page</div>
-
     <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
       <additional-form
         :invalid="invalid"
@@ -9,12 +7,6 @@
         @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
       />
     </validation-observer>
-
-    <router-link
-      :to="{ name: 'auth-registration-media' }"
-    >
-      Step 3
-    </router-link>
   </div>
 </template>
 

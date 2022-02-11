@@ -9,6 +9,11 @@
         v-model="fullName"
         :error-messages="errors"
         label="Name"
+        placeholder="Name"
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
       />
     </validation-provider>
     <validation-provider
@@ -19,7 +24,13 @@
       <v-text-field
         v-model="email"
         :error-messages="errors"
+        type="email"
         label="E-mail"
+        placeholder="E-mail"
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
       />
     </validation-provider>
     <validation-provider
@@ -29,12 +40,17 @@
     >
       <v-text-field
         v-model="password"
-        type="password"
         name="password"
         label="Password"
         :error-messages="errors"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPassword ? 'text' : 'password'"
         hint="At least 8 characters"
-        counter
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
+        @click:append="togglePassword"
       />
     </validation-provider>
     <validation-provider
@@ -44,15 +60,32 @@
     >
       <v-text-field
         v-model="passwordConfirmation"
-        type="password"
         name="passwordConfirmation"
         label="Password confirmation"
         :error-messages="errors"
-        counter
+        :append-icon="showPasswordConfirmation ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPasswordConfirmation ? 'text' : 'password'"
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
+        @click:append="togglePasswordConfirmation"
       />
     </validation-provider>
 
-    <v-btn class="mr-4" type="submit" :disabled="invalid"> Sign Up </v-btn>
+    <v-btn
+      type="submit"
+      :disabled="invalid"
+      class="white--text text-capitalize font-weight-bold mr-4"
+      color="primary"
+      large
+      rounded
+      depressed
+      max-width="215"
+      width="100%"
+    >
+      Sign Up
+    </v-btn>
   </form>
 </template>
 
@@ -77,6 +110,8 @@ export default {
 
   data() {
     return {
+      showPassword: false,
+      showPasswordConfirmation: false,
       fullName: undefined,
       email: undefined,
       password: undefined,
@@ -84,6 +119,9 @@ export default {
     };
   },
 
+  computed: {
+
+  },
   methods: {
     handleSubmit() {
       this.$emit('submit', {
@@ -91,6 +129,12 @@ export default {
         email: this.email,
         password: this.password,
       });
+    },
+    togglePassword() {
+      this.showPassword = !this.showPassword;
+    },
+    togglePasswordConfirmation() {
+      this.showPasswordConfirmation = !this.showPasswordConfirmation;
     },
   },
 };

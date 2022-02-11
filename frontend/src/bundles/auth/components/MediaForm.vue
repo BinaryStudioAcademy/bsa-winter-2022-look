@@ -7,12 +7,14 @@
     >
       <v-file-input
         v-model="userFiles"
-        color="deep-purple accent-4"
+        color="primary"
+
         counter
         label="Photos"
         multiple
+        rounded
         placeholder="Select your files"
-        prepend-icon="mdi-paperclip"
+        prepend-icon="mdi-camera"
         outlined
         :show-size="1000"
         :error-messages="errors"
@@ -20,7 +22,7 @@
         <template #selection="{ index, text }">
           <v-chip
             v-if="index < 2"
-            color="deep-purple accent-4"
+            color="purple"
             dark
             label
             small
@@ -38,7 +40,19 @@
       </v-file-input>
     </validation-provider>
 
-    <v-btn class="mr-4" type="submit" :disabled="invalid"> Sign Up </v-btn>
+    <v-btn
+      type="submit"
+      :disabled="invalid"
+      class="white--text text-capitalize font-weight-bold mr-4"
+      color="primary"
+      large
+      rounded
+      depressed
+      max-width="215"
+      width="100%"
+    >
+      Sign Up
+    </v-btn>
   </form>
 </template>
 

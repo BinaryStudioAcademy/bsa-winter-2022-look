@@ -1,11 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Lora:wght@600&display=swap');
 
-body {
-  font-family: 'Lato', sans-serif;
+.v-application {
+  font-family: 'Lato', sans-serif !important;
 }
 
 .relative {
   position: relative;
+}
+
+a:-webkit-any-link {
+  text-decoration: none !important;
+}
+.link {
+  text-decoration: none !important;
 }
 
 ::v-deep .h1 {
@@ -37,6 +44,9 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 18px;
+  & .small-text {
+    font-size: 14px;
+  }
 }
 
 .main-sub--text {

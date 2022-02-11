@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>Media Page</div>
     <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
       <media-form
         :invalid="invalid"

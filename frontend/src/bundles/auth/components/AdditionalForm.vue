@@ -2,15 +2,52 @@
   <form :value="!invalid" @submit.prevent="handleSubmit">
     <validation-provider
       v-slot="{ errors }"
+      name="phone"
+    >
+      <v-text-field
+        v-model="phone"
+        type="text"
+        name="phone"
+        label="Phone"
+        placeholder="Phone"
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
+        :error-messages="errors"
+      />
+    </validation-provider>
+    <validation-provider
+      v-slot="{ errors }"
+      name="location"
+    >
+      <v-autocomplete
+        v-model="locationSelected"
+        :items="locations"
+        small-chips
+        label="Location"
+        placeholder="Location"
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
+        clearable
+        :error-messages="errors"
+      />
+    </validation-provider>
+    <validation-provider
+      v-slot="{ errors }"
       name="Height"
     >
       <v-slider
         v-model="height"
         min="50"
         max="250"
+        :thumb-size="25"
         :error-messages="errors"
         thumb-label="always"
         label="Height, cm"
+        inverse-label
       />
     </validation-provider>
     <validation-provider
@@ -21,60 +58,13 @@
         v-model="weight"
         min="30"
         max="250"
+        :thumb-size="25"
         :error-messages="errors"
         thumb-label="always"
         label="Weight, kg"
+        inverse-label
       />
     </validation-provider>
-    <validation-provider
-      v-slot="{ errors }"
-      name="about"
-      rules="required|min:10"
-    >
-      <v-textarea
-        v-model="about"
-        clearable
-        clear-icon="mdi-close-circle"
-        filled
-        auto-grow
-        label="About yourself"
-        :error-messages="errors"
-        rows="4"
-        row-height="30"
-        hint="At least 10 characters"
-        shaped
-        counter
-      />
-    </validation-provider>
-    <validation-provider
-      v-slot="{ errors }"
-      name="phone"
-    >
-      <v-text-field
-        v-model="phone"
-        type="text"
-        name="phone"
-        label="Phone"
-        :error-messages="errors"
-      />
-    </validation-provider>
-    <validation-provider
-      v-slot="{ errors }"
-      name="location"
-    >
-      <v-autocomplete
-        v-model="location"
-        chips
-        clearable
-        deletable-chips
-        dense
-        filled
-        rounded
-        label="Location"
-        :error-messages="errors"
-      />
-    </validation-provider>
-
     <validation-provider
       v-slot="{ errors }"
       name="interests"
@@ -82,14 +72,15 @@
       <v-autocomplete
         v-model="interestSelected"
         :items="interests"
-        dense
-        chips
-        deletable-chips
         small-chips
         label="Interests"
-        multiple
+        placeholder="Interests"
         filled
         rounded
+        background-color="#faf9f9"
+        outlined
+        multiple
+        clearable
         :error-messages="errors"
       />
     </validation-provider>
@@ -101,19 +92,52 @@
       <v-autocomplete
         v-model="hobbieSelected"
         :items="hobbies"
-        dense
-        chips
-        deletable-chips
         small-chips
         label="Hobbies"
-        multiple
+        placeholder="Hobbies"
         filled
         rounded
+        background-color="#faf9f9"
+        outlined
+        multiple
+        clearable
         :error-messages="errors"
       />
     </validation-provider>
 
-    <v-btn class="mr-4" type="submit" :disabled="invalid"> Next Step </v-btn>
+    <validation-provider
+      v-slot="{ errors }"
+      name="about"
+      rules="required|min:10"
+    >
+      <v-textarea
+        v-model="about"
+        clearable
+        clear-icon="mdi-close-circle"
+        rounded
+        filled
+        label="About yourself"
+        background-color="#faf9f9"
+        rows="3"
+        hint="At least 10 characters"
+        outlined
+        :error-messages="errors"
+      />
+    </validation-provider>
+
+    <v-btn
+      type="submit"
+      :disabled="invalid"
+      class="white--text text-capitalize font-weight-bold mr-4"
+      color="primary"
+      large
+      rounded
+      depressed
+      max-width="215"
+      width="100%"
+    >
+      Sign Up
+    </v-btn>
   </form>
 </template>
 
@@ -142,10 +166,39 @@ export default {
       weight: 140,
       about: undefined,
       phone: undefined,
-      location: [],
-      interests: ['foo', 'bar', 'fizz', 'buzz'],
+      locations: [
+        'Ukraine',
+        'Canada',
+        'USA',
+        'Germany',
+      ],
+      locationSelected: undefined,
+      interests: [
+        'Making or listening to music',
+        'Gaming',
+        'Travel',
+        'Art',
+        'Nature',
+        'Social causes',
+        'Foreign languages',
+        'Topical blogs or research',
+        'History',
+        'Theater',
+      ],
       interestSelected: [],
-      hobbies: ['foo', 'bar', 'fizz', 'buzz'],
+      hobbies: [
+        'Artistic activities such as painting or graphic design',
+        'Community service',
+        'Cooking or baking',
+        'Examples of interests',
+        'Exercising and healthcare',
+        'Outdoor activities',
+        'Playing an instrument',
+        'Team or individual sports',
+        'Travel',
+        'Woodworking or other projects',
+        'Writing or blogging',
+      ],
       hobbieSelected: [],
     };
   },
