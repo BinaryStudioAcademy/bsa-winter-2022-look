@@ -23,8 +23,7 @@ final class ForgotPasswordAction
         if (is_null((new UserRepository())->getByEmail($request->get('email')))) {
             throw new UserNotFoundException();
         }
-        $random = Str::random(self::TOKEN_LENGTH);
-        $token = Hash::make($random);
+        $token = Str::random(self::TOKEN_LENGTH);
         $data['email'] = $request->get('email');
         $data['token'] = $token;
         $data['created_at'] = (Carbon::now())->toDateTimeString();
