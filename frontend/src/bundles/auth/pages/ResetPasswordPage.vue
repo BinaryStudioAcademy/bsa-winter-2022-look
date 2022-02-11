@@ -8,54 +8,79 @@
       Please enter your email address. <br>
       You will receive an email link to create a new password.
     </p>
-    <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
-      <reset-password-form
-        :invalid="invalid"
-        :processing="processing"
-        @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
-      />
+    <validation-observer ref="observer" v-slot="{ invalid }">
+      <form @submit.prevent="handleSubmit">
+        <validation-provider
+          v-slot="{ errors }"
+          name="email"
+          rules="required|email"
+        >
+          <v-text-field
+            v-model="email"
+            :error-messages="errors"
+            label="E-mail"
+          />
+        </validation-provider>
+        <v-btn class="mr-4" type="submit" :disabled="invalid"> Reset password </v-btn>
+      </form>
     </validation-observer>
+
   </div>
 </template>
 
 <script>
-import { ValidationObserver } from 'vee-validate';
-import { RESET_USER_PASSWORD } from '../store/modules/auth/types/actions';
+import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate';
+import { required, email } from 'vee-validate/dist/rules';
+import { RESET_PASSWORD } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
-import ResetPasswordForm from '../components/ResetPasswordForm';
+
+setInteractionMode('eager');
+
+extend('required', {
+  ...required,
+  message: '{_field_} can not be empty',
+});
+
+extend('email', {
+  ...email,
+  message: 'Email must be valid',
+});
 
 export default {
   components: {
+    ValidationProvider,
     ValidationObserver,
-    ResetPasswordForm,
   },
 
-  data() {
-    return {
-      processing: undefined,
-    };
+  props: {
+    invalid: {
+      type: Boolean,
+      default: false,
+    },
+    processing: {
+      type: Boolean,
+      default: false,
+    },
   },
+
+  data: () => ({
+    email: '',
+    error: false,
+    success: false,
+  }),
 
   methods: {
     ...mapActions(namespace, {
-      resetPassword: RESET_USER_PASSWORD,
+      resetPassword: RESET_PASSWORD,
     }),
-    handleUserSubmit(payload) {
-      if (this.processing) {
-        return Promise.resolve();
-      }
-
-      this.processing = true;
-
-      return this.resetPassword(payload)
-        .then(() =>
-          this.$router.push({ name: 'search' }), // TODO: need to specify correct route name
-        )
-        .catch((e) => this.$refs.observer.setErrors(e))
-        .finally(() => {
-          this.processing = false;
-        });
+    handleSubmit() {
+      this.error = false;
+      this.resetPassword(this.email).then(() => {
+        this.success = true;
+      }).catch(() => {
+        this.error = true;
+      });
     },
   },
 };
