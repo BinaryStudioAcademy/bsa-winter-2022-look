@@ -18,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/config-clear', function () {
-    return Artisan::call('config:cache');
+Route::get('/seed', function () {
+    return Artisan::call('db:seed');
 });
