@@ -1,32 +1,79 @@
 <template>
-  <v-carousel v-model="model" height="383" hide-delimiter-background>
-    <v-carousel-item v-for="(color, i) in colors" :key="color">
-      <v-sheet
-        :color="color"
-        height="100%"
-        tile>
-        <v-row class="fill-height" align="center" justify="center">
-          <div class="text-h2">Slide {{ i + 1 }}</div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
+  <carousel-3d :controls-visible="true" :clickable="false" :height="300">
+    <slide v-for="(slide, i) in slides" :key="i" :index="i">
+      <figure>
+        <img :src="slide.src" />
+        <figcaption>
+          <v-btn text color="white">{{ slide.text }}</v-btn>
+        </figcaption>
+      </figure>
+    </slide>
+  </carousel-3d>
 </template>
 <script>
+import { Carousel3d, Slide } from 'vue-carousel-3d';
+
 export default {
+  components: {
+    Carousel3d,
+    Slide,
+  },
   data: () => ({
-    model: 0,
-    colors: ['primary', 'secondary', 'yellow darken-2', 'red', 'orange'],
+    slides: [
+      {
+        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+        text: 'John',
+      },
+      {
+        src: 'https://cdn.vuetifyjs.com/images/carousel/planer.jpg',
+        text: 'John',
+      },
+      {
+        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+        text: 'John',
+      },
+      {
+        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+        text: 'John',
+      },
+    ],
   }),
 };
 </script>
 <style lang="scss">
-.theme--dark.v-carousel .v-carousel__controls {
-  top: 10px;
+// .theme--dark .v-carousel .v-window__container {
+//   border-radius: 8px;
+//   // max-width: 70%;
+// }
+
+// .theme--dark.v-carousel .v-carousel__controls {
+//   top: 20px;
+//   height: 3px;
+// }
+
+// .v-carousel {
+//   width: 299px;
+// }
+
+.carousel-3d-container figure {
+  margin: 0;
 }
 
-.v-carousel {
-  width: 299px;
+.carousel-3d-container figcaption {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  bottom: 0;
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  font-size: 12px;
+  min-width: 100%;
+  box-sizing: border-box;
 }
 
+.next span,
+.prev span {
+  color: orange;
+}
 </style>

@@ -10,8 +10,8 @@ import IconPaper from '@/assets/icons/general/IconPaper.vue';
 import IconArrow from '@/assets/icons/general/IconArrow.vue';
 import IconMaper from '@/assets/icons/general/IconMaper.vue';
 import IconFemale from '@/assets/icons/general/IconFemale.vue';
-Vue.use(Vuetify);
 
+Vue.use(Vuetify);
 export default new Vuetify({
   icons: {
     values: {
