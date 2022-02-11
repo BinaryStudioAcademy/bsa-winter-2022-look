@@ -21,18 +21,18 @@
               md="4"
               sm="6"
             >
-              <h1 class="main--text h1 black--text font-weight-bold pb-md-4 pb-2">
+              <h1 class="textMain--text h1 font-weight-bold pb-md-4 pb-2">
                 It is never too late
                 to fall in love
               </h1>
-              <p class="main-sub--text subheading black--text pb-md-2 pb-2">
+              <p class="main-sub--text textMain--text subheading black--text pb-md-2 pb-2">
                 When you find that one that's right for you,
                 you feel like they were put there for you,
                 you never want to be apart.
               </p>
               <v-btn
                 class="white--text text-capitalize font-weight-bold"
-                color="button-main"
+                color="primary"
                 large
                 rounded
                 depressed
@@ -78,11 +78,11 @@
         </v-container>
       </v-parallax>
       <div
-        class="about pa-md-11 pa-6"
+        class="about greyBg pa-md-11 pa-6"
         tag="section"
       >
         <v-container>
-          <h2 class="main--text h2 font-weight-bold pb-md-10 pb-5">Simple and quick way to find match</h2>
+          <h2 class="textMain--text h2 font-weight-bold pb-md-10 pb-5">Simple and quick way to find match</h2>
           <v-row
             align="center"
           >
@@ -100,8 +100,8 @@
                   md="6"
                 >
                   <component :is="item.icon" />
-                  <h4 class="h4 font-weight-bold pb-5">{{ item.title }}</h4>
-                  <p>{{ item.text }}</p>
+                  <h4 class="h4 purple--text font-weight-bold pb-5">{{ item.title }}</h4>
+                  <p class="textMain--text">{{ item.text }}</p>
                 </v-col>
               </v-row>
             </v-col>
@@ -142,18 +142,18 @@
               cols="12"
               md="5"
             >
-              <h4 class="h4 font-weight-bold pb-5">
+              <h4 class="h4 purple--text font-weight-bold pb-5">
                 More than a just app
               </h4>
-              <p>
+              <p class="textMain--text">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fermentum viverra amet id arcu. Id adipiscing risus pulvinar nisi, turpis.
               </p>
-              <p>
+              <p class="textMain--text">
                 Malesuada elit nullam sollicitudin ante enim non tempus.
               </p>
               <v-btn
                 class="text-capitalize font-weight-bold"
-                color="button-main"
+                color="primary"
                 large
                 raised
                 rounded
@@ -255,7 +255,6 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/scss/variables.scss";
 @import "@/assets/scss/override.scss";
 
 ::v-deep .header-person {
@@ -272,9 +271,5 @@ export default {
   height: 137px;
   top: -40%;
   left: 60%;
-}
-
-.about {
-  background-color: $grey;
 }
 </style>

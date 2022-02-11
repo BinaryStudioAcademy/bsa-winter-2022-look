@@ -16,35 +16,7 @@
         outlined
       />
     </validation-provider>
-    <validation-provider
-      v-slot="{ errors }"
-      name="password"
-      rules="required|min:8,password"
-    >
-      <v-text-field
-        v-model="password"
-        :error-messages="errors"
-        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="showPassword ? 'text' : 'password'"
-        label="Password"
-        name="password"
-        hint="At least 8 characters"
-        filled
-        rounded
-        background-color="#faf9f9"
-        outlined
-        @click:append="togglePassword"
-      />
-    </validation-provider>
 
-    <div class="mb-6">
-      <router-link
-        class="small-text black--text font-weight-regular link"
-        :to="{ name: 'auth-reset_password' }"
-      >
-        Forgot your password?
-      </router-link>
-    </div>
     <v-btn
       type="submit"
       :disabled="invalid"
@@ -56,16 +28,7 @@
       max-width="215"
       width="100%"
     >
-      Sign In
-    </v-btn>
-    <v-btn
-      color="primary"
-      depressed
-      icon
-      large
-      outlined
-    >
-      <v-icon>mdi-google</v-icon>
+      Reset
     </v-btn>
   </form>
 </template>
@@ -91,9 +54,7 @@ export default {
 
   data() {
     return {
-      showPassword: false,
       email: undefined,
-      password: undefined,
     };
   },
 
@@ -101,11 +62,7 @@ export default {
     handleSubmit() {
       this.$emit('submit', {
         email: this.email,
-        password: this.password,
       });
-    },
-    togglePassword() {
-      this.showPassword = !this.showPassword;
     },
   },
 };
