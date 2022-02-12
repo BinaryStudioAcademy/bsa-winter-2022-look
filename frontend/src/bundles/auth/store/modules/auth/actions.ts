@@ -1,11 +1,19 @@
 import { SET_USER } from './types/mutations';
-import { CREATE_USER, LOGIN_USER, ADD_ADDITIONAL_INFO, ADD_USER_MEDIA, RESET_USER_PASSWORD } from './types/actions';
+import {
+  CREATE_USER,
+  LOGIN_USER,
+  ADD_ADDITIONAL_INFO,
+  ADD_USER_MEDIA,
+  RESET_USER_PASSWORD,
+  CHANGE_USER_PASSWORD,
+} from './types/actions';
 import UserRequest from '@/bundles/common/repository/requests/UserRequest';
 import { ActionTree } from 'vuex';
 import AuthState from './AuthState';
 import userRepository from '@/bundles/common/repository/userRepository';
 import UserLoginRequest from '@/bundles/common/repository/requests/UserLoginRequest';
 import ResetPasswordRequest from '@/bundles/common/repository/requests/ResetPasswordRequest';
+import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 
 export function getActions<R>(): ActionTree<AuthState, R> {
   return {
@@ -29,6 +37,8 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     [RESET_USER_PASSWORD](args, data: ResetPasswordRequest): Promise<void> {
       return userRepository.resetPassword(data);
     },
-
+    [CHANGE_USER_PASSWORD](args, data: ChangePasswordRequest): Promise<void> {
+      return userRepository.changePassword(data);
+    },
   };
 }

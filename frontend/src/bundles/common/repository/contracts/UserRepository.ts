@@ -2,6 +2,7 @@ import User from '@/bundles/common/entity/User';
 import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 import ResetPasswordRequest from '../requests/ResetPasswordRequest';
+import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 
 export default interface UserRepository {
   /**
@@ -31,4 +32,10 @@ export default interface UserRepository {
    * @param {ResetPasswordRequest} payload
    */
   resetPassword(payload: ResetPasswordRequest): Promise<void>;
+  /**
+   * Change password request
+   *
+   * @param {ChangePasswordRequest} payload
+   */
+  changePassword(payload: ChangePasswordRequest): Promise<void>;
 }

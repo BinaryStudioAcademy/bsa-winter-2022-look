@@ -11,7 +11,7 @@
         <validation-provider
           v-slot="{ errors }"
           name = 'password'
-          rules = 'required|min:8'
+          rules = 'required|min:8|password:@confirmPassword'
         >
           <v-text-field
             v-model="password"
@@ -56,10 +56,25 @@
 
 <script>
 
-import { ValidationObserver, ValidationProvider } from 'vee-validate';
+import { extend, ValidationObserver, ValidationProvider } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
 import { mapActions } from 'vuex';
-import { RESET_USER_PASSWORD } from '../store/modules/auth/types/actions';
+import { CHANGE_USER_PASSWORD } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
+import router from '../../../router';
+
+extend('required', {
+  ...required,
+  message: 'Password field can not be empty',
+});
+
+extend('password', {
+  params: ['target'],
+  validate(value, { target }) {
+    return value === target;
+  },
+  message: 'Passwords does not match',
+});
 
 export default {
   components: {
@@ -85,14 +100,15 @@ export default {
 
   methods: {
     ...mapActions(namespace, {
-      resetPassword: RESET_USER_PASSWORD,
+      changePassword: CHANGE_USER_PASSWORD,
     }),
     handleSubmit() {
-      this.error = false;
-      this.resetPassword(this.email).then(() => {
-        this.success = true;
-      }).catch(() => {
-        this.error = true;
+      const token = window.location.pathname.split('/').pop();
+      this.changePassword({
+        password: this.password,
+        token: token,
+      }).then(() => {
+        router.push({ name: 'auth-login' });
       });
     },
   },
