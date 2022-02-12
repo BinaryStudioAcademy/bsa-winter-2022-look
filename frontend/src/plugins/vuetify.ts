@@ -10,6 +10,7 @@ import IconPaper from '@/assets/icons/general/IconPaper.vue';
 import IconArrow from '@/assets/icons/general/IconArrow.vue';
 import IconMaper from '@/assets/icons/general/IconMaper.vue';
 import IconFemale from '@/assets/icons/general/IconFemale.vue';
+import IconDot from '@/assets/icons/circle/IconDot.vue';
 
 Vue.use(Vuetify);
 export default new Vuetify({
@@ -44,6 +45,9 @@ export default new Vuetify({
       },
       female: {
         component: IconFemale,
+      },
+      dot: {
+        component: IconDot,
       },
     },
   },

@@ -2,6 +2,8 @@
   <v-container>
     <v-row>
       <v-col>
+        <Name />
+        <Location />
         <ProfileViewCarousel />
         <QuestAndDescription />
         <Contacts />
@@ -12,12 +14,16 @@
 </template>
 
 <script>
+import Name from '../components/view/Name.vue';
+import Location from '../components/view/Location.vue';
 import ProfileViewCarousel from '../components/view/ProfileViewCarousel.vue';
 import QuestAndDescription from '../components/view/QuestAndDescription.vue';
 import HumanParameters from '../components/view/HumanParameters.vue';
 import Contacts from '../components/view/Contacts.vue';
 export default {
   components: {
+    Name,
+    Location,
     ProfileViewCarousel,
     QuestAndDescription,
     Contacts,
