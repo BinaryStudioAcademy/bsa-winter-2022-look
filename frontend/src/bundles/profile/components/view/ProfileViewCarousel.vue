@@ -1,21 +1,27 @@
 <template>
-  <carousel-3d :controls-visible="true" :clickable="false" :height="611" :border="0">
-    <slide v-for="(slide, i) in slides" :key="i" :index="i">
-      <figure>
-        <img :src="slide.src" />
-      </figure>
-    </slide>
-  </carousel-3d>
+  <div>
+
+    <v-carousel
+      :interval=1000
+      :light=false
+      :multiple=false
+    >
+      <v-carousel-item
+        v-for="(slide,i) in slides"
+        :key="i"
+        :src="slide.src"
+      />
+    </v-carousel>
+  </div>
 </template>
 <script>
-import { Carousel3d, Slide } from 'vue-carousel-3d';
 
 export default {
   components: {
-    Carousel3d,
-    Slide,
+
   },
   data: () => ({
+    show3d: false,
     slides: [
       {
         src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
@@ -44,6 +50,27 @@ export default {
 
 .next span,
 .prev span {
-  color: #FE5FAA;
+  color: #fe5faa;
 }
+
+.custom .v-carousel__controls__item.v-btn {
+  color: red;
+}
+
+.custom .v-carousel__controls__item.v-btn.v-btn--active {
+  color: green;
+}
+
+.custom .v-carousel__controls__item.v-btn.v-btn--active:before {
+  opacity: 0;
+}
+
+.custom .v-carousel__controls__item.v-btn:hover {
+  color: blue;
+}
+
+.custom .v-carousel__controls__item.v-btn:hover:before {
+  opacity: 0;
+}
+
 </style>
