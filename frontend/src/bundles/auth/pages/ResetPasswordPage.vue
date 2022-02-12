@@ -51,23 +51,10 @@
 </template>
 
 <script>
-import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate';
-import { required, email } from 'vee-validate/dist/rules';
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import { RESET_USER_PASSWORD } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
-
-setInteractionMode('eager');
-
-extend('required', {
-  ...required,
-  message: '{_field_} can not be empty',
-});
-
-extend('email', {
-  ...email,
-  message: 'Email must be valid',
-});
 
 export default {
   components: {
