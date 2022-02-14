@@ -20,4 +20,8 @@ export default interface UserRepository {
      *
      */
   get(): Promise<User>;
+  /**
+   * TODO: setup endpoint api after api done
+   */
+  patch(payload: any): Promise<any>
 }

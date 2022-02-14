@@ -1,8 +1,7 @@
 <template>
-  <div>
+  <v-app>
     <router-view />
-  </div>
-
+  </v-app>
 </template>
 
 <script>
@@ -10,8 +9,7 @@ import namespace from '../store/modules/user/namespace';
 import { mapActions } from 'vuex';
 import { FETCH_SESSION_USER } from '../store/modules/user/types/actions';
 export default {
-  components: {
-  },
+  components: {},
   created() {
     return this.fetchUser();
   },
