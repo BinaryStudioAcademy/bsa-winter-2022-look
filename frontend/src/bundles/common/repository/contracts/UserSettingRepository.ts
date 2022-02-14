@@ -3,7 +3,7 @@ import UserSettingRequest from '../requests/UserSettingRequest';
 
 export default interface UserSettingRepository {
   /**
-   * Create UserSettingRequest
+   * Create UserSetting
    *
    * @param {UserSettingRequest} payload
    */
