@@ -23,8 +23,6 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'v1/auth'], function() {
-    Route::post('/forgot-password', [ForgotPasswordController::class, 'passwordResetRequest'])->name('password.change-request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'passwordReset'])->name('password.change-request');
     Route::post('/reset-password', [ForgotPasswordController::class, 'passwordChange'])->name('password.reset');
-    Route::get('/reset-password/{token}', [ForgotPasswordController::class, 'passwordChangeView'])->name('password.reset-view');
-    Route::post('/reset-password/{token}', [ForgotPasswordController::class, 'passwordChange'])->name('password.change');
 });

@@ -5,26 +5,34 @@ declare(strict_types=1);
 namespace App\Actions\Auth;
 
 use App\Exceptions\User\InvalidTokenException;
+use App\Exceptions\User\UserNotFoundException;
 use App\Http\Requests\Api\Auth\PasswordChangeRequest;
-use App\Models\PasswordResets;
-use App\Models\User;
+use App\Repositories\PasswordReset\PasswordResetRepository;
+use App\Repositories\User\UserRepository;
+use Illuminate\Support\Facades\Hash;
 
 final class PasswordChangeAction
 {
     public function execute(PasswordChangeRequest $request): PasswordChangeResponse
     {
-        if (is_null(PasswordResets::where('token', $request->get('token')))) {
+        if (is_null((new PasswordResetRepository())->getByToken($request->get('token')))) {
             throw new InvalidTokenException();
         }
-        $resetData = PasswordResets::where('token', $request->get('token'));
+        $changePasswordData = (new PasswordResetRepository())->getByToken($request->get('token'));
+        $user = (new UserRepository())->getByEmail($changePasswordData->email);
 
-        if($resetData->get()->first()->toArray()['email'] !== $request->get('email')) {
+        if (is_null($user)) {
+            throw new UserNotFoundException();
+        }
+
+        try {
+            $user->password = Hash::make($request->get('password'));
+            $user->save();
+            $changePasswordData->delete();
+        } catch (\Exception $exception) {
             throw new InvalidTokenException();
         }
 
-        if(is_null(User::where('email', $request->get('email'))->update(array('password' => $request->get('password'))))) {
-            throw new InvalidTokenException();
-        }
         return new PasswordChangeResponse();
     }
 }
