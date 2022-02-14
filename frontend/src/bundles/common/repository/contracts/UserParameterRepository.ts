@@ -1,20 +1,20 @@
 import UserParameter from '@/bundles/common/entity/UserParameter';
 import UserParameterRequest from '../requests/UserParameterRequest';
 
-export default interface UserSettingRepository {
+export default interface UserParameterRepository {
   /**
    * Create UserParameter
    *
-   * @param {UserSettingRequest} payload
+   * @param {UserParameterRequest} payload
    */
   create(payload: UserParameterRequest): Promise<UserParameter>;
   /**
-   * Get UserSettingRequest
+   * Get UserParameter
    *
    */
   get(): Promise<UserParameter>;
   /**
-   * Update UserSettingRequest
+   * Update UserParameter
    */
   patch(payload: UserParameterRequest): Promise<UserParameter>;
 }

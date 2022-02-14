@@ -9,12 +9,12 @@ export default interface UserSettingRepository {
    */
   create(payload: UserSettingRequest): Promise<UserSetting>;
   /**
-   * Get UserSettingRequest
+   * Get UserSetting
    *
    */
   get(): Promise<UserSetting>;
   /**
-   * Update UserSettingRequest
+   * Update UserSetting
    */
   patch(payload: UserSettingRequest): Promise<UserSetting>;
 }
