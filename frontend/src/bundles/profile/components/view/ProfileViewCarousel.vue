@@ -1,76 +1,75 @@
 <template>
-  <div>
-
-    <v-carousel
-      :interval=1000
-      :light=false
-      :multiple=false
-    >
-      <v-carousel-item
-        v-for="(slide,i) in slides"
-        :key="i"
-        :src="slide.src"
-      />
-    </v-carousel>
-  </div>
+  <v-carousel height="383" hide-delimiter-background delimiter-icon="mdi-minus">
+    <template #prev="{ on, attrs }">
+      <v-btn
+        depressed="true"
+        v-bind="attrs"
+        fab
+        small
+        color="grey lighten-2"
+        v-on="on"
+      ><v-icon size="12">{{ "$arrowprev" }}</v-icon></v-btn
+      >
+    </template>
+    <template #next="{ on, attrs }">
+      <v-btn
+        depressed="true"
+        fab
+        small
+        color="grey lighten-2"
+        v-bind="attrs"
+        v-on="on"
+      ><v-icon size="12">{{ "$arrownext" }}</v-icon></v-btn
+      >
+    </template>
+    <v-carousel-item v-for="(slide, i) in slides" :key="i">
+      <v-sheet
+        :color="colors[i]"
+        height="383"
+        width="600"
+        class="mx-auto elevation-3"
+        rounded="true"
+      >
+        <v-row class="fill-height" align="center" justify="center">
+          <div class="text-h2">{{ slide }} Slide</div>
+        </v-row>
+      </v-sheet>
+    </v-carousel-item>
+  </v-carousel>
 </template>
 <script>
-
 export default {
-  components: {
-
+  data() {
+    return {
+      colors: [
+        'indigo',
+        'warning',
+        'pink darken-2',
+        'red lighten-1',
+        'deep-purple accent-4',
+      ],
+      slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
+    };
   },
-  data: () => ({
-    show3d: false,
-    slides: [
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        text: 'John',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/planer.jpg',
-        text: 'John',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-        text: 'John',
-      },
-      {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-        text: 'John',
-      },
-    ],
-  }),
 };
 </script>
+
 <style lang="scss">
-.carousel-3d-container figure {
-  margin: 0;
+.v-carousel__controls {
+  top: 0;
 }
 
-.next span,
-.prev span {
-  color: #fe5faa;
+.v-btn .v-btn--is-elevated .v-btn--has-bg .theme--dark .v-size--default {
+  height: 36px !important;
+  width: 36px !important;
+  border-radius: 100%;
+}
+.v-application--is-ltr .v-window__prev {
+  left: 22% !important;
 }
 
-.custom .v-carousel__controls__item.v-btn {
-  color: red;
-}
-
-.custom .v-carousel__controls__item.v-btn.v-btn--active {
-  color: green;
-}
-
-.custom .v-carousel__controls__item.v-btn.v-btn--active:before {
-  opacity: 0;
-}
-
-.custom .v-carousel__controls__item.v-btn:hover {
-  color: blue;
-}
-
-.custom .v-carousel__controls__item.v-btn:hover:before {
-  opacity: 0;
+.v-application--is-ltr .v-window__next {
+  right: 22% !important;
 }
 
 </style>
