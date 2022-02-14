@@ -1,5 +1,4 @@
 export default interface Location {
-  userId: number,
   name: string,
   description: string,
   longitude: number,
