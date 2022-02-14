@@ -19,6 +19,7 @@ import IconFacebook from '@/assets/icons/general/IconFacebook.vue';
 import IconInstagram from '@/assets/icons/general/IconInstagram.vue';
 import IconTelegram from '@/assets/icons/general/IconTelegram.vue';
 import IconOutlineHeart from '@/assets/icons/general/IconOutlineHeart.vue';
+import IconGreyChat from '@/assets/icons/general/IconGreyChat.vue';
 
 Vue.use(Vuetify);
 export default new Vuetify({
@@ -80,6 +81,9 @@ export default new Vuetify({
       },
       outlineheart: {
         component: IconOutlineHeart,
+      },
+      greychat: {
+        component: IconGreyChat,
       },
     },
   },
