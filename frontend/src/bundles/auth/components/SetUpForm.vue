@@ -119,9 +119,6 @@ export default {
     };
   },
 
-  computed: {
-
-  },
   methods: {
     handleSubmit() {
       this.$emit('submit', {

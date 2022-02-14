@@ -1,5 +1,40 @@
 <template>
-  <form :value="!invalid" @submit.prevent="handleSubmit">
+  <form
+    :value="!invalid"
+    @submit.prevent="handleSubmit"
+  >
+    <validation-provider
+      name="gender"
+    >
+      <p>You are <span class="primary--text font-weight-bold">{{ gender || 'male' }}</span></p>
+      <v-radio-group
+        v-model="gender"
+        row
+      >
+        <v-radio
+          v-for="(gender, index) in genders"
+          :key="index"
+          :label="gender.gender_label"
+          :value="gender.gender_name"
+        />
+      </v-radio-group>
+    </validation-provider>
+    <validation-provider
+      name="gender_preference"
+    >
+      <p>Your preference selection <span class="orange--text font-weight-bold">{{ gender_preference || 'female' }}</span></p>
+      <v-radio-group
+        v-model="gender_preference"
+        row
+      >
+        <v-radio
+          v-for="(gender, index) in genders"
+          :key="index"
+          :label="gender.gender_label"
+          :value="gender.gender_name"
+        />
+      </v-radio-group>
+    </validation-provider>
     <validation-provider
       v-slot="{ errors }"
       name="phone"
@@ -166,6 +201,8 @@ export default {
       weight: 140,
       about: undefined,
       phone: undefined,
+      gender: 'male',
+      gender_preference: 'female',
       locations: [
         'Ukraine',
         'Canada',
@@ -203,6 +240,21 @@ export default {
     };
   },
 
+  computed: {
+    genders() {
+      return [
+        {
+          gender_name: 'male',
+          gender_label: 'Male',
+        },
+        {
+          gender_name: 'female',
+          gender_label: 'Female',
+        },
+      ];
+    },
+  },
+
   methods: {
     handleSubmit() {
       this.$emit('submit', {
@@ -212,6 +264,8 @@ export default {
         phone: this.phone,
         interest: this.interestSelected,
         hobbie: this.hobbieSelected,
+        gender: this.gender,
+        gender_preference: this.gender_preference,
       });
     },
   },
