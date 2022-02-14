@@ -1,5 +1,4 @@
 export default interface Profile {
-  userId: number,
   media?: any,
   description?: string,
   age?: number,
