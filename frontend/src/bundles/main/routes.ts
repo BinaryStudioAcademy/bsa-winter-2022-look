@@ -1,5 +1,4 @@
 import { RouteConfig } from 'vue-router';
-const Navbar = () => import('./components/NavbarComponent.vue').then(m => m.default);
 const List = () => import('./pages/ListPage.vue').then(m => m.default);
 const Match = () => import('./pages/MatchPage.vue').then(m => m.default);
 const Map = () => import('./pages/MapPage.vue').then(m => m.default);
@@ -7,11 +6,6 @@ const Message = () => import('./pages/MessagePage.vue').then(m => m.default);
 
 export function getMainNavbarRoutes(): RouteConfig[] {
   return [
-    {
-      path: '/page',
-      name: 'navbar',
-      component: Navbar,
-    },
     {
       path: '/list',
       name: 'list',
