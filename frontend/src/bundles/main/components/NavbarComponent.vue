@@ -22,12 +22,10 @@
       >
         <component
           :is="item.icon"
-          class="item-icon"
         />
         <span class="space-between" />
         {{ item.title }}
       </router-link>
-      <DotMapIcon class="dot-map-icon" />
     </div>
     <div class="divider" />
   </aside>
@@ -65,10 +63,11 @@ export default {
       ],
     };
   },
+
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
 
 .logo {
@@ -132,6 +131,9 @@ export default {
 
   .list-item {
     &:hover {
+      svg path {
+        fill: #FE5FAA;
+      }
       color: #FE5FAA;
     }
   }
@@ -154,8 +156,6 @@ export default {
   margin-bottom: 30px;
   padding-left: 20px;
   list-style-type: none;
-  color: #FE5FAA;
-
 }
 
 .dot-map-icon {
@@ -175,11 +175,8 @@ export default {
   background: rgba(94, 94, 94, 0.4);
 }
 
-.v-application {
+.v-application a {
   color: #8E9396;
 }
 
-svg path:hover {
-  fill: #FE5FAA;
-}
 </style>
