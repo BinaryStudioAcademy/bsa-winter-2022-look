@@ -4,17 +4,14 @@ declare(strict_types=1);
 
 namespace App\Actions\User;
 
-
-use App\Models\User;
-
 class ChangeEmailResponse
 {
-    public function __construct(private User $user)
+    public function __construct()
     {
     }
 
-    public function getUser(): User
+    public function responseMessage(): string
     {
-        return $this->user;
+        return 'Email has been changed';
     }
 }
