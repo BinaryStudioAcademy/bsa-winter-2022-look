@@ -3,6 +3,7 @@ import { getAuthRoutes } from './bundles/auth/routes';
 import { getHomeRoutes } from './bundles/home/routes';
 import LayoutPage from '@/bundles/common/pages/LayoutPage.vue';
 import Vue from 'vue';
+import { getMainNavbarRoutes } from '@/bundles/main/routes';
 
 Vue.use(Router);
 
@@ -15,6 +16,7 @@ const router = new Router({
       children: [
         ...getAuthRoutes(),
         ...getHomeRoutes(),
+        ...getMainNavbarRoutes(),
       ],
     },
   ],
