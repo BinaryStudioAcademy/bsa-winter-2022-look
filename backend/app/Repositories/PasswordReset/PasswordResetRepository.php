@@ -11,11 +11,18 @@ final class PasswordResetRepository extends BaseRepository implements PasswordRe
 {
     public function getByToken(string $token): ?PasswordResets
     {
-        return PasswordResets::firstWhere('token', $token);
+        return PasswordResets::findOrFail('token', $token);
     }
 
     public function deleteByToken(string $token): void
     {
         PasswordResets::where('token', $token)->delete();
+    }
+
+    public function save(PasswordResets $passwordResets): PasswordResets
+    {
+        $passwordResets->save();
+
+        return $passwordResets;
     }
 }

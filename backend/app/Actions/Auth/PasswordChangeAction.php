@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Auth;
 
+use App\Exceptions\User\CantUpdateUserDataException;
 use App\Exceptions\User\InvalidTokenException;
 use App\Exceptions\User\UserNotFoundException;
 use App\Http\Requests\Api\Auth\PasswordChangeRequest;
@@ -13,23 +14,28 @@ use Illuminate\Support\Facades\Hash;
 
 final class PasswordChangeAction
 {
+    public function __construct(
+        protected PasswordResetRepository $passwordResetRepository,
+        protected UserRepository $userRepository
+    ) {}
+
     public function execute(PasswordChangeRequest $request): PasswordChangeResponse
     {
-        if (is_null((new PasswordResetRepository())->getByToken($request->get('token')))) {
+        if (is_null($changePasswordData = $this->passwordResetRepository->getByToken($request->get('token')))) {
             throw new InvalidTokenException();
         }
-        $changePasswordData = (new PasswordResetRepository())->getByToken($request->get('token'));
-        $user = (new UserRepository())->getByEmail($changePasswordData->email);
 
-        if (is_null($user)) {
+        if (is_null($user = $this->userRepository->getByEmail($changePasswordData->email))) {
             throw new UserNotFoundException();
         }
 
-        try {
-            $user->password = Hash::make($request->get('password'));
-            $user->save();
-            $changePasswordData->delete();
-        } catch (\Exception $exception) {
+        $user->password = Hash::make($request->get('password'));
+
+        if (is_null($user->save())) {
+            throw new CantUpdateUserDataException();
+        }
+
+        if (is_null($changePasswordData->delete())) {
             throw new InvalidTokenException();
         }
 

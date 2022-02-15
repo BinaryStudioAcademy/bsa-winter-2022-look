@@ -1,1 +1,14 @@
 /.idea
+node_modules/.bin/husky
+
+node_modules/.bin/husky.cmd
+
+node_modules/.bin/husky.ps1
+
+node_modules/husky/
+
+node_modules/.package-lock.json
+
+ — копия.gitignore
+
+package-lock.json
