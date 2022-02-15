@@ -7,6 +7,7 @@ const RegisterMediaPage = () => import('./pages/RegisterMediaPage.vue').then(m =
 const LoginPage = () => import('./pages/LoginPage.vue').then(m => m.default);
 const ResetPasswordPage = () => import('./pages/ResetPasswordPage.vue').then(m => m.default);
 const ChangeEmailPasswordPage = () => import('./pages/ChangeEmailPasswordPage.vue').then(m => m.default);
+const ChangePasswordPage = () => import('./pages/ChangePasswordPage.vue').then(m => m.default);
 
 export function getAuthRoutes(): RouteConfig[] {
   return [
@@ -28,7 +29,12 @@ export function getAuthRoutes(): RouteConfig[] {
           component: ResetPasswordPage,
         },
         {
-          path: 'change-email-password/:token',
+          path: 'change-password/:token',
+          name: 'auth-change_password',
+          component: ChangePasswordPage,
+        },
+        {
+          path: 'change-email-password',
           name: 'auth-change_email_password',
           component: ChangeEmailPasswordPage,
         },
