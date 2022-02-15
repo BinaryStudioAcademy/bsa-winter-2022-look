@@ -10,7 +10,7 @@ class ChangeEmailRequest
     {
     }
 
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }

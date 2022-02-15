@@ -24,6 +24,10 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['prefix' => 'v1/user'], function () {
     Route::post('/change-email', [UserController::class, 'changeEmail'])
-        //->middleware('auth:api')
+        ->middleware('auth:api')
         ->name('user.change-email');
+    Route::post('/change-password', [UserController::class, 'changePassword'])
+        ->middleware('auth:api')
+        ->name('user.change-password');
+
 });
