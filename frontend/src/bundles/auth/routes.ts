@@ -31,6 +31,7 @@ export function getAuthRoutes(): RouteConfig[] {
         {
           path: 'change-password/:token',
           name: 'auth-change_password',
+          props: true,
           component: ChangePasswordPage,
         },
         {
