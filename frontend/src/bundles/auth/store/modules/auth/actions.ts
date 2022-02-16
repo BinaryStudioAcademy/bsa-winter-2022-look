@@ -12,7 +12,6 @@ import { ActionTree } from 'vuex';
 import AuthState from './AuthState';
 import userRepository from '@/bundles/common/repository/userRepository';
 import UserLoginRequest from '@/bundles/common/repository/requests/UserLoginRequest';
-import ResetPasswordRequest from '@/bundles/common/repository/requests/ResetPasswordRequest';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 
 export function getActions<R>(): ActionTree<AuthState, R> {
@@ -34,8 +33,8 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     [ADD_USER_MEDIA](args, data: UserRequest): Promise<void> {
       return userRepository.patch(data);
     },
-    [RESET_USER_PASSWORD](args, data: ResetPasswordRequest): Promise<void> {
-      return userRepository.resetPassword(data);
+    [RESET_USER_PASSWORD](args, email): Promise<void> {
+      return userRepository.resetPassword(email);
     },
     [CHANGE_USER_PASSWORD](args, data: ChangePasswordRequest): Promise<void> {
       return userRepository.changePassword(data);

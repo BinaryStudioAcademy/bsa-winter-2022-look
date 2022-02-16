@@ -8,58 +8,33 @@
       Please enter your email address. <br>
       You will receive an email link to create a new password.
     </p>
-    <validation-observer ref="observer" v-slot="{ invalid }">
-      <form @submit.prevent="handleSubmit">
-        <validation-provider
-          v-slot="{ errors }"
-          name="email"
-          rules="required|email"
-        >
-          <v-text-field
-            v-model="email"
-            :error-messages="errors"
-            label="E-mail"
-          />
-        </validation-provider>
-        <v-btn
-          type="submit"
-          :disabled="invalid"
-          class="white--text text-capitalize font-weight-bold mr-4"
-          color="primary"
-          large
-          rounded
-          depressed
-          max-width="215"
-          width="100%"
-        >
-          Reset password
-        </v-btn>
-        <div v-show="error" class="message">
-          <span class="error">
-            User with such email not found
-          </span>
-        </div>
-        <div v-show="success" class="message">
-          <span class="success">
-            Change password link send to your email
-          </span>
-        </div>
-      </form>
+    <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
+      <reset-password-form
+        :invalid="invalid"
+        :processing="processing"
+        @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
+      />
+      <div v-if="success" class="result-message">
+        <span class="success-message">
+          Change password link send to your email
+        </span>
+      </div>
     </validation-observer>
 
   </div>
 </template>
 
 <script>
-import { ValidationObserver, ValidationProvider } from 'vee-validate';
+import { ValidationObserver } from 'vee-validate';
 import { RESET_USER_PASSWORD } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
+import ResetPasswordForm from '../components/ResetPasswordForm';
 
 export default {
   components: {
-    ValidationProvider,
     ValidationObserver,
+    ResetPasswordForm,
   },
 
   props: {
@@ -67,15 +42,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    processing: {
-      type: Boolean,
-      default: false,
-    },
   },
 
   data: () => ({
-    email: '',
-    error: false,
+    processing: false,
     success: false,
   }),
 
@@ -83,13 +53,20 @@ export default {
     ...mapActions(namespace, {
       resetPassword: RESET_USER_PASSWORD,
     }),
-    handleSubmit() {
-      this.error = false;
-      this.resetPassword(this.email).then(() => {
+    handleUserSubmit(payload) {
+      if (this.processing) {
+        return Promise.resolve();
+      }
+
+      this.processing = true;
+
+      return this.resetPassword(payload).then(() => {
         this.success = true;
-      }).catch(() => {
-        this.error = true;
-      });
+      })
+        .catch((e) => this.$refs.observer.setErrors(e))
+        .finally(() => {
+          this.processing = false;
+        });
     },
   },
 };
@@ -100,19 +77,8 @@ export default {
   scoped
 >
 
-.message {
-  padding-top: 10px;
-  background-color: #faf9f9 !important;
-}
-
-.success  {
+.success-message {
   color: green;
-  background-color: #faf9f9 !important;
-}
-
-.error {
-  color: red;
-  background-color: #faf9f9 !important;
 }
 
 </style>

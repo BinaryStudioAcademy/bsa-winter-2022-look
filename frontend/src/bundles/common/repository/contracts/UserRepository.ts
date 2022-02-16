@@ -1,7 +1,6 @@
 import User from '@/bundles/common/entity/User';
 import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
-import ResetPasswordRequest from '../requests/ResetPasswordRequest';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 
 export default interface UserRepository {
@@ -29,9 +28,9 @@ export default interface UserRepository {
   /**
    * Reset password request
    *
-   * @param {ResetPasswordRequest} payload
+   * @param email
    */
-  resetPassword(payload: ResetPasswordRequest): Promise<void>;
+  resetPassword(email: string): Promise<void>;
   /**
    * Change password request
    *

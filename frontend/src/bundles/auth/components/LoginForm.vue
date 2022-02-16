@@ -3,7 +3,7 @@
     <validation-provider
       v-slot="{ errors }"
       name="email"
-      rules="required|email"
+      rules="required_password|email"
     >
       <v-text-field
         v-model="email"
@@ -19,7 +19,7 @@
     <validation-provider
       v-slot="{ errors }"
       name="password"
-      rules="required|min:8,password"
+      rules="required_password|min:8,password"
     >
       <v-text-field
         v-model="password"
