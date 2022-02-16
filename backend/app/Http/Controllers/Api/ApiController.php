@@ -27,8 +27,8 @@ class ApiController extends BaseController
         return new JsonResponse([
             'error' => [
                 'http_code' => $status,
-                'message' => $message
-            ]
+                'message' => $message,
+            ],
         ], $status);
     }
 
@@ -42,8 +42,8 @@ class ApiController extends BaseController
                 'total' => $paginator->total(),
                 'current_page' => $paginator->currentPage(),
                 'per_page' => $paginator->perPage(),
-                'last_page' => $paginator->lastPage()
-            ]
+                'last_page' => $paginator->lastPage(),
+            ],
         ]);
     }
 }

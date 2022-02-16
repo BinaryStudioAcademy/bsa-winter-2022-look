@@ -12,7 +12,7 @@ final class AuthenticationResponseArrayPresenter implements PresenterInterface
         return [
             'access_token' => $response->getAccessToken(),
             'token_type' => $response->getTokenType(),
-            'expires_in' => $response->getExpiresIn()
+            'expires_in' => $response->getExpiresIn(),
         ];
     }
 }

@@ -1,0 +1,6 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+composer run-script php-cs-fix --working-dir=./backend && \
+$(git add `git diff --name-only --cached --diff-filter=AM` >> /dev/null)
+npm run lint --fix --prefix frontend/
