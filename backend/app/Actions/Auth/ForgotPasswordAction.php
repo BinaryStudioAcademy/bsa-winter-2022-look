@@ -18,8 +18,8 @@ final class ForgotPasswordAction
     const TOKEN_LENGTH=60;
 
     public function __construct(
-        protected UserRepository $userRepository,
-        protected PasswordResets $passwordResets,
+        private UserRepository $userRepository,
+        private PasswordResets $passwordResets,
     ) {}
 
     public function execute(ForgotPasswordRequest $request): ForgotPasswordResponse
