@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class UserSettingRepository extends BaseRepository implements UserSettingRepositoryInterface
 {
-
     public function findAll(): Collection
     {
         return UserSetting::all();

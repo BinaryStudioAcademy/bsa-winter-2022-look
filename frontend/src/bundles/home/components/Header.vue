@@ -12,7 +12,7 @@
           <v-toolbar-title>
             <router-link to="/">
               <v-img
-                class="mr-md-16"
+                class="ml-2 mr-md-16"
                 src="@/assets/image/main_logo.svg"
               />
             </router-link>

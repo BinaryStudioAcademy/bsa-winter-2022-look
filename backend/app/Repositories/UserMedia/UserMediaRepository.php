@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class UserMediaRepository extends BaseRepository implements UserMediaRepositoryInterface
 {
-
     public function findAll(): Collection
     {
         return UserMedia::all();

@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class LocationRepository extends BaseRepository implements LocationRepositoryInterface
 {
-
     public function findAll(): Collection
     {
         return Location::all();

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2 class="h4 primary--text head-login mt-md-16 mb-2">
+    <h2 class="h4 primary--text head-login mt-md-16 mb-2 text-center text-md-left">
       Log In
     </h2>
-    <p class="small-text font-weight-light mb-6">
+    <p class="small-text font-weight-light mb-6 text-center text-md-left">
       Don’t have an account?
       <router-link
         class="link orange--text font-weight-regular"
