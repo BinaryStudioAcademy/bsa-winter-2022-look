@@ -7,7 +7,7 @@
     <body>
     <h4>Reset password</h4>
     We got a request to reset your password.
-    <a href="{{ url(config('app.front_url') . '/auth/change-email-password/' . $token) }}">Reset password link</a>
+    <a href="{{ url(config('app.front_url') . '/auth/change-password/' . $token) }}">Reset password link</a>
     If you ignore this message, your password will not be changed.
     </body>
 </html>
