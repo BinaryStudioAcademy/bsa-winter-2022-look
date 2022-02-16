@@ -28,3 +28,11 @@ extend('min', {
   params: ['length', 'name'],
   message: 'Your {name} must be at least {length} characters',
 });
+
+extend('phone', {
+  validate(value) {
+    const phoneReg = /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
+    return phoneReg.test(value);
+  },
+  message: 'Phone must be valid',
+});
