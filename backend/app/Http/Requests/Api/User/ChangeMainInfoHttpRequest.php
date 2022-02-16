@@ -11,8 +11,12 @@ class ChangeMainInfoHttpRequest
     {
         return [
             'name' => 'string|required|min:3',
-            'bio' => 'text',
-            'info' => 'array'
+            'looking' => 'string|required',
+            'gender' => 'string|required',
+            'age' => 'int|required|min:18',
+            'weight' => 'int|required',
+            'height' => 'int|required',
+            'bio' => 'text'
         ];
     }
 }

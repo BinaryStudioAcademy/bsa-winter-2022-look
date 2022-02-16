@@ -29,5 +29,8 @@ Route::group(['prefix' => 'v1/user'], function () {
     Route::post('/change-password', [UserController::class, 'changePassword'])
         ->middleware('auth:api')
         ->name('user.change-password');
+    Route::post('/change-user-info', [UserController::class, 'changeInfo'])
+        ->middleware('auth:api')
+        ->name('user.change-password');
 
 });

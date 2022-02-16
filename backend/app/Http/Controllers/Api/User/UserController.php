@@ -10,6 +10,7 @@ use App\Actions\User\ChangePasswordAction;
 use App\Actions\User\ChangePasswordRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\ChangeEmailHttpRequest;
+use App\Http\Requests\Api\User\ChangeMainInfoHttpRequest;
 use App\Http\Requests\Api\User\ChangePasswordHttpRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -41,5 +42,12 @@ class UserController extends Controller
             ));
 
         return response()->json(['message' => $response->responseMessage()], self::RESPONSE_STATUS_OK);
+    }
+
+    public function changeInfo(
+        ChangeMainInfoHttpRequest $request,
+    )
+    {
+        dd($request);
     }
 }
