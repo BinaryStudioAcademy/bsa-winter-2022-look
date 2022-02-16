@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-final class UserNotFoundException extends ModelNotFoundException
+final class InvalidTokenException extends ModelNotFoundException
 {
-    public function __construct($message = "User not found", $code = Response::HTTP_NOT_FOUND, Throwable $previous = null)
+    public function __construct($message = "Invalid or expired token for password reset", $code = Response::HTTP_NOT_FOUND, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
