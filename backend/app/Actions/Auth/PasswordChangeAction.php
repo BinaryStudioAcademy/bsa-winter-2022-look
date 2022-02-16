@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Hash;
 final class PasswordChangeAction
 {
     public function __construct(
-        protected PasswordResetRepository $passwordResetRepository,
-        protected UserRepository $userRepository
+        private PasswordResetRepository $passwordResetRepository,
+        private UserRepository $userRepository
     ) {}
 
     public function execute(PasswordChangeRequest $request): PasswordChangeResponse
