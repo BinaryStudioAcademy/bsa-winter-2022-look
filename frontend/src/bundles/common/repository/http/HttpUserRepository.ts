@@ -4,7 +4,6 @@ import UserRepository from '../contracts/UserRepository';
 import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 import Storage from '@/services/storage';
-import { APP_API_URL } from '@/bundles/auth/store/modules/auth/constants';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 
 export default class HttpUserRepository implements UserRepository {
@@ -52,7 +51,7 @@ export default class HttpUserRepository implements UserRepository {
   public resetPassword(email: string): Promise<void> {
     return this.httpTransport
       .post(
-        APP_API_URL + '/auth/forgot-password',
+        '/auth/forgot-password',
         { email: email },
       );
   }
@@ -60,7 +59,7 @@ export default class HttpUserRepository implements UserRepository {
   public changePassword(payload: ChangePasswordRequest): Promise<void> {
     return this.httpTransport
       .post(
-        APP_API_URL + '/auth/reset-password',
+        '/auth/reset-password',
         payload,
       );
   }
