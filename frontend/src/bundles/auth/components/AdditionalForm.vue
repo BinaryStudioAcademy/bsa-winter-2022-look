@@ -126,7 +126,7 @@
       name="hobbies"
     >
       <v-autocomplete
-        v-model="hobbieSelected"
+        v-model="hobbiesSelected"
         :items="hobbies"
         small-chips
         label="Hobbies"
@@ -211,20 +211,14 @@ export default {
         'Germany',
       ],
       locationSelected: undefined,
-      interests: [
-        'Making or listening to music',
-        'Gaming',
-        'Travel',
-        'Art',
-        'Nature',
-        'Social causes',
-        'Foreign languages',
-        'Topical blogs or research',
-        'History',
-        'Theater',
-      ],
       interestSelected: [],
-      hobbies: [
+      hobbiesSelected: [],
+    };
+  },
+
+  computed: {
+    hobbies() {
+      return [
         'Artistic activities such as painting or graphic design',
         'Community service',
         'Cooking or baking',
@@ -236,12 +230,22 @@ export default {
         'Travel',
         'Woodworking or other projects',
         'Writing or blogging',
-      ],
-      hobbieSelected: [],
-    };
-  },
-
-  computed: {
+      ];
+    },
+    interests() {
+      return [
+        'Making or listening to music',
+        'Gaming',
+        'Travel',
+        'Art',
+        'Nature',
+        'Social causes',
+        'Foreign languages',
+        'Topical blogs or research',
+        'History',
+        'Theater',
+      ];
+    },
     genders() {
       return [
         {
@@ -264,7 +268,7 @@ export default {
         about: this.about,
         phone: this.phone,
         interest: this.interestSelected,
-        hobbie: this.hobbieSelected,
+        hobby: this.hobbiesSelected,
         gender: this.gender,
         gender_preference: this.gender_preference,
       });
