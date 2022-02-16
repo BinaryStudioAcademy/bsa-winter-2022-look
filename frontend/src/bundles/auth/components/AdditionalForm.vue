@@ -6,7 +6,7 @@
     <validation-provider
       name="gender"
     >
-      <p>You are <span class="primary--text font-weight-bold">{{ gender || 'male' }}</span></p>
+      <p>You are <span class="primary--text font-weight-bold">{{ gender }}</span></p>
       <v-radio-group
         v-model="gender"
         row
@@ -22,7 +22,7 @@
     <validation-provider
       name="gender_preference"
     >
-      <p>Your preference selection <span class="orange--text font-weight-bold">{{ gender_preference || 'female' }}</span></p>
+      <p>Your preference selection <span class="orange--text font-weight-bold">{{ gender_preference }}</span></p>
       <v-radio-group
         v-model="gender_preference"
         row
@@ -82,7 +82,7 @@
         :thumb-size="25"
         :error-messages="errors"
         thumb-label="always"
-        label="Height, cm"
+        label="Height, sm"
         inverse-label
       />
     </validation-provider>

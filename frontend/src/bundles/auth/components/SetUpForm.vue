@@ -36,7 +36,7 @@
     <validation-provider
       v-slot="{ errors }"
       name="password"
-      rules="required_password|min:8,password"
+      rules="required|min:8,password"
     >
       <v-text-field
         v-model="password"
@@ -55,8 +55,8 @@
     </validation-provider>
     <validation-provider
       v-slot="{ errors }"
-      name="passwordConfirmation"
-      rules="required_password|confirmed:password"
+      name="password confirmation"
+      rules="required|confirmed:password"
     >
       <v-text-field
         v-model="passwordConfirmation"
