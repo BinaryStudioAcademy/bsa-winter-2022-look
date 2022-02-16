@@ -40,8 +40,8 @@ import ArrowIcon from '@/bundles/main/components/icons/ArrowIcon';
 import ListIcon from '@/bundles/main/components/icons/ListIcon';
 import LikeIcon from '@/bundles/main/components/icons/LikeIcon';
 import MapIcon from '@/bundles/main/components/icons/MapIcon';
-import MessageIcon from '@/bundles/main/components/icons/MessageIcon';
-import EventIcon from '@/bundles/main/components/icons/EventIcon';
+import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
+import EventsIcon from '@/bundles/main/components/icons/EventsIcon';
 import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon';
 
 export default {
@@ -51,22 +51,20 @@ export default {
     ListIcon,
     LikeIcon,
     MapIcon,
-    MessageIcon,
-    EventIcon,
+    ChatIcon,
+    EventsIcon,
     HasMassageDotIcon,
   },
-  data() {
-    return {
-      items: [
-        { title: 'List', icon: 'ListIcon', name: 'list' },
-        { title: 'Your match', icon: 'LikeIcon', name: 'match' },
-        { title: 'Map', icon: 'MapIcon', name: 'map' },
-        { title: 'Message', icon: 'MessageIcon', name: 'message' },
-        { title: 'Event', icon: 'EventIcon', name: 'event' },
-      ],
-    };
-  },
   computed: {
+    items() {
+      return [
+        { title: 'List', icon: 'ListIcon', name: 'main-list' },
+        { title: 'Your match', icon: 'LikeIcon', name: 'main-match' },
+        { title: 'Map', icon: 'MapIcon', name: 'main-map' },
+        { title: 'Chat', icon: 'ChatIcon', name: 'main-chat' },
+        { title: 'Events', icon: 'EventsIcon', name: 'main-events' },
+      ];
+    },
     hasNewMessage() {
       return true;
     },
@@ -76,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import "@/assets/scss/override.scss";
 
 .logo {
   position: absolute;

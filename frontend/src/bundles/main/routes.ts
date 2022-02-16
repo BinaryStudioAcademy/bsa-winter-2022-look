@@ -1,30 +1,43 @@
 import { RouteConfig } from 'vue-router';
-const List = () => import('./pages/ListPage.vue').then(m => m.default);
-const Match = () => import('./pages/MatchPage.vue').then(m => m.default);
-const Map = () => import('./pages/MapPage.vue').then(m => m.default);
-const Message = () => import('./pages/MessagePage.vue').then(m => m.default);
+import LayoutPage from '@/bundles/common/pages/LayoutPage.vue';
+const ListPage = () => import('./pages/ListPage.vue').then(m => m.default);
+const MatchPage = () => import('./pages/MatchPage.vue').then(m => m.default);
+const MapPage = () => import('./pages/MapPage.vue').then(m => m.default);
+const ChatPage = () => import('./pages/ChatPage.vue').then(m => m.default);
+const EventsPage = () => import('./pages/EventsPage.vue').then(m => m.default);
 
-export function getMainNavbarRoutes(): RouteConfig[] {
+export function getMainRoutes(): RouteConfig[] {
   return [
     {
-      path: '/list',
-      name: 'list',
-      component: List,
-    },
-    {
-      path: '/match',
-      name: 'match',
-      component: Match,
-    },
-    {
-      path: '/map',
-      name: 'map',
-      component: Map,
-    },
-    {
-      path: '/message',
-      name: 'message',
-      component: Message,
+      component: LayoutPage,
+      path: '/',
+      children: [
+        {
+          path: '/list',
+          name: 'main-list',
+          component: ListPage,
+        },
+        {
+          path: '/match',
+          name: 'main-match',
+          component: MatchPage,
+        },
+        {
+          path: '/map',
+          name: 'main-map',
+          component: MapPage,
+        },
+        {
+          path: '/chat',
+          name: 'main-chat',
+          component: ChatPage,
+        },
+        {
+          path: '/events',
+          name: 'main-events',
+          component: EventsPage,
+        },
+      ],
     },
   ];
 }
