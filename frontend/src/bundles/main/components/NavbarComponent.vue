@@ -27,6 +27,9 @@
         {{ item.title }}
       </router-link>
     </div>
+    <div v-if="hasNewMessage === true">
+      <HasMassageDotIcon class="dot-notification" />
+    </div>
     <div class="divider" />
   </aside>
 </template>
@@ -39,7 +42,7 @@ import LikeIcon from '@/bundles/main/components/icons/LikeIcon';
 import MapIcon from '@/bundles/main/components/icons/MapIcon';
 import MessageIcon from '@/bundles/main/components/icons/MessageIcon';
 import EventIcon from '@/bundles/main/components/icons/EventIcon';
-import DotMapIcon from '@/bundles/main/components/icons/DotMapIcon';
+import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon';
 
 export default {
   components: {
@@ -50,7 +53,7 @@ export default {
     MapIcon,
     MessageIcon,
     EventIcon,
-    DotMapIcon,
+    HasMassageDotIcon,
   },
   data() {
     return {
@@ -62,6 +65,11 @@ export default {
         { title: 'Event', icon: 'EventIcon', name: 'event' },
       ],
     };
+  },
+  computed: {
+    hasNewMessage() {
+      return true;
+    },
   },
 
 };
@@ -179,4 +187,11 @@ export default {
   color: #8E9396;
 }
 
+.dot-notification {
+  position: absolute;
+  left: 59px;
+  top: 390.5px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
 </style>
