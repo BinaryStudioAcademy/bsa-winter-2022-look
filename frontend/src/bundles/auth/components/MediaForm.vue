@@ -38,6 +38,12 @@
           </span>
         </template>
       </v-file-input>
+      <vue-dropzone :options="dropzoneOptions" :use-custom-slot=true>
+        <div class="dropzone-custom-content">
+          <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
+          <div class="subtitle">...or click to select a file from your computer</div>
+        </div>
+      </vue-dropzone>
     </validation-provider>
 
     <v-btn
@@ -58,10 +64,12 @@
 
 <script>
 import { ValidationProvider } from 'vee-validate';
+import VueDropzone from 'vue2-dropzone';
 
 export default {
   components: {
     ValidationProvider,
+    VueDropzone,
   },
 
   props: {
@@ -78,6 +86,18 @@ export default {
   data() {
     return {
       userFiles: [],
+      options: {
+        acceptedFileTypes: ['image/*'],
+        clickable: false,
+        adapterOptions: {
+          url: './upload.php',
+        },
+      },
+      dropzoneOptions: {
+        url: 'https://httpbin.org/post',
+        thumbnailWidth: 200,
+        addRemoveLinks: true,
+      },
     };
   },
 
