@@ -9,6 +9,4 @@ node_modules/husky/
 
 node_modules/.package-lock.json
 
- — копия.gitignore
-
 package-lock.json
