@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +20,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
     Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api');
+});
+
+Route::group(['prefix' => 'v1/auth'], function() {
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'passwordReset'])->name('password.change-request');
+    Route::post('/reset-password', [ForgotPasswordController::class, 'passwordChange'])->name('password.reset');
 });
