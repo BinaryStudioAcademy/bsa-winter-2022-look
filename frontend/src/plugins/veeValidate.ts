@@ -13,11 +13,6 @@ extend('required', {
   message: '{_field_} can not be empty',
 });
 
-extend('required_password', {
-  ...required,
-  message: 'Password can not be empty',
-});
-
 extend('email', {
   ...email,
   message: 'Email must be valid',
