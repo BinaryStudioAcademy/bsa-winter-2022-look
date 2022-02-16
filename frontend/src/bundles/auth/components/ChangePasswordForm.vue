@@ -2,8 +2,8 @@
   <form @submit.prevent="handleSubmit">
     <validation-provider
       v-slot="{ errors }"
-      name = 'password'
-      rules = 'required|min:8|password:@confirmPassword'
+      name = 'Password'
+      rules = 'required|min:8,password'
     >
       <v-text-field
         v-model="password"
@@ -15,11 +15,11 @@
     </validation-provider>
     <validation-provider
       v-slot="{ errors }"
-      name = 'confirmPassword'
-      rules = 'required|min:8'
+      name = 'password_confirmation'
+      rules = 'required_password|min:8|confirmed:Password'
     >
       <v-text-field
-        v-model="confirmPassword"
+        v-model="password_confirmation"
         label="Confirm Password"
         type="password"
         :error-messages="errors"
@@ -67,14 +67,14 @@ export default {
 
   data: () => ({
     password: undefined,
-    confirmPassword: undefined,
+    password_confirmation: undefined,
   }),
 
   methods: {
     handleSubmit() {
       this.$emit('submit', {
         password: this.password,
-        confirmPassword: this.confirmPassword,
+        password_confirmation: this.password_confirmation,
       });
     },
   },

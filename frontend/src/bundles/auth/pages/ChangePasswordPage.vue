@@ -19,26 +19,12 @@
 
 <script>
 
-import { extend, ValidationObserver } from 'vee-validate';
-import { required } from 'vee-validate/dist/rules';
+import { ValidationObserver } from 'vee-validate';
 import { mapActions } from 'vuex';
 import { CHANGE_USER_PASSWORD } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import ChangePasswordForm from '../components/ChangePasswordForm';
 import router from '../../../router';
-
-extend('required', {
-  ...required,
-  message: 'Password field can not be empty',
-});
-
-extend('password', {
-  params: ['target'],
-  validate(value, { target }) {
-    return value === target;
-  },
-  message: 'Passwords does not match',
-});
 
 export default {
   components: {
@@ -70,8 +56,12 @@ export default {
 
       payload.token = this.token;
       return this.changePassword(payload)
-        .then(() => {
-          router.push({ name: 'auth-login' });
+        .then(() =>
+          router.push({ name: 'auth-login' }),
+        )
+        .catch((e) => this.$refs.observer.setErrors(e))
+        .finally(() => {
+          this.processing = false;
         });
     },
   },
