@@ -17,7 +17,8 @@ final class PasswordChangeAction
     public function __construct(
         private PasswordResetRepository $passwordResetRepository,
         private UserRepository $userRepository
-    ) {}
+    ) {
+    }
 
     public function execute(PasswordChangeRequest $request): PasswordChangeResponse
     {
