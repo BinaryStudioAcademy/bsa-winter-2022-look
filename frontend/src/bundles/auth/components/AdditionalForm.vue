@@ -118,7 +118,16 @@
         multiple
         clearable
         :error-messages="errors"
-      />
+      >
+        <template #selection="{ index }">
+          <span
+            v-if="index === 0"
+            class="text-overline grey--text text--darken-3 mx-2"
+          >
+            +{{ interestSelected.length }} Selected
+          </span>
+        </template>
+      </v-autocomplete>
     </validation-provider>
 
     <validation-provider
@@ -138,7 +147,16 @@
         multiple
         clearable
         :error-messages="errors"
-      />
+      >
+        <template #selection="{ index }">
+          <span
+            v-if="index === 0"
+            class="text-overline grey--text text--darken-3 mx-2"
+          >
+            +{{ hobbiesSelected.length }} Selected
+          </span>
+        </template>
+      </v-autocomplete>
     </validation-provider>
 
     <validation-provider
@@ -255,6 +273,10 @@ export default {
         {
           gender_name: 'female',
           gender_label: 'Female',
+        },
+        {
+          gender_name: 'both',
+          gender_label: 'Both',
         },
       ];
     },

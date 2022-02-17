@@ -1,47 +1,26 @@
 <template>
-  <form :value="!invalid" @submit.prevent="handleSubmit">
+  <form
+    :value="!invalid"
+    enctype="multipart/form-data"
+    @submit.prevent="handleSubmit"
+  >
     <validation-provider
-      v-slot="{ errors }"
       name="Photo"
-      rules="required"
     >
-      <v-file-input
+      <vue-dropzone
+        id="dropedUserFiles"
         v-model="userFiles"
-        color="primary"
-
-        counter
-        label="Photos"
-        multiple
-        rounded
-        placeholder="Select your files"
-        prepend-icon="mdi-camera"
-        outlined
-        :show-size="1000"
-        :error-messages="errors"
+        class="mb-6"
+        :options="dropzoneOptions"
+        :include-styling="false"
+        :use-custom-slot=true
       >
-        <template #selection="{ index, text }">
-          <v-chip
-            v-if="index < 2"
-            color="purple"
-            dark
-            label
-            small
-          >
-            {{ text }}
-          </v-chip>
-
-          <span
-            v-else-if="index === 2"
-            class="text-overline grey--text text--darken-3 mx-2"
-          >
-            +{{ userFiles.length - 2 }} File(s)
-          </span>
-        </template>
-      </v-file-input>
-      <vue-dropzone :options="dropzoneOptions" :use-custom-slot=true>
-        <div class="dropzone-custom-content">
-          <h3 class="dropzone-custom-title">Drag and drop to upload content!</h3>
-          <div class="subtitle">...or click to select a file from your computer</div>
+        <div class="dropzone border--text">
+          <div class="dropzone-container border--text">
+            <div class="dropzone--title border--text font-weight-regular">
+              <IconImageUpload /> Drag and drop an image, video here or <span class="primary--text">choose image</span>
+            </div>
+          </div>
         </div>
       </vue-dropzone>
     </validation-provider>
@@ -65,11 +44,13 @@
 <script>
 import { ValidationProvider } from 'vee-validate';
 import VueDropzone from 'vue2-dropzone';
+import IconImageUpload from '../components/icons/IconImageUpload';
 
 export default {
   components: {
     ValidationProvider,
     VueDropzone,
+    IconImageUpload,
   },
 
   props: {
@@ -86,17 +67,15 @@ export default {
   data() {
     return {
       userFiles: [],
-      options: {
-        acceptedFileTypes: ['image/*'],
-        clickable: false,
-        adapterOptions: {
-          url: './upload.php',
-        },
-      },
       dropzoneOptions: {
-        url: 'https://httpbin.org/post',
-        thumbnailWidth: 200,
-        addRemoveLinks: true,
+        url: '/path/to/upload',
+        createImageThumbnails: true,
+        thumbnailWidth: 135,
+        thumbnailHeight: 150,
+        addRemoveLinks: false,
+        maxFilesize: 2,
+        previewTemplate: this.template(),
+        acceptedFiles: 'image/*, video/*',
       },
     };
   },
@@ -107,6 +86,81 @@ export default {
         userFiles: this.userFiles,
       });
     },
+    template: function () {
+      return `<div class="dz-preview dz-file-preview">
+        <div class="dz-details">
+          <img data-dz-thumbnail />
+          <div class="button--remove" data-dz-remove>
+            <svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M7.81342 0.846445L7.10562 0.200195L4.29953 2.76228L1.49344 0.200195L0.785645 0.846445L3.59174 3.40853L0.785645 5.97061L1.49344 6.61686L4.29953 4.05478L7.10562 6.61686L7.81342 5.97061L5.00733 3.40853L7.81342 0.846445Z" fill="#51575B" fill-opacity="0.6"/>
+            </svg>
+          </div>
+        </div>
+        <!--
+          TODO when path too upload ready, customize error or success messages
+          <div class="dz-error-message"><span data-dz-errormessage></span></div>
+        -->
+      </div>
+        `;
+    },
   },
 };
 </script>
+
+<style
+  lang="scss"
+  scoped
+>
+@import "@/assets/scss/override.scss";
+
+.dropzone {
+  border: 1px solid;
+  border-radius: 10px;
+  cursor: pointer;
+  &-container {
+    margin: 10px;
+    padding: 10px 15px;
+    border: 1px dashed;
+    border-radius: 10px;
+  }
+  &--title {
+    font-family: 'Lato', sans-serif;
+    svg {
+      height: 13px;
+    }
+  }
+}
+::v-deep {
+  .dz-preview {
+    display: inline-block;
+    vertical-align: top;
+    margin: 15px 12px 0px;
+    @media screen and (max-width: 345px) {
+      margin: 15px 2% 0px;
+    }
+    .dz-details {
+      position: relative;
+      img {
+        border-radius: 5px;
+      }
+      .button--remove {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255,255,255, 0.8);
+        width: 25px;
+        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 50%;
+        svg {
+          width: 11px;
+          height: 10px;
+        }
+      }
+    }
+  }
+}
+</style>
