@@ -10,7 +10,7 @@ use Throwable;
 
 final class CantUpdateUserDataException extends BaseException
 {
-    public function __construct($message = "Error while update user info", $code = Response::HTTP_NOT_FOUND, Throwable $previous = null)
+    public function __construct($message = 'Error while update user info', $code = Response::HTTP_NOT_FOUND, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }

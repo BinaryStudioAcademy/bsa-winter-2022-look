@@ -15,12 +15,13 @@ use Illuminate\Support\Str;
 
 final class ForgotPasswordAction
 {
-    const TOKEN_LENGTH=60;
+    const TOKEN_LENGTH = 60;
 
     public function __construct(
         private UserRepository $userRepository,
         private PasswordResets $passwordResets,
-    ) {}
+    ) {
+    }
 
     public function execute(ForgotPasswordRequest $request): ForgotPasswordResponse
     {
@@ -31,7 +32,7 @@ final class ForgotPasswordAction
         $this->passwordResets->email = $request->get('email');
         $this->passwordResets->token = Str::random(self::TOKEN_LENGTH);
 
-        if(is_null($this->passwordResets->save())) {
+        if (is_null($this->passwordResets->save())) {
             throw new CantSaveTokenException();
         }
 
