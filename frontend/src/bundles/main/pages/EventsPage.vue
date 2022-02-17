@@ -1,10 +1,6 @@
 <template>
-  <NavbarComponent />
+  <div>
+    <router-view />
+    <p>Events page</p>
+  </div>
 </template>
-
-<script>
-import NavbarComponent from '@/bundles/main/components/NavbarComponent';
-export default {
-  components: { NavbarComponent },
-};
-</script>

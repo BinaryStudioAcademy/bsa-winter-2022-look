@@ -1,16 +1,39 @@
 <template>
-  <aside class="navbar-container">
-    <LogoIcon class="logo" />
-    <div class="user-info-block">
+  <v-navigation-drawer
+    app
+    absolute
+    class="navbar-container"
+    color="greyMain"
+    width=381
+    :mini-variant="miniVariant"
+    :clipped="clipped"
+    enable-resize-watcher
+    mobile-break-point
+
+  >
+    <div class="logo">
+      <router-link to="/">
+        <LogoIcon />
+      </router-link>
+    </div>
+    <v-card
+      flex
+      class="user-info-block"
+      color="userBackground"
+      height=100
+      width=291
+      flat
+    >
       <v-avatar
         class="user-avatar"
-        size="61"
+        size=61
+        right
       >
         <img src="https://randomuser.me/api/portraits/women/81.jpg">
       </v-avatar>
-      <div class="user-name">Ruben Septimus</div>
+      <span class="user-name" color="userName">Ruben Septimus<!--{{ userinfo.name }}--></span>
       <ArrowIcon class="nav-arrow" />
-    </div>
+    </v-card>
     <div class="list-block">
       <router-link
         v-for="item in items"
@@ -25,13 +48,13 @@
         />
         <span class="space-between" />
         {{ item.title }}
+        <div v-if="hasNewMessage && item.name === 'main-chat'">
+          <HasMassageDotIcon class="dot-notification" />
+        </div>
       </router-link>
     </div>
-    <div v-if="hasNewMessage === true">
-      <HasMassageDotIcon class="dot-notification" />
-    </div>
     <div class="divider" />
-  </aside>
+  </v-navigation-drawer>
 </template>
 <script>
 
@@ -55,6 +78,12 @@ export default {
     EventsIcon,
     HasMassageDotIcon,
   },
+  props: {
+    userInfo: {
+      type: Object,
+      default: undefined,
+    },
+  },
   computed: {
     items() {
       return [
@@ -76,65 +105,47 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/override.scss";
 
-.logo {
-  position: absolute;
-  width: 89px;
-  height: 45px;
-  left: 41px;
-  top: 18px;
-}
-
 .navbar-container {
-  position: absolute;
-  width: 381px;
-  height: 1143px;
-  left: 0;
-  top: 0;
-  font-family: Lato;
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
-  background: #F5F5F5;
+  border: none;
+}
+
+.v-navigation-drawer__border {
+  width: 0 !important;
+}
+
+.logo {
+  margin-top: 19px;
+  margin-left: 43px;
 }
 
 .user-info-block {
-  position: absolute;
-  width: 291px;
-  height: 100px;
-  left: 45px;
-  top: 83px;
-  background: #FFEBF5;
-  border-radius: 7px;
+  margin-top: 26px;
+  margin-left: 45px;
 }
 
 .user-avatar {
-  left: 29px;
-  top: 19px;
+  margin: 19px 12px 20px 29px;
 }
 
 .user-name {
-  position: absolute;
-  width: 129px;
-  height: 22px;
-  left: 102px;
-  top: 39px;
+  display: inline-block;
+  max-width: 129px;
   font-weight: 400;
-  color: #282828;
 }
 
 .nav-arrow {
-  position: absolute;
-  left: 244px;
-  top: 48px;
+  margin-bottom: 4px;
+  margin-left: 13px;
   cursor: pointer;
 }
 
 .list-block {
-  position: absolute;
-  top: 237px;
-  left: 28px;
-
+  margin-left: 45px;
+  margin-top: 53px;
   .list-item {
     &:hover {
       svg path {
@@ -149,34 +160,20 @@ export default {
   padding-right: 17px;
 }
 
-.item-icon {
-  color: #8E9396;
-}
-
 .list-item {
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: start;
-  position: relative;
-  margin-bottom: 30px;
-  padding-left: 20px;
+  margin-bottom: 35px;
   list-style-type: none;
 }
 
-.dot-map-icon {
-  display: block;
-  position: absolute;
-  left: 32px;
-  top: 105px;
-}
-
 .divider {
-  position: absolute;
+  margin-top: 9px;
+  margin-left: 45px;
   width: 291px;
   height: 0px;
-  left: 45px;
-  top: 533px;
   border: 1.5px solid rgba(94, 94, 94, 0.4);
   background: rgba(94, 94, 94, 0.4);
 }
@@ -186,9 +183,9 @@ export default {
 }
 
 .dot-notification {
-  position: absolute;
-  left: 59px;
-  top: 390.5px;
+  position: relative;
+  top: -7px;
+  left: -61px;
   border: 1px solid white;
   border-radius: 50%;
 }

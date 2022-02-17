@@ -1,5 +1,5 @@
 import { RouteConfig } from 'vue-router';
-import LayoutPage from '@/bundles/common/pages/LayoutPage.vue';
+const LayoutPage = () => import('./pages/LayoutPage.vue').then(m => m.default);
 const ListPage = () => import('./pages/ListPage.vue').then(m => m.default);
 const MatchPage = () => import('./pages/MatchPage.vue').then(m => m.default);
 const MapPage = () => import('./pages/MapPage.vue').then(m => m.default);

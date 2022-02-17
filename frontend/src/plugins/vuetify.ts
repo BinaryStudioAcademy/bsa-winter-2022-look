@@ -22,6 +22,8 @@ export default new Vuetify({
         purple: '#574f8c',
         purpleFooter: '#443748',
         border: '#979797',
+        userBackground: '#FFEBF5',
+        userName: '#282828',
       },
     },
   },

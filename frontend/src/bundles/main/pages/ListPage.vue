@@ -1,10 +1,3 @@
 <template>
-  <NavbarComponent />
+  <router-view />
 </template>
-
-<script>
-import NavbarComponent from '@/bundles/main/components/NavbarComponent';
-export default {
-  components: { NavbarComponent },
-};
-</script>
