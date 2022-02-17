@@ -31,6 +31,8 @@ Route::group(['prefix' => 'v1/user'], function () {
         ->name('user.change-password');
     Route::post('/change-user-info', [UserController::class, 'changeInfo'])
         ->middleware('auth:api')
-        ->name('user.change-password');
-
+        ->name('user.change-info');
+    Route::post('/upload-user-image', [UserController::class, 'uploadImage'])
+        ->middleware('auth:api')
+        ->name('user.upload-image');
 });

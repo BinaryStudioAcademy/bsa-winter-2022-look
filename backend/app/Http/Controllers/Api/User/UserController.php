@@ -8,16 +8,19 @@ use App\Actions\User\ChangeEmailAction;
 use App\Actions\User\ChangeEmailRequest;
 use App\Actions\User\ChangePasswordAction;
 use App\Actions\User\ChangePasswordRequest;
+use App\Actions\User\ChangeUserParameterAction;
+use App\Actions\User\ChangeUserParameterRequest;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\UserChangeParameterArrayPresenter;
 use App\Http\Requests\Api\User\ChangeEmailHttpRequest;
-use App\Http\Requests\Api\User\ChangeMainInfoHttpRequest;
+use App\Http\Requests\Api\User\ChangeUserParameterHttpRequest;
 use App\Http\Requests\Api\User\ChangePasswordHttpRequest;
+use App\Http\Requests\Api\User\UploadUserImageHttpRequest;
 use Illuminate\Http\JsonResponse;
 
-class UserController extends Controller
+class UserController extends ApiController
 {
-    const RESPONSE_STATUS_OK = 200;
-
     public function changeEmail(
         ChangeEmailHttpRequest $request,
         ChangeEmailAction $action
@@ -28,26 +31,37 @@ class UserController extends Controller
                 $request->get('email')
             ));
 
-        return response()->json(['message' => $response->responseMessage()], self::RESPONSE_STATUS_OK);
+        return $this->emptyResponse();
     }
 
     public function changePassword(
         ChangePasswordHttpRequest $request,
         ChangePasswordAction $action
-    )
+    ): JsonResponse
     {
         $response = $action->execute(
             new ChangePasswordRequest(
                 $request->get('password')
             ));
 
-        return response()->json(['message' => $response->responseMessage()], self::RESPONSE_STATUS_OK);
+        return $this->emptyResponse();
     }
 
     public function changeInfo(
-        ChangeMainInfoHttpRequest $request,
+        ChangeUserParameterHttpRequest $request,
+        ChangeUserParameterAction $action
+    ): JsonResponse
+    {
+        $response = $action->execute($request);
+
+        return $this->successResponse(['message' => "Profile has been updated"], JsonResponse::HTTP_OK);
+    }
+
+    public function uploadImage(
+        UploadUserImageHttpRequest $request,
+
     )
     {
-        dd($request);
+
     }
 }

@@ -14,4 +14,14 @@ final class UserParameterRepository extends BaseRepository implements UserParame
     {
         return UserParameter::all();
     }
+
+    public function getUserParameter(int $userid, string $parameter): ?UserParameter
+    {
+        return UserParameter::firstOrCreate(
+            [
+                'user_id' => $userid,
+                'parameter_key' => $parameter
+            ]);
+    }
+
 }
