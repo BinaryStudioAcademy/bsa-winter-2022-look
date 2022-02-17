@@ -9,7 +9,8 @@ class UploadUserImageHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image'
+            'image' => 'required|image',
+            'media_type' => 'required'
         ];
     }
 
@@ -17,7 +18,8 @@ class UploadUserImageHttpRequest extends FormRequest
     {
         return [
             'image.required' => 'Image not found',
-            'image.image' => 'Current file is not image'
+            'image.image' => 'Current file is not image',
+            'media_type.required' => 'media_type field can not be empty'
         ];
     }
 }

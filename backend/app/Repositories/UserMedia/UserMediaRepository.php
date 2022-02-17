@@ -14,4 +14,11 @@ final class UserMediaRepository extends BaseRepository implements UserMediaRepos
     {
         return UserMedia::all();
     }
+
+    public function save(UserMedia $media): UserMedia
+    {
+        $media->save();
+
+        return $media;
+    }
 }

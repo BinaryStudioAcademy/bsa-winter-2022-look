@@ -10,9 +10,12 @@ use App\Actions\User\ChangePasswordAction;
 use App\Actions\User\ChangePasswordRequest;
 use App\Actions\User\ChangeUserParameterAction;
 use App\Actions\User\ChangeUserParameterRequest;
+use App\Actions\User\UploadUserImageAction;
+use App\Actions\User\UploadUserImageRequest;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
 use App\Http\Presenters\UserChangeParameterArrayPresenter;
+use App\Http\Presenters\UserImageUploadPresenter;
 use App\Http\Requests\Api\User\ChangeEmailHttpRequest;
 use App\Http\Requests\Api\User\ChangeUserParameterHttpRequest;
 use App\Http\Requests\Api\User\ChangePasswordHttpRequest;
@@ -52,16 +55,26 @@ class UserController extends ApiController
         ChangeUserParameterAction $action
     ): JsonResponse
     {
-        $response = $action->execute($request);
+        $response = $action->execute
+        (new ChangeUserParameterRequest(
+            $request->all()
+        ));
 
-        return $this->successResponse(['message' => "Profile has been updated"], JsonResponse::HTTP_OK);
+        return $this->successResponse(['message' => $response->responseMessage()]);
     }
 
     public function uploadImage(
         UploadUserImageHttpRequest $request,
-
+        UploadUserImageAction $action,
+        UserImageUploadPresenter $presenter
     )
     {
+        $response = $action->execute(
+            new UploadUserImageRequest(
+                $request->file('image'),
+                $request->get('media_type')
+            ));
 
+        return $this->successResponse($presenter->present($response->getImage()));
     }
 }

@@ -4,47 +4,31 @@ declare(strict_types=1);
 
 namespace App\Actions\User;
 
-use App\Models\UserParameter;
-
 class ChangeUserParameterRequest
 {
-    public function __construct(
-        private string $looking,
-        private string $gender,
-        private int $age,
-        private int $weight,
-        private int $height,
-        private string $bio
-    ) {}
+    const AVAILABLE_USER_PARAMETERS = ['looking', 'gender', 'age', 'weight', 'height', 'bio'];
 
-    public function getLooking(): string
+    public function __construct(private array $request)
     {
-        return $this->looking;
     }
 
-    public function getGender(): string
+    public function getName():string
     {
-        return $this->gender;
+        return $this->request['name'];
     }
 
-    public function getAge(): int
+    public function getAllParameters(): array
     {
-        return $this->age;
-    }
+        $response = [];
 
-    public function getWeight(): int
-    {
-        return $this->weight;
-    }
+        foreach ($this->request as $parameterName => $parameterValue) {
+            if (!in_array($parameterName, self::AVAILABLE_USER_PARAMETERS)) {
+                continue;
+            }
 
-    public function getHeight(): int
-    {
-        return $this->height;
-    }
+            $response[$parameterName] = $parameterValue;
+        }
 
-    public function getBio(): string
-    {
-        return $this->bio;
+        return $response;
     }
-
 }

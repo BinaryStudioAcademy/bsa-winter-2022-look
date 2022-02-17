@@ -14,30 +14,24 @@ use Illuminate\Support\Facades\Auth;
 
 class ChangeUserParameterAction
 {
-    const USER_PARAMETERS = ['looking', 'gender', 'age', 'weight', 'height', 'bio'];
-
     public function __construct(
         private UserParameterRepository $userParameterRepository,
         private UserRepository $userRepository
     ) {}
 
-    public function execute(ChangeUserParameterHttpRequest $request): ChangeUserParameterResponse
+    public function execute(ChangeUserParameterRequest $request): ChangeUserParameterResponse
     {
         if (is_null($user = $this->userRepository->getById(Auth::id()))) {
             throw new UserNotFoundException();
         }
 
-        $user->name = $request->get('name');
+        $user->name = $request->getName();
 
         if (is_null($user->save())) {
             throw new UserNotFoundException();
         }
 
-        foreach ($request->all() as $parameterName => $parameterValue ) {
-            if (!in_array($parameterName, self::USER_PARAMETERS)) {
-                continue;
-            }
-
+        foreach ($request->getAllParameters() as $parameterName => $parameterValue ) {
             try {
                 $userParameter = $this->userParameterRepository->getUserParameter($user->getId(), $parameterName);
                 $userParameter->parameter_value = $parameterValue;
@@ -46,5 +40,7 @@ class ChangeUserParameterAction
                 throw new CantSaveUserParameterException();
             }
         }
+
+        return new ChangeUserParameterResponse();
     }
 }
