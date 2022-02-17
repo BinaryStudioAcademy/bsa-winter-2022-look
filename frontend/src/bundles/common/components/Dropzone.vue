@@ -45,7 +45,7 @@ export default {
     template() {
       return `<div class="dz-preview dz-file-preview">
         <div class="dz-details">
-          <img data-dz-thumbnail />
+          <img class="border" data-dz-thumbnail />
           <div class="button--remove" data-dz-remove>
             <svg width="8" height="7" viewBox="0 0 8 7" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M7.81342 0.846445L7.10562 0.200195L4.29953 2.76228L1.49344 0.200195L0.785645 0.846445L3.59174 3.40853L0.785645 5.97061L1.49344 6.61686L4.29953 4.05478L7.10562 6.61686L7.81342 5.97061L5.00733 3.40853L7.81342 0.846445Z" fill="#51575B" fill-opacity="0.6"/>
@@ -98,6 +98,8 @@ export default {
       position: relative;
       img {
         border-radius: 5px;
+        width: 135px;
+        height: 155px;
       }
       .button--remove {
         position: absolute;
