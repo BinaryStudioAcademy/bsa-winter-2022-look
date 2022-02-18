@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions\User;
 
-
 use App\Exceptions\User\UserNotFoundException;
 use App\Models\UserMedia;
 use App\Repositories\UserMedia\UserMediaRepository;
@@ -13,13 +12,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
-class UploadUserImageAction
+class UploadUserFileAction
 {
     public function __construct(private UserMediaRepository $mediaRepository)
     {
     }
 
-    public function execute(UploadUserImageRequest $request): UploadUserImageResponse
+    public function execute(UploadUserFileRequest $request): UploadUserFileResponse
     {
         if (is_null($userId = Auth::id())){
             throw new UserNotFoundException();
@@ -27,8 +26,8 @@ class UploadUserImageAction
 
         $filePath = Storage::putFileAs(
             Config::get('filesystems.user_images_dir'),
-            $request->getImage(),
-            $request->getImage()->hashName(),
+            $request->getFile(),
+            $request->getFile()->hashName(),
             'public'
         );
 
@@ -45,6 +44,6 @@ class UploadUserImageAction
             throw new ModelNotFoundException();
         }
 
-        return new UploadUserImageResponse($media);
+        return new UploadUserFileResponse($media);
     }
 }

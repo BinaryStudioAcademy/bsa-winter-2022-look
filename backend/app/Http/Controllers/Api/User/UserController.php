@@ -10,16 +10,18 @@ use App\Actions\User\ChangePasswordAction;
 use App\Actions\User\ChangePasswordRequest;
 use App\Actions\User\ChangeUserParameterAction;
 use App\Actions\User\ChangeUserParameterRequest;
-use App\Actions\User\UploadUserImageAction;
-use App\Actions\User\UploadUserImageRequest;
+use App\Actions\User\DeleteUserFileAction;
+use App\Actions\User\DeleteUserFileRequest;
+use App\Actions\User\UploadUserFileAction;
+use App\Actions\User\UploadUserFileRequest;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
-use App\Http\Presenters\UserChangeParameterArrayPresenter;
-use App\Http\Presenters\UserImageUploadPresenter;
+use App\Http\Presenters\UserFileUploadPresenter;
 use App\Http\Requests\Api\User\ChangeEmailHttpRequest;
 use App\Http\Requests\Api\User\ChangeUserParameterHttpRequest;
 use App\Http\Requests\Api\User\ChangePasswordHttpRequest;
-use App\Http\Requests\Api\User\UploadUserImageHttpRequest;
+use App\Http\Requests\Api\User\DeleteUserFileHttpRequest;
+use App\Http\Requests\Api\User\UploadUserFileHttpRequest;
 use Illuminate\Http\JsonResponse;
 
 class UserController extends ApiController
@@ -63,18 +65,33 @@ class UserController extends ApiController
         return $this->successResponse(['message' => $response->responseMessage()]);
     }
 
-    public function uploadImage(
-        UploadUserImageHttpRequest $request,
-        UploadUserImageAction $action,
-        UserImageUploadPresenter $presenter
+    public function uploadFile(
+        UploadUserFileHttpRequest $request,
+        UploadUserFileAction $action,
+        UserFileUploadPresenter $presenter
     )
     {
         $response = $action->execute(
-            new UploadUserImageRequest(
-                $request->file('image'),
+            new UploadUserFileRequest(
+                $request->file('file'),
                 $request->get('media_type')
             ));
 
-        return $this->successResponse($presenter->present($response->getImage()));
+        return $this->successResponse($presenter->present($response->getFile()));
     }
+
+    public function deleteFile(
+        DeleteUserFileHttpRequest $request,
+        DeleteUserFileAction $action
+    )
+    {
+        $action->execute(
+            new DeleteUserFileRequest(
+                $request->get('id')
+            )
+        );
+
+        return $this->emptyResponse();
+    }
+
 }

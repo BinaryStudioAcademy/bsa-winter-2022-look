@@ -4,12 +4,12 @@ namespace App\Http\Requests\Api\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadUserImageHttpRequest extends FormRequest
+class UploadUserFileHttpRequest extends FormRequest
 {
     public function rules()
     {
         return [
-            'image' => 'required|image',
+            'file' => 'required|mimetypes:image/bmp,image/png,image/jpeg,video/mp4,video/mpeg,video/x-msvideo',
             'media_type' => 'required'
         ];
     }
@@ -17,8 +17,8 @@ class UploadUserImageHttpRequest extends FormRequest
     public function messages()
     {
         return [
-            'image.required' => 'Image not found',
-            'image.image' => 'Current file is not image',
+            'file.required' => 'File not found',
+            'file.file' => 'Current file format is not supported',
             'media_type.required' => 'media_type field can not be empty'
         ];
     }

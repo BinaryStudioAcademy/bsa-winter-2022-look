@@ -17,7 +17,8 @@ class ChangeUserParameterHttpRequest extends FormRequest
             'age' => 'int|required|min:18',
             'weight' => 'int|required',
             'height' => 'int|required',
-            'bio' => 'string'
+            'bio' => 'string',
+            'phone' => 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/'
         ];
     }
 
@@ -34,6 +35,8 @@ class ChangeUserParameterHttpRequest extends FormRequest
             'weight.int' => 'Weight field must contain only a numbers',
             'height.required' => 'Height field can not be empty',
             'height.int' => 'Height field must contain only a numbers',
+            'phone.required' => 'Phone field can not be empty',
+            'phone.regex' => 'Phone number style is wrong'
         ];
     }
 }

@@ -32,7 +32,10 @@ Route::group(['prefix' => 'v1/user'], function () {
     Route::post('/change-user-info', [UserController::class, 'changeInfo'])
         ->middleware('auth:api')
         ->name('user.change-info');
-    Route::post('/upload-user-image', [UserController::class, 'uploadImage'])
+    Route::post('/upload-user-file', [UserController::class, 'uploadFile'])
         ->middleware('auth:api')
-        ->name('user.upload-image');
+        ->name('user.upload-file');
+    Route::post('/delete-user-file', [UserController::class, 'deleteFile'])
+        ->middleware('auth:api')
+        ->name('user.delete-file');
 });

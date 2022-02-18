@@ -15,10 +15,20 @@ final class UserMediaRepository extends BaseRepository implements UserMediaRepos
         return UserMedia::all();
     }
 
-    public function save(UserMedia $media): UserMedia
+    public function save(UserMedia $userMedia): UserMedia
     {
-        $media->save();
+        $userMedia->save();
 
-        return $media;
+        return $userMedia;
+    }
+
+    public function getById(int $id): ?UserMedia
+    {
+        return UserMedia::findOrFail($id);
+    }
+
+    public function delete(UserMedia $userMedia): ?bool
+    {
+        return $userMedia->delete();
     }
 }

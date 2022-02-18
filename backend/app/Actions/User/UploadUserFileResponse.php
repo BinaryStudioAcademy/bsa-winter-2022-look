@@ -6,13 +6,13 @@ namespace App\Actions\User;
 
 use App\Models\UserMedia;
 
-class UploadUserImageResponse
+class UploadUserFileResponse
 {
     public function __construct(private UserMedia $image)
     {
     }
 
-    public function getImage(): UserMedia
+    public function getFile(): UserMedia
     {
         return $this->image;
     }

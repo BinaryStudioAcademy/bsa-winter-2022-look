@@ -6,14 +6,14 @@ namespace App\Actions\User;
 
 use Illuminate\Http\UploadedFile;
 
-class UploadUserImageRequest
+class UploadUserFileRequest
 {
     public function __construct(
         private UploadedFile $file,
         private string $type
     ) {}
 
-    public function getImage(): UploadedFile
+    public function getFile(): UploadedFile
     {
         return $this->file;
     }

@@ -7,7 +7,7 @@ namespace App\Http\Presenters;
 use App\Contracts\PresenterInterface;
 use App\Models\UserMedia;
 
-class UserImageUploadPresenter implements PresenterInterface
+class UserFileUploadPresenter implements PresenterInterface
 {
     public function __construct(private UserMedia $userMedia)
     {
