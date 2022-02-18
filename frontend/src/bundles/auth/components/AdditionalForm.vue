@@ -28,7 +28,7 @@
         row
       >
         <v-radio
-          v-for="(gender, index) in genders"
+          v-for="(gender, index) in gender_preferences"
           :key="index"
           :label="gender.gender_label"
           :value="gender.gender_name"
@@ -265,6 +265,22 @@ export default {
       ];
     },
     genders() {
+      return [
+        {
+          gender_name: 'male',
+          gender_label: 'Male',
+        },
+        {
+          gender_name: 'female',
+          gender_label: 'Female',
+        },
+        {
+          gender_name: 'other',
+          gender_label: 'Other',
+        },
+      ];
+    },
+    gender_preferences() {
       return [
         {
           gender_name: 'male',
