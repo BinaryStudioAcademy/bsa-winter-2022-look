@@ -1,6 +1,6 @@
 <template>
-  <div>
+  <v-container>
     <router-view />
     <p>Chat page</p>
-  </div>
+  </v-container>
 </template>

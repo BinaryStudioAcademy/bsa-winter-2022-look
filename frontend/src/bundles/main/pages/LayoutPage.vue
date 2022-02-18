@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <v-layout>
     <navbar-component
       :user-info="userInfo"
     />
-    <router-view />
-  </div>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-layout>
 </template>
 
 <script>

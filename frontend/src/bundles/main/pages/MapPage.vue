@@ -1,3 +1,6 @@
 <template>
-  <router-view />
+  <v-container>
+    <router-view />
+    <p>Map page</p>
+  </v-container>
 </template>

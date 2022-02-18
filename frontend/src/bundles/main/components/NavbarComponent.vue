@@ -5,11 +5,8 @@
     class="navbar-container"
     color="greyMain"
     width=381
-    :mini-variant="miniVariant"
-    :clipped="clipped"
+    mobile-breakpoint=600
     enable-resize-watcher
-    mobile-break-point
-
   >
     <div class="logo">
       <router-link to="/">
@@ -19,7 +16,7 @@
     <v-card
       flex
       class="user-info-block"
-      color="userBackground"
+      color="lightPink"
       height=100
       width=291
       flat
@@ -31,10 +28,10 @@
       >
         <img src="https://randomuser.me/api/portraits/women/81.jpg">
       </v-avatar>
-      <span class="user-name" color="userName">Ruben Septimus<!--{{ userinfo.name }}--></span>
+      <span class="user-name lightBlack--text">Optimus Prime<!--{{ userinfo.name }}--></span>
       <ArrowIcon class="nav-arrow" />
     </v-card>
-    <div class="list-block">
+    <div class="list-block ">
       <router-link
         v-for="item in items"
         :key="item.title"
@@ -111,6 +108,7 @@ export default {
   font-size: 18px;
   line-height: 22px;
   border: none;
+  padding-left: 45px;
 }
 
 .v-navigation-drawer__border {
@@ -119,12 +117,10 @@ export default {
 
 .logo {
   margin-top: 19px;
-  margin-left: 43px;
 }
 
 .user-info-block {
   margin-top: 26px;
-  margin-left: 45px;
 }
 
 .user-avatar {
@@ -144,7 +140,6 @@ export default {
 }
 
 .list-block {
-  margin-left: 45px;
   margin-top: 53px;
   .list-item {
     &:hover {
@@ -171,7 +166,6 @@ export default {
 
 .divider {
   margin-top: 9px;
-  margin-left: 45px;
   width: 291px;
   height: 0px;
   border: 1.5px solid rgba(94, 94, 94, 0.4);

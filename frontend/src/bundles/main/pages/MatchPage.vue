@@ -1,3 +1,6 @@
 <template>
-  <router-view />
+  <v-container>
+    <router-view />
+    <p>Match page</p>
+  </v-container>
 </template>

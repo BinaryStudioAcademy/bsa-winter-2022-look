@@ -1,6 +1,6 @@
 <template>
-  <div>
+  <v-container>
     <router-view />
     <p>Events page</p>
-  </div>
+  </v-container>
 </template>
