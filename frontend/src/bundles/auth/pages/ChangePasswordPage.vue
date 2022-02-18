@@ -24,7 +24,6 @@ import { mapActions } from 'vuex';
 import { CHANGE_USER_PASSWORD } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import ChangePasswordForm from '../components/ChangePasswordForm';
-import router from '../../../router';
 
 export default {
   components: {
@@ -57,7 +56,7 @@ export default {
       payload.token = this.token;
       return this.changePassword(payload)
         .then(() =>
-          router.push({ name: 'auth-login' }),
+          this.$router.push({ name: 'auth-login' }),
         )
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {

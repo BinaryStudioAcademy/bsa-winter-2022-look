@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form :value="!invalid" @submit.prevent="handleSubmit">
     <validation-provider
       v-slot="{ errors }"
       name="email"

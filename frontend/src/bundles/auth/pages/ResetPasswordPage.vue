@@ -37,13 +37,6 @@ export default {
     ResetPasswordForm,
   },
 
-  props: {
-    invalid: {
-      type: Boolean,
-      default: false,
-    },
-  },
-
   data: () => ({
     processing: false,
     success: false,

@@ -3,7 +3,7 @@
     <validation-provider
       v-slot="{ errors }"
       name = 'Password'
-      rules = 'required|min:8,password'
+      rules = 'required|min:8'
     >
       <v-text-field
         v-model="password"
