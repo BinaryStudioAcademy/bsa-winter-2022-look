@@ -12,7 +12,6 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "league/flysystem-aws-s3-v3": "*",
         "sentry/sentry-laravel": "^2.11",
         "tymon/jwt-auth": "^1.0"
     },
