@@ -6,7 +6,7 @@ namespace App\Actions\User;
 
 class ChangeUserParameterRequest
 {
-    const AVAILABLE_USER_PARAMETERS = ['looking', 'gender', 'age', 'weight', 'height', 'bio'];
+    const AVAILABLE_USER_PARAMETERS = ['looking', 'gender', 'age', 'weight', 'height', 'bio', 'locations'];
 
     public function __construct(private array $request)
     {
@@ -30,5 +30,10 @@ class ChangeUserParameterRequest
         }
 
         return $response;
+    }
+
+    public function getInterests():array
+    {
+        return $this->request['interests'];
     }
 }

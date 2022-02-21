@@ -12,8 +12,12 @@ final class UserParameter extends Model
 
     protected $table = 'user_parameters';
 
-    protected $fillable= [
+    protected $fillable = [
         'user_id',
-        'parameter_key'
+        'parameter_key',
+    ];
+
+    protected $casts = [
+        'location' => 'array',
     ];
 }

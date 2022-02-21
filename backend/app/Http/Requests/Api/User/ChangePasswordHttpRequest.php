@@ -9,7 +9,7 @@ class ChangePasswordHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
         ];
     }
 }

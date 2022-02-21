@@ -11,7 +11,7 @@ class DeleteUserFileHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|int'
+            'id' => 'required|int',
         ];
     }
 
@@ -19,7 +19,7 @@ class DeleteUserFileHttpRequest extends FormRequest
     {
         return [
             'id.required' => 'File id required for delete file',
-            'id.int' => 'File id must be int type'
+            'id.int' => 'File id must be int type',
         ];
     }
 }

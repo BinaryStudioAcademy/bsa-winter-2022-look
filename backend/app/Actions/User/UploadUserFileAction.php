@@ -20,15 +20,14 @@ class UploadUserFileAction
 
     public function execute(UploadUserFileRequest $request): UploadUserFileResponse
     {
-        if (is_null($userId = Auth::id())){
+        if (is_null($userId = Auth::id())) {
             throw new UserNotFoundException();
         }
 
-        $filePath = Storage::putFileAs(
-            Config::get('filesystems.user_images_dir'),
+        $filePath = Storage::disk('s3')->putFileAs(
+            Config::get('filesystems.user_files_dir'),
             $request->getFile(),
             $request->getFile()->hashName(),
-            'public'
         );
 
         $media = new UserMedia();
@@ -36,7 +35,7 @@ class UploadUserFileAction
         $media->user_id = $userId;
         $media->format = $request->getFormat();
         $media->media_type = $request->getType();
-        $media->filename = Storage::url($filePath);
+        $media->filename = Storage::disk('s3')->path($filePath);
 
         try {
             $media = $this->mediaRepository->save($media);

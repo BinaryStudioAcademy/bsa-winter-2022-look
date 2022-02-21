@@ -10,7 +10,7 @@ class UploadUserFileHttpRequest extends FormRequest
     {
         return [
             'file' => 'required|mimetypes:image/bmp,image/png,image/jpeg,video/mp4,video/mpeg,video/x-msvideo',
-            'media_type' => 'required'
+            'media_type' => 'required',
         ];
     }
 
@@ -19,7 +19,7 @@ class UploadUserFileHttpRequest extends FormRequest
         return [
             'file.required' => 'File not found',
             'file.file' => 'Current file format is not supported',
-            'media_type.required' => 'media_type field can not be empty'
+            'media_type.required' => 'media_type field can not be empty',
         ];
     }
 }

@@ -9,10 +9,6 @@ use App\Models\UserMedia;
 
 class UserFileUploadPresenter implements PresenterInterface
 {
-    public function __construct(private UserMedia $userMedia)
-    {
-    }
-
     public function present(UserMedia $media)
     {
         return [
@@ -20,7 +16,7 @@ class UserFileUploadPresenter implements PresenterInterface
             'user_id' => $media->getUserId(),
             'media_type' => $media->getType(),
             'format' => $media->getFormat(),
-            'filename' => $media->getFileName()
+            'filename' => $media->getFileName(),
         ];
     }
 }

@@ -18,7 +18,11 @@ class ChangeUserParameterHttpRequest extends FormRequest
             'weight' => 'int|required',
             'height' => 'int|required',
             'bio' => 'string',
-            'phone' => 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/'
+            'phone' => 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/',
+            'locations' => 'required|array|min:1',
+            'locations.*' => 'required|string|distinct|min:3',
+            'interests' => 'required|array|min:1',
+            'interests.*' => 'required|string|distinct|min:3',
         ];
     }
 
@@ -36,7 +40,11 @@ class ChangeUserParameterHttpRequest extends FormRequest
             'height.required' => 'Height field can not be empty',
             'height.int' => 'Height field must contain only a numbers',
             'phone.required' => 'Phone field can not be empty',
-            'phone.regex' => 'Phone number style is wrong'
+            'phone.regex' => 'Phone number style is wrong',
+            'locations.required' => 'Location field can not be empty',
+            'locations.min' => 'At least one location must be specified',
+            'interests.required' => 'Interests field can not be empty',
+            'Interests.min' => 'Please chose at least one interest',
         ];
     }
 }

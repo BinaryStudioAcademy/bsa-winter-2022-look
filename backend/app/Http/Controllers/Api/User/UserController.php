@@ -22,19 +22,21 @@ use App\Http\Requests\Api\User\ChangeUserParameterHttpRequest;
 use App\Http\Requests\Api\User\ChangePasswordHttpRequest;
 use App\Http\Requests\Api\User\DeleteUserFileHttpRequest;
 use App\Http\Requests\Api\User\UploadUserFileHttpRequest;
+use App\Models\UserMedia;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends ApiController
 {
     public function changeEmail(
         ChangeEmailHttpRequest $request,
         ChangeEmailAction $action
-    ): JsonResponse
-    {
-        $response = $action->execute(
+    ): JsonResponse {
+        $action->execute(
             new ChangeEmailRequest(
                 $request->get('email')
-            ));
+            )
+        );
 
         return $this->emptyResponse();
     }
@@ -42,12 +44,12 @@ class UserController extends ApiController
     public function changePassword(
         ChangePasswordHttpRequest $request,
         ChangePasswordAction $action
-    ): JsonResponse
-    {
-        $response = $action->execute(
+    ): JsonResponse {
+        $action->execute(
             new ChangePasswordRequest(
                 $request->get('password')
-            ));
+            )
+        );
 
         return $this->emptyResponse();
     }
@@ -55,10 +57,8 @@ class UserController extends ApiController
     public function changeInfo(
         ChangeUserParameterHttpRequest $request,
         ChangeUserParameterAction $action
-    ): JsonResponse
-    {
-        $response = $action->execute
-        (new ChangeUserParameterRequest(
+    ): JsonResponse {
+        $response = $action->execute(new ChangeUserParameterRequest(
             $request->all()
         ));
 
@@ -69,13 +69,13 @@ class UserController extends ApiController
         UploadUserFileHttpRequest $request,
         UploadUserFileAction $action,
         UserFileUploadPresenter $presenter
-    )
-    {
+    ) {
         $response = $action->execute(
             new UploadUserFileRequest(
                 $request->file('file'),
                 $request->get('media_type')
-            ));
+            )
+        );
 
         return $this->successResponse($presenter->present($response->getFile()));
     }
@@ -83,8 +83,7 @@ class UserController extends ApiController
     public function deleteFile(
         DeleteUserFileHttpRequest $request,
         DeleteUserFileAction $action
-    )
-    {
+    ) {
         $action->execute(
             new DeleteUserFileRequest(
                 $request->get('id')
@@ -93,5 +92,4 @@ class UserController extends ApiController
 
         return $this->emptyResponse();
     }
-
 }

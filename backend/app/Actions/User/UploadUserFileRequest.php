@@ -11,7 +11,8 @@ class UploadUserFileRequest
     public function __construct(
         private UploadedFile $file,
         private string $type
-    ) {}
+    ) {
+    }
 
     public function getFile(): UploadedFile
     {
@@ -27,5 +28,4 @@ class UploadUserFileRequest
     {
         return $this->type;
     }
-
 }

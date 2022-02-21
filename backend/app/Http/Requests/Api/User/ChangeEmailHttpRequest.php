@@ -9,14 +9,14 @@ class ChangeEmailHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email'
+            'email' => 'required|email|unique:users,email',
         ];
     }
 
     public function messages()
     {
         return [
-            'email.unique' => 'This email already used.'
+            'email.unique' => 'This email already used.',
         ];
     }
 }
