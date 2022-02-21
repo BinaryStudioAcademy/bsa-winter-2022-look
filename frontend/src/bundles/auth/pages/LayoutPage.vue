@@ -25,7 +25,7 @@
           max-width="492"
           width="100%"
           contain
-          class="image--auth_dog mx-auto hidden-sm-and-down "
+          class="image--auth_dog mx-auto hidden-sm-and-down"
           src="@/assets/image/auth_image.svg"
         />
       </v-col>
@@ -37,6 +37,7 @@
         <div class="form--auth mx-auto my-auto mt-xs-10">
           <router-link to="/">
             <v-img
+              class="mx-auto mx-md-0 my-5 my-md-0"
               max-height="38"
               max-width="78"
               src="@/assets/image/main_logo.svg"

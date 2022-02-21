@@ -142,17 +142,17 @@
               cols="12"
               md="5"
             >
-              <h4 class="h4 purple--text font-weight-bold pb-5">
+              <h4 class="h4 purple--text font-weight-bold pb-5 text-center text-md-left">
                 More than a just app
               </h4>
-              <p class="textMain--text">
+              <p class="textMain--text text-center text-md-left">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fermentum viverra amet id arcu. Id adipiscing risus pulvinar nisi, turpis.
               </p>
-              <p class="textMain--text">
+              <p class="textMain--text text-center text-md-left">
                 Malesuada elit nullam sollicitudin ante enim non tempus.
               </p>
               <v-btn
-                class="text-capitalize font-weight-bold"
+                class="text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
                 color="primary"
                 large
                 raised
