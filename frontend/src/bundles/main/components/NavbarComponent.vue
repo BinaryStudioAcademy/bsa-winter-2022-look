@@ -1,57 +1,88 @@
 <template>
-  <v-navigation-drawer
-    app
-    absolute
-    class="navbar-container"
-    color="greyMain"
-    width=381
-    mobile-breakpoint=600
-    enable-resize-watcher
-  >
-    <div class="logo">
-      <router-link to="/">
-        <LogoIcon />
-      </router-link>
-    </div>
-    <v-card
-      flex
-      class="user-info-block"
-      color="lightPink"
-      height=100
-      width=291
-      flat
+  <div>
+    <v-navigation-drawer
+      app
+      absolute
+      class="navbar-container"
+      color="greyMain"
+      width=381
+      mobile-breakpoint=600
     >
-      <v-avatar
-        class="user-avatar"
-        size=61
-        right
+      <div class="logo">
+        <router-link to="/">
+          <LogoIcon />
+        </router-link>
+      </div>
+      <v-card
+        flex
+        class="user-info-block"
+        color="lightPink"
+        height=100
+        width=291
+        flat
       >
-        <img src="https://randomuser.me/api/portraits/women/81.jpg">
-      </v-avatar>
-      <span class="user-name lightBlack--text">Optimus Prime<!--{{ userinfo.name }}--></span>
-      <ArrowIcon class="nav-arrow" />
-    </v-card>
-    <div class="list-block ">
-      <router-link
-        v-for="item in items"
-        :key="item.title"
-        :to="{
-          name: item.name,
-        }"
-        class="list-item"
+        <v-avatar
+          class="user-avatar"
+          size=61
+          right
+        >
+          <img src="https://randomuser.me/api/portraits/women/81.jpg">
+        </v-avatar>
+        <span v-if="userInfo" class="user-name lightBlack--text">{{ userInfo.name }}</span>
+        <ArrowIcon class="nav-arrow" />
+      </v-card>
+      <div class="list-block">
+        <router-link
+          v-for="item in items"
+          :key="item.title"
+          :to="{
+            name: item.name,
+          }"
+          class="list-item"
+        >
+          <component
+            :is="item.icon"
+          />
+          <span class="space-between" />
+          {{ item.title }}
+          <div v-if="hasNewMessage && item.name === 'main-chat'">
+            <HasMassageDotIcon class="dot-notification" />
+          </div>
+        </router-link>
+      </div>
+      <div class="divider" />
+    </v-navigation-drawer>
+    <div
+      :if="isMobileScreen"
+      class="nav-mobile greyMain"
+    >
+      <v-app-bar clipped-left flat>
+        <v-app-bar-nav-icon @click="drawer = !drawer" />
+      </v-app-bar>
+      <v-navigation-drawer
+        v-model="drawer"
+        width=56
       >
-        <component
-          :is="item.icon"
-        />
-        <span class="space-between" />
-        {{ item.title }}
-        <div v-if="hasNewMessage && item.name === 'main-chat'">
-          <HasMassageDotIcon class="dot-notification" />
+        <div class="list-block list-block-mobile">
+          <router-link
+            v-for="item in items"
+            :key="item.title"
+            :to="{
+              name: item.name,
+            }"
+            class="list-item"
+          >
+            <component
+              :is="item.icon"
+            />
+            <div v-if="hasNewMessage && item.name === 'main-chat'">
+              <HasMassageDotIcon class="dot-notification" />
+            </div>
+          </router-link>
         </div>
-      </router-link>
+      </v-navigation-drawer>
     </div>
-    <div class="divider" />
-  </v-navigation-drawer>
+  </div>
 </template>
 <script>
 
@@ -81,6 +112,11 @@ export default {
       default: undefined,
     },
   },
+  data() {
+    return {
+      drawer: false,
+    };
+  },
   computed: {
     items() {
       return [
@@ -93,6 +129,9 @@ export default {
     },
     hasNewMessage() {
       return true;
+    },
+    isMobileScreen() {
+      return window.innerWidth < 600;
     },
   },
 
@@ -183,4 +222,14 @@ export default {
   border: 1px solid white;
   border-radius: 50%;
 }
+
+.nav-mobile{
+  height: 100%;
+}
+.list-block-mobile {
+  padding-left: 15px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
 </style>
