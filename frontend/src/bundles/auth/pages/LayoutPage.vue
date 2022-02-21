@@ -54,8 +54,6 @@
   lang="scss"
   scoped
 >
-@import "@/assets/scss/override.scss";
-
 .fill-height--centred {
   height: 100vh;
   display: flex;

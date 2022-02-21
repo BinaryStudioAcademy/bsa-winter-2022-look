@@ -255,9 +255,7 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/scss/override.scss";
-
-::v-deep .header-person {
+.header-person {
   margin: 0 auto -40px;
 }
 
