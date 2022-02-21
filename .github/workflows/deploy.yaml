@@ -1,0 +1,136 @@
+name: Look - CD
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Build Docker image
+        working-directory: backend
+        run: |
+          docker build --file deployment/docker/Dockerfile --build-arg PHP_ENVIRONMENT=production -t bsa-look-api .
+
+      - name: Push Docker image
+        run: |
+          DOCKER_API_TAG=${{ secrets.DOCKER_API_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
+          docker image tag bsa-look-api $DOCKER_API_TAG
+          docker push $DOCKER_API_TAG
+
+  build-web:
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'staging' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Load secret files
+        working-directory: frontend
+        run: |
+          aws s3 cp s3://${{ secrets.AWS_BUCKET_NAME }}/${{ secrets.AWS_BUCKET_WEB_SECRETS_PATH }} .env.local
+
+      - name: Build Docker image
+        working-directory: frontend
+        run: |
+          docker build --file deployment/docker/Dockerfile -t bsa-look-web .
+
+      - name: Push Docker image
+        working-directory: frontend
+        run: |
+          DOCKER_WEB_TAG=${{ secrets.DOCKER_WEB_REPOSITORY }}:$(echo ${GITHUB_REF#refs/heads/})-${{ github.sha }}
+          docker image tag bsa-look-web $DOCKER_WEB_TAG
+          docker push $DOCKER_WEB_TAG
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs:
+      - build-api
+      - build-web
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || github.ref == 'refs/heads/develop' && 'staging' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Load secret files
+        run: |
+          aws s3 cp s3://${{ secrets.AWS_BUCKET_NAME }}/${{ secrets.AWS_BUCKET_API_SECRETS_PATH }} api_secrets
+
+      - name: Copy secret files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: api_secrets
+          target: secrets
+
+      - name: Prepare variables
+        id: prepare_variables
+        run: |
+          echo "::set-output name=api_tag::${{ secrets.DOCKER_API_REPOSITORY }}:${GITHUB_REF#refs/heads/}-${{ github.sha }}"
+          echo "::set-output name=web_tag::${{ secrets.DOCKER_WEB_REPOSITORY }}:${GITHUB_REF#refs/heads/}-${{ github.sha }}"
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        env:
+          DOCKER_API_TAG: ${{ steps.prepare_variables.outputs.api_tag }}
+          DOCKER_WEB_TAG: ${{ steps.prepare_variables.outputs.web_tag }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          envs: DOCKER_API_TAG,DOCKER_WEB_TAG
+          script: |
+            docker pull $DOCKER_API_TAG
+            docker pull $DOCKER_WEB_TAG
+            docker stop bsa-look-api || true
+            docker container rm bsa-look-api || true
+            docker run -dit \
+              --name=bsa-look-api \
+              --network=bsa-look-network \
+              --restart unless-stopped \
+              --env-file secrets/api_secrets \
+              $DOCKER_API_TAG
+            docker stop bsa-look-web || true
+            docker container rm bsa-look-web || true
+            docker run -dit \
+              --name=bsa-look-web \
+              --network=bsa-look-network \
+              --restart unless-stopped \
+              $DOCKER_WEB_TAG

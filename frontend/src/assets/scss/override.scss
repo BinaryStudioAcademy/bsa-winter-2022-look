@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Lora:wght@600&display=swap');
+
+.v-application {
+  font-family: 'Lato', sans-serif !important;
+}
+
+.relative {
+  position: relative;
+}
+
+a:-webkit-any-link {
+  text-decoration: none !important;
+}
+.link {
+  text-decoration: none !important;
+}
+
+.v-autocomplete__content.v-menu__content {
+  border-radius: 30px !important;
+}
+
+::v-deep .h1 {
+  font-family: 'Lora', sans-serif;
+  font-size: 40px;
+  line-height: 42px;
+}
+
+::v-deep .h2 {
+  font-family: 'Lora', sans-serif;
+  font-size: 36px;
+  line-height: 38px;
+}
+
+::v-deep .h3 {
+  font-family: 'Lato', sans-serif;
+  font-size: 36px;
+  line-height: 38px;
+}
+
+::v-deep .h4 {
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  line-height: 26px;
+}
+
+::v-deep p {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  & .small-text {
+    font-size: 14px;
+  }
+}
+
+::v-deep .theme--light.v-input input {
+  background: transparent;
+}
+::v-deep .theme--light.v-input input:-webkit-autofill {
+  -webkit-background-clip: text;
+}
+
+.main-sub--text {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.button-main {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+}
+
+.v-toolbar__items {
+  ::v-deep .menu-header--nav {
+    background-color: transparent !important;
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+  }
+}
+.theme--light.v-app-bar.v-toolbar.v-sheet.menu-header {
+  padding: 25px 0;
+}

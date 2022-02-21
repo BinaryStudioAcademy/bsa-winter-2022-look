@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      args:
+        PHP_ENVIRONMENT: "development"
+    depends_on:
+      - database
+
+  database:
+    image: mysql:8.0.28
+    environment:
+      MYSQL_DATABASE: "look"
+      MYSQL_USER: "look"
+      MYSQL_PASSWORD: "secret"
+      MYSQL_ROOT_PASSWORD: "root_secret"
