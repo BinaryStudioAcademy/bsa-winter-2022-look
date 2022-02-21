@@ -3,6 +3,8 @@ import Vuetify from 'vuetify/lib/framework';
 
 Vue.use(Vuetify);
 
+require('../assets/scss/override.scss');
+
 export default new Vuetify({
   theme: {
     themes: {

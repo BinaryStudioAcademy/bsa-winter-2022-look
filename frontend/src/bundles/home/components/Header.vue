@@ -12,7 +12,7 @@
           <v-toolbar-title>
             <router-link to="/">
               <v-img
-                class="mr-md-16"
+                class="ml-2 mr-md-16"
                 src="@/assets/image/main_logo.svg"
               />
             </router-link>
@@ -196,8 +196,6 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/scss/override.scss";
-
 .to-user {
   text-decoration: none;
 }
@@ -208,6 +206,6 @@ export default {
 }
 .to-user .v-list-item__title {
   font-family: 'Lato', sans-serif;
-  font-size: 18px;
+  font-size: 18px !important;
 }
 </style>

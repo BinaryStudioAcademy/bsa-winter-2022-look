@@ -37,7 +37,7 @@
       />
     </validation-provider>
 
-    <div class="mb-6">
+    <div class="mb-6 text-center text-md-left">
       <router-link
         class="small-text black--text font-weight-regular link"
         :to="{ name: 'auth-reset_password' }"
@@ -45,28 +45,30 @@
         Forgot your password?
       </router-link>
     </div>
-    <v-btn
-      type="submit"
-      :disabled="invalid"
-      class="white--text text-capitalize font-weight-bold mr-4"
-      color="primary"
-      large
-      rounded
-      depressed
-      max-width="215"
-      width="100%"
-    >
-      Sign In
-    </v-btn>
-    <v-btn
-      color="primary"
-      depressed
-      icon
-      large
-      outlined
-    >
-      <v-icon>mdi-google</v-icon>
-    </v-btn>
+    <div class="d-flex justify-sm-center justify-md-start">
+      <v-btn
+        type="submit"
+        :disabled="invalid"
+        class="white--text text-capitalize font-weight-bold mr-4"
+        color="primary"
+        large
+        rounded
+        depressed
+        max-width="215"
+        width="100%"
+      >
+        Sign In
+      </v-btn>
+      <v-btn
+        color="primary"
+        depressed
+        icon
+        large
+        outlined
+      >
+        <v-icon>mdi-google</v-icon>
+      </v-btn>
+    </div>
   </form>
 </template>
 

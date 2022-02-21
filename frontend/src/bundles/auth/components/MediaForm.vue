@@ -1,49 +1,19 @@
 <template>
-  <form :value="!invalid" @submit.prevent="handleSubmit">
+  <form
+    :value="!invalid"
+    enctype="multipart/form-data"
+    @submit.prevent="handleSubmit"
+  >
     <validation-provider
-      v-slot="{ errors }"
       name="Photo"
-      rules="required"
     >
-      <v-file-input
-        v-model="userFiles"
-        color="primary"
-
-        counter
-        label="Photos"
-        multiple
-        rounded
-        placeholder="Select your files"
-        prepend-icon="mdi-camera"
-        outlined
-        :show-size="1000"
-        :error-messages="errors"
-      >
-        <template #selection="{ index, text }">
-          <v-chip
-            v-if="index < 2"
-            color="purple"
-            dark
-            label
-            small
-          >
-            {{ text }}
-          </v-chip>
-
-          <span
-            v-else-if="index === 2"
-            class="text-overline grey--text text--darken-3 mx-2"
-          >
-            +{{ userFiles.length - 2 }} File(s)
-          </span>
-        </template>
-      </v-file-input>
+      <Dropzone />
     </validation-provider>
 
     <v-btn
       type="submit"
       :disabled="invalid"
-      class="white--text text-capitalize font-weight-bold mr-4"
+      class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
       color="primary"
       large
       rounded
@@ -58,10 +28,12 @@
 
 <script>
 import { ValidationProvider } from 'vee-validate';
+import Dropzone from '@/bundles/common/components/Dropzone';
 
 export default {
   components: {
     ValidationProvider,
+    Dropzone,
   },
 
   props: {

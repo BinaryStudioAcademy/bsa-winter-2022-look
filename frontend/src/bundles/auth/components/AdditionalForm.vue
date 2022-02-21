@@ -1,15 +1,51 @@
 <template>
-  <form :value="!invalid" @submit.prevent="handleSubmit">
+  <form
+    :value="!invalid"
+    @submit.prevent="handleSubmit"
+  >
+    <validation-provider
+      name="gender"
+    >
+      <p>You are <span class="primary--text font-weight-bold">{{ gender }}</span></p>
+      <v-radio-group
+        v-model="gender"
+        row
+      >
+        <v-radio
+          v-for="(gender, index) in genders"
+          :key="index"
+          :label="gender.gender_label"
+          :value="gender.gender_name"
+        />
+      </v-radio-group>
+    </validation-provider>
+    <validation-provider
+      name="gender_preference"
+    >
+      <p>Your preference selection <span class="orange--text font-weight-bold">{{ gender_preference }}</span></p>
+      <v-radio-group
+        v-model="gender_preference"
+        row
+      >
+        <v-radio
+          v-for="(gender, index) in gender_preferences"
+          :key="index"
+          :label="gender.gender_label"
+          :value="gender.gender_name"
+        />
+      </v-radio-group>
+    </validation-provider>
     <validation-provider
       v-slot="{ errors }"
       name="phone"
+      rules="phone"
     >
       <v-text-field
         v-model="phone"
         type="text"
         name="phone"
         label="Phone"
-        placeholder="Phone"
+        placeholder="(0XX) XXX-XXXX"
         filled
         rounded
         background-color="#faf9f9"
@@ -46,7 +82,7 @@
         :thumb-size="25"
         :error-messages="errors"
         thumb-label="always"
-        label="Height, cm"
+        label="Height, sm"
         inverse-label
       />
     </validation-provider>
@@ -82,7 +118,16 @@
         multiple
         clearable
         :error-messages="errors"
-      />
+      >
+        <template #selection="{ index }">
+          <span
+            v-if="index === 0"
+            class="text-overline grey--text text--darken-3 mx-2"
+          >
+            +{{ interestSelected.length }} Selected
+          </span>
+        </template>
+      </v-autocomplete>
     </validation-provider>
 
     <validation-provider
@@ -90,7 +135,7 @@
       name="hobbies"
     >
       <v-autocomplete
-        v-model="hobbieSelected"
+        v-model="hobbiesSelected"
         :items="hobbies"
         small-chips
         label="Hobbies"
@@ -102,7 +147,16 @@
         multiple
         clearable
         :error-messages="errors"
-      />
+      >
+        <template #selection="{ index }">
+          <span
+            v-if="index === 0"
+            class="text-overline grey--text text--darken-3 mx-2"
+          >
+            +{{ hobbiesSelected.length }} Selected
+          </span>
+        </template>
+      </v-autocomplete>
     </validation-provider>
 
     <validation-provider
@@ -128,7 +182,7 @@
     <v-btn
       type="submit"
       :disabled="invalid"
-      class="white--text text-capitalize font-weight-bold mr-4"
+      class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
       color="primary"
       large
       rounded
@@ -166,6 +220,8 @@ export default {
       weight: 140,
       about: undefined,
       phone: undefined,
+      gender: 'male',
+      gender_preference: 'female',
       locations: [
         'Ukraine',
         'Canada',
@@ -173,20 +229,14 @@ export default {
         'Germany',
       ],
       locationSelected: undefined,
-      interests: [
-        'Making or listening to music',
-        'Gaming',
-        'Travel',
-        'Art',
-        'Nature',
-        'Social causes',
-        'Foreign languages',
-        'Topical blogs or research',
-        'History',
-        'Theater',
-      ],
       interestSelected: [],
-      hobbies: [
+      hobbiesSelected: [],
+    };
+  },
+
+  computed: {
+    hobbies() {
+      return [
         'Artistic activities such as painting or graphic design',
         'Community service',
         'Cooking or baking',
@@ -198,9 +248,54 @@ export default {
         'Travel',
         'Woodworking or other projects',
         'Writing or blogging',
-      ],
-      hobbieSelected: [],
-    };
+      ];
+    },
+    interests() {
+      return [
+        'Making or listening to music',
+        'Gaming',
+        'Travel',
+        'Art',
+        'Nature',
+        'Social causes',
+        'Foreign languages',
+        'Topical blogs or research',
+        'History',
+        'Theater',
+      ];
+    },
+    genders() {
+      return [
+        {
+          gender_name: 'male',
+          gender_label: 'Male',
+        },
+        {
+          gender_name: 'female',
+          gender_label: 'Female',
+        },
+        {
+          gender_name: 'other',
+          gender_label: 'Other',
+        },
+      ];
+    },
+    gender_preferences() {
+      return [
+        {
+          gender_name: 'male',
+          gender_label: 'Male',
+        },
+        {
+          gender_name: 'female',
+          gender_label: 'Female',
+        },
+        {
+          gender_name: 'both',
+          gender_label: 'Both',
+        },
+      ];
+    },
   },
 
   methods: {
@@ -211,7 +306,9 @@ export default {
         about: this.about,
         phone: this.phone,
         interest: this.interestSelected,
-        hobbie: this.hobbieSelected,
+        hobby: this.hobbiesSelected,
+        gender: this.gender,
+        gender_preference: this.gender_preference,
       });
     },
   },

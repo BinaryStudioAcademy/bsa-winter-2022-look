@@ -1,12 +1,10 @@
-import { extend, setInteractionMode } from 'vee-validate';
+import { extend } from 'vee-validate';
 import {
   required,
   email,
   confirmed,
   min,
 } from 'vee-validate/dist/rules';
-
-setInteractionMode('eager');
 
 extend('required', {
   ...required,
@@ -27,4 +25,12 @@ extend('min', {
   ...min,
   params: ['length', 'name'],
   message: 'Your {name} must be at least {length} characters',
+});
+
+extend('phone', {
+  validate(value) {
+    const phoneReg = /^\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/;
+    return phoneReg.test(value);
+  },
+  message: 'Phone must be valid',
 });

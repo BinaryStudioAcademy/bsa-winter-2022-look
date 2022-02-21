@@ -3,7 +3,7 @@
     <validation-provider
       v-slot="{ errors }"
       name="Name"
-      rules="required"
+      rules="required|min:3"
     >
       <v-text-field
         v-model="fullName"
@@ -55,7 +55,7 @@
     </validation-provider>
     <validation-provider
       v-slot="{ errors }"
-      name="passwordConfirmation"
+      name="password confirmation"
       rules="required|confirmed:password"
     >
       <v-text-field
@@ -76,7 +76,7 @@
     <v-btn
       type="submit"
       :disabled="invalid"
-      class="white--text text-capitalize font-weight-bold mr-4"
+      class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
       color="primary"
       large
       rounded
@@ -119,9 +119,6 @@ export default {
     };
   },
 
-  computed: {
-
-  },
   methods: {
     handleSubmit() {
       this.$emit('submit', {
