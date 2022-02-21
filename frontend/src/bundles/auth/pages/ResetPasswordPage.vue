@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h2 class="h4 primary--text head-login mt-md-16 mb-2">
+    <h2 class="h4 primary--text head-login mt-md-16 mb-2 text-center text-md-left">
       Reset password
     </h2>
-    <p class="small-text font-weight-light mb-6">
+    <p class="small-text font-weight-light mb-6 text-center text-md-left">
       Forgot your password? <br>
       Please enter your email address. <br>
       You will receive an email link to create a new password.
