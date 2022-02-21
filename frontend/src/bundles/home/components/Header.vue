@@ -19,15 +19,10 @@
           </v-toolbar-title>
           <v-toolbar-items class="hidden-md-and-down">
             <v-btn
-              v-for="(item, index) in menuItems"
-              :key="index"
               depressed
-              :to="item.url"
               :ripple="false"
               class="menu-header--nav text-capitalize font-weight-bold mr-3"
-            >
-              {{ item.title }}
-            </v-btn>
+            />
           </v-toolbar-items>
           <v-spacer
             class="hidden-lg-and-up"
@@ -104,16 +99,11 @@
       temporary
     >
       <v-btn
-        v-for="(item, index) in menuItems"
-        :key="index"
         block
         depressed
-        :to="item.url"
         :ripple="false"
         class="menu-header--nav text-capitalize font-weight-bold mr-3"
-      >
-        {{ item.title }}
-      </v-btn>
+      />
 
       <v-spacer />
       <router-link
@@ -168,10 +158,6 @@
 <script>
 export default {
   props: {
-    menuItems: {
-      type: Array,
-      required: true,
-    },
     isAuthorized: {
       type: Boolean,
       default: false,
