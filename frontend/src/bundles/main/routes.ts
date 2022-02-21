@@ -13,29 +13,29 @@ export function getMainRoutes(): RouteConfig[] {
       path: '/',
       children: [
         {
+          component: ListPage,
           path: '/list',
           name: 'main-list',
-          component: ListPage,
         },
         {
+          component: MatchPage,
           path: '/match',
           name: 'main-match',
-          component: MatchPage,
         },
         {
+          component: MapPage,
           path: '/map',
           name: 'main-map',
-          component: MapPage,
         },
         {
+          component: ChatPage,
           path: '/chat',
           name: 'main-chat',
-          component: ChatPage,
         },
         {
+          component: EventsPage,
           path: '/events',
           name: 'main-events',
-          component: EventsPage,
         },
       ],
     },
