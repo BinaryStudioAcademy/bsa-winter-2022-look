@@ -25,7 +25,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/reset-password', [ForgotPasswordController::class, 'passwordChange'])->name('password.reset');
 });
 
-Route::group(['prefix' => 'v1/user'], function () {
+Route::group(['prefix' => 'user'], function () {
     Route::post('/change-email', [UserController::class, 'changeEmail'])
         ->middleware('auth:api')
         ->name('user.change-email');
