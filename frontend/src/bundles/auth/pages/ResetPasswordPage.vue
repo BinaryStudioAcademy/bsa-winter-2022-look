@@ -14,7 +14,13 @@
         :processing="processing"
         @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
       />
+      <div v-if="success" class="result-message">
+        <span class="success-message">
+          Change password link send to your email
+        </span>
+      </div>
     </validation-observer>
+
   </div>
 </template>
 
@@ -31,11 +37,10 @@ export default {
     ResetPasswordForm,
   },
 
-  data() {
-    return {
-      processing: undefined,
-    };
-  },
+  data: () => ({
+    processing: false,
+    success: false,
+  }),
 
   methods: {
     ...mapActions(namespace, {
@@ -48,10 +53,9 @@ export default {
 
       this.processing = true;
 
-      return this.resetPassword(payload)
-        .then(() =>
-          this.$router.push({ name: 'search' }), // TODO: need to specify correct route name
-        )
+      return this.resetPassword(payload).then(() => {
+        this.success = true;
+      })
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
           this.processing = false;
@@ -60,3 +64,14 @@ export default {
   },
 };
 </script>
+
+<style
+  lang="scss"
+  scoped
+>
+
+.success-message {
+  color: green;
+}
+
+</style>

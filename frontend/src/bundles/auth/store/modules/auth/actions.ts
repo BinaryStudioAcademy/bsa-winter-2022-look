@@ -1,10 +1,18 @@
 import { SET_USER } from './types/mutations';
-import { CREATE_USER, LOGIN_USER, ADD_ADDITIONAL_INFO, ADD_USER_MEDIA, RESET_USER_PASSWORD } from './types/actions';
+import {
+  CREATE_USER,
+  LOGIN_USER,
+  ADD_ADDITIONAL_INFO,
+  ADD_USER_MEDIA,
+  RESET_USER_PASSWORD,
+  CHANGE_USER_PASSWORD,
+} from './types/actions';
 import UserRequest from '@/bundles/common/repository/requests/UserRequest';
 import { ActionTree } from 'vuex';
 import AuthState from './AuthState';
 import userRepository from '@/bundles/common/repository/userRepository';
 import UserLoginRequest from '@/bundles/common/repository/requests/UserLoginRequest';
+import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 
 export function getActions<R>(): ActionTree<AuthState, R> {
   return {
@@ -25,9 +33,11 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     [ADD_USER_MEDIA](args, data: UserRequest): Promise<void> {
       return userRepository.patch(data);
     },
-    [RESET_USER_PASSWORD](args, data: UserRequest): Promise<void> {
-      return userRepository.patch(data);
+    [RESET_USER_PASSWORD](args, email): Promise<void> {
+      return userRepository.resetPassword(email);
     },
-
+    [CHANGE_USER_PASSWORD](args, data: ChangePasswordRequest): Promise<void> {
+      return userRepository.changePassword(data);
+    },
   };
 }
