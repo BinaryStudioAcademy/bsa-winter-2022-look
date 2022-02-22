@@ -1,5 +1,5 @@
 export default interface ChangePasswordRequest {
   password: string;
-  password_confirmation: string;
+  passwordConfirmation: string;
   token: string;
 }
