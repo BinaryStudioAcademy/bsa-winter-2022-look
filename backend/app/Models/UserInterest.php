@@ -11,4 +11,8 @@ final class UserInterest extends Model
     use HasFactory;
 
     protected $table = 'user_interests';
+
+    protected $fillable = [
+        'user_id',
+    ];
 }
