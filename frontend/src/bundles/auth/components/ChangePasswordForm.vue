@@ -74,7 +74,7 @@ export default {
     handleSubmit() {
       this.$emit('submit', {
         password: this.password,
-        password_confirmation: this.password_confirmation,
+        passwordConfirmation: this.password_confirmation,
       });
     },
   },

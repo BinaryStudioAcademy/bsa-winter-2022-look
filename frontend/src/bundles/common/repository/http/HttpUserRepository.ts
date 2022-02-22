@@ -60,7 +60,10 @@ export default class HttpUserRepository implements UserRepository {
     return this.httpTransport
       .post(
         '/auth/reset-password',
-        payload,
+        {
+          ...payload,
+          password_confirmation: payload.passwordConfirmation,
+        },
       );
   }
 }
