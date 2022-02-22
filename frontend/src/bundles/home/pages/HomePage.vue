@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header
-      :menu-items="menuItems"
       :is-authorized="isAuthorized"
       :user-info="userInfo"
     />
@@ -220,30 +219,6 @@ export default {
           icon: 'IconMail',
           title: 'Meet on a date',
           text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
-        },
-      ];
-    },
-    menuItems() {
-      return [
-        {
-          url: 'products',
-          title: 'Products',
-        },
-        {
-          url: 'learn',
-          title: 'Learn',
-        },
-        {
-          url: 'safety',
-          title: 'Safety',
-        },
-        {
-          url: 'support',
-          title: 'Support',
-        },
-        {
-          url: 'download',
-          title: 'Download',
         },
       ];
     },
