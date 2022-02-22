@@ -19,7 +19,7 @@
       rules = 'required_password|min:8|confirmed:Password'
     >
       <v-text-field
-        v-model="password_confirmation"
+        v-model="passwordConfirmation"
         label="Confirm Password"
         type="password"
         :error-messages="errors"
@@ -67,14 +67,14 @@ export default {
 
   data: () => ({
     password: undefined,
-    password_confirmation: undefined,
+    passwordConfirmation: undefined,
   }),
 
   methods: {
     handleSubmit() {
       this.$emit('submit', {
         password: this.password,
-        passwordConfirmation: this.password_confirmation,
+        passwordConfirmation: this.passwordConfirmation,
       });
     },
   },
