@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Actions\Auth;
 
+use App\Mail\UserMailValidationEmail;
 use App\Models\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 final class RegisterAction
 {
+    const TOKEN_LENGTH = 60;
+
     private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)
@@ -32,6 +37,12 @@ final class RegisterAction
         $user->role_id = 1;
 
         $user = $this->userRepository->save($user);
+
+        $emailView = (new UserMailValidationEmail(
+            $user->getName(),
+            Str::random(self::TOKEN_LENGTH)
+        ))->build();
+        Mail::to($user->getEmail())->send($emailView);
 
         return new RegisterResponse($user);
     }
