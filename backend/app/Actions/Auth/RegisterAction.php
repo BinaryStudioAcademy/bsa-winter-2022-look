@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Actions\Auth;
 
 use App\Mail\UserMailValidationEmail;
+use App\Models\EmailVerification;
 use App\Models\User;
+use App\Repositories\EmailVerification\EmailVerificationRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Role;
@@ -17,10 +19,15 @@ final class RegisterAction
     const TOKEN_LENGTH = 60;
 
     private UserRepository $userRepository;
+    private EmailVerificationRepository $emailVerificationRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(
+        UserRepository $userRepository,
+        EmailVerificationRepository $emailVerificationRepository
+    )
     {
         $this->userRepository = $userRepository;
+        $this->emailVerificationRepository = $emailVerificationRepository;
     }
 
     public function execute(RegisterRequest $request): RegisterResponse
@@ -38,9 +45,14 @@ final class RegisterAction
 
         $user = $this->userRepository->save($user);
 
+        $emailVerificationData = new EmailVerification();
+        $emailVerificationData->user_id = $user->getId();
+        $emailVerificationData->token = Str::random(self::TOKEN_LENGTH);
+        $this->emailVerificationRepository->save($emailVerificationData);
+
         $emailView = (new UserMailValidationEmail(
             $user->getName(),
-            Str::random(self::TOKEN_LENGTH)
+            $this->emailVerificationRepository->getToken($emailVerificationData)
         ))->build();
         Mail::to($user->getEmail())->send($emailView);
 
