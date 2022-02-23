@@ -66,4 +66,12 @@ export default class HttpUserRepository implements UserRepository {
         },
       );
   }
+
+  public emailConfirmation(token: string): Promise<void> {
+    return this.httpTransport
+      .post(
+        '/auth/email-confirm',
+        { token: token },
+      );
+  }
 }

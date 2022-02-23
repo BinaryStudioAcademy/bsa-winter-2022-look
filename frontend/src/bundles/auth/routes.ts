@@ -8,6 +8,7 @@ const LoginPage = () => import('./pages/LoginPage.vue').then(m => m.default);
 const ResetPasswordPage = () => import('./pages/ResetPasswordPage.vue').then(m => m.default);
 const ChangeEmailPasswordPage = () => import('./pages/ChangeEmailPasswordPage.vue').then(m => m.default);
 const ChangePasswordPage = () => import('./pages/ChangePasswordPage.vue').then(m => m.default);
+const EmailConfirmPage = () => import('./pages/EmailConfirmPage.vue').then(m => m.default);
 
 export function getAuthRoutes(): RouteConfig[] {
   return [
@@ -33,6 +34,12 @@ export function getAuthRoutes(): RouteConfig[] {
           name: 'auth-change_password',
           props: true,
           component: ChangePasswordPage,
+        },
+        {
+          path: 'email-confirm/:token',
+          name: 'auth-email_confirm',
+          props: true,
+          component: EmailConfirmPage,
         },
         {
           path: 'change-email-password',
