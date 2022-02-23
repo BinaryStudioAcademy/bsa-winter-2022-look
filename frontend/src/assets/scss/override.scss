@@ -83,16 +83,17 @@ p {
   padding: 25px 0 !important;
 }
 
-.v-autocomplete__content.v-menu__content::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 20px;
+  border-radius: 100px;
 }
 
-.v-autocomplete__content.v-menu__content::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background-color: #e4e4e4;
   border-radius: 100px;
 }
 
-.v-autocomplete__content.v-menu__content::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   border-radius: 100px;
   border-left: 0;
   border-right: 0;
