@@ -24,8 +24,7 @@ final class RegisterAction
     public function __construct(
         UserRepository $userRepository,
         EmailVerificationRepository $emailVerificationRepository
-    )
-    {
+    ) {
         $this->userRepository = $userRepository;
         $this->emailVerificationRepository = $emailVerificationRepository;
     }
