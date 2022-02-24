@@ -9,7 +9,7 @@ use App\Repositories\BaseRepository;
 
 class EmailVerificationRepository extends BaseRepository implements EmailVerificationInterfaceRepository
 {
-    public function getByToken(int $token): ?EmailVerification
+    public function getByToken(string $token): ?EmailVerification
     {
         return EmailVerification::where('token', $token)->firstOrFail;
     }
@@ -24,5 +24,15 @@ class EmailVerificationRepository extends BaseRepository implements EmailVerific
     public function getToken(EmailVerification $emailVerification): string
     {
         return $emailVerification->token;
+    }
+
+    public function getUserId(EmailVerification $emailVerification): int
+    {
+        return $emailVerification->user_id;
+    }
+
+    public function deleteByToken(string $token): void
+    {
+        EmailVerification::where('token', $token)->delete();
     }
 }

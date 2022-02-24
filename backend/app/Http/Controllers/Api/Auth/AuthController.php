@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Actions\Auth\EmailConfirmationAction;
+use App\Actions\Auth\EmailConfirmationRequest;
 use App\Actions\Auth\GetAuthenticatedUserAction;
 use App\Actions\Auth\LoginAction;
 use App\Actions\Auth\LoginRequest;
 use App\Actions\Auth\LogoutAction;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
+use App\Http\Requests\Api\Auth\EmailConfirmationHttpRequest;
 use App\Http\Requests\Api\Auth\LoginHttpRequest;
 use Illuminate\Http\JsonResponse;
 use App\Actions\Auth\RegisterAction;
@@ -68,5 +71,18 @@ final class AuthController extends ApiController
         $response = $action->execute();
 
         return $this->successResponse($userArrayPresenter->present($response->getUser()));
+    }
+
+    public function emailConfirmation(
+        EmailConfirmationAction $emailConfirmationAction,
+        EmailConfirmationHttpRequest $request
+    ): JsonResponse {
+        $emailConfirmationAction->execute(
+            new EmailConfirmationRequest(
+                $request->get('token')
+            )
+        );
+
+        return $this->emptyResponse();
     }
 }
