@@ -1,5 +1,13 @@
 <template>
-  <div></div>
+  <div>
+    <div v-if="successMessage">
+      Your email has been confirmed.You would be redirected to the login page in 5 sec.<br>
+      <router-link :to="{ name: 'auth-login' }">Click this link if you dont want wait.</router-link>
+    </div>
+    <div v-if="errorMessage">
+      {{ errorText }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -14,8 +22,14 @@ export default {
     token: String,
   },
 
+  data: () => ({
+    successMessage: false,
+    errorMessage: true,
+    errorText: false,
+  }),
+
   beforeMount() {
-    // this.confirmUserEmail();
+    this.confirmUserEmail();
   },
 
   methods: {
@@ -24,9 +38,10 @@ export default {
     }),
     confirmUserEmail() {
       return this.emailConfirmation(this.token).then(() => {
-        alert('success');
+        this.resultMessage = true;
       }).catch((e) => {
-        alert(e);
+        this.errorText = 'wrong test';
+        console.dir(e);
       });
     },
   },
