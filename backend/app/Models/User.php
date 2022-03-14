@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -47,7 +47,7 @@ final class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles(): HasOne
+    public function roles(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
@@ -77,8 +77,23 @@ final class User extends Authenticatable implements JWTSubject
         return $this->getKey();
     }
 
-    public function getJWTCustomClaims()
+    public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->getRoleId() === 4;
+    }
+
+    public function isEventOwner(): bool
+    {
+        return $this->getRoleId() === 1;
+    }
+
+    public function isEventModerator(): bool
+    {
+        return $this->getRoleId() === 2;
     }
 }
