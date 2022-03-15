@@ -9,7 +9,7 @@ class EmailConfirmationHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'token' => 'required|string|exist:email_verification',
+            'token' => 'required|string|exists:email_verification',
         ];
     }
 
