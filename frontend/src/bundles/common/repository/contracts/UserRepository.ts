@@ -43,4 +43,11 @@ export default interface UserRepository {
    * @param token
    */
   emailConfirmation(token: string): Promise<void>;
+
+  /**
+   * Email validation request
+   *
+   * @param email
+   */
+  sendValidationEmail(email: string): Promise<void>;
 }

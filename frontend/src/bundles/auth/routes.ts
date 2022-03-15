@@ -9,6 +9,7 @@ const ResetPasswordPage = () => import('./pages/ResetPasswordPage.vue').then(m =
 const ChangeEmailPasswordPage = () => import('./pages/ChangeEmailPasswordPage.vue').then(m => m.default);
 const ChangePasswordPage = () => import('./pages/ChangePasswordPage.vue').then(m => m.default);
 const EmailConfirmPage = () => import('./pages/EmailConfirmPage.vue').then(m => m.default);
+const EmailValidationRequestPage = () => import('./pages/EmailValidationRequestPage.vue').then(m => m.default);
 
 export function getAuthRoutes(): RouteConfig[] {
   return [
@@ -40,6 +41,11 @@ export function getAuthRoutes(): RouteConfig[] {
           name: 'auth-email_confirm',
           props: true,
           component: EmailConfirmPage,
+        },
+        {
+          path: 'email-validation',
+          name: 'auth-email_validation_request',
+          component: EmailValidationRequestPage,
         },
         {
           path: 'change-email-password',
