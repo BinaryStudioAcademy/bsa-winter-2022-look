@@ -9,14 +9,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserMailValidationEmail extends Mailable
+class UserValidationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(
-        private string $username,
-        private string $token
-    ) {
+    private string $token;
+
+    public function setToken($token)
+    {
+        $this->token = $token;
     }
 
     public function build()
@@ -25,7 +26,6 @@ class UserMailValidationEmail extends Mailable
             ->subject('Please confirm your email address')
             ->view('email.email_verification')
             ->with([
-                'username' => $this->username,
                 'token' => $this->token,
             ]);
     }
