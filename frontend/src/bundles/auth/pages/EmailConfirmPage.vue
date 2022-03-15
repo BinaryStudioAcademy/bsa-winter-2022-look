@@ -2,7 +2,7 @@
   <div>
     <div v-if="successMessage">
       Your email has been confirmed.You would be redirected to the login page in 5 sec.<br>
-      <router-link :to="{ name: 'auth-login' }">Click this link if you dont want wait.</router-link>
+      <router-link :to="{ name: 'auth-login' }">Click here if you don`t want to wait.</router-link>
     </div>
     <div v-if="errorMessage">
       {{ errorText }}
@@ -38,10 +38,13 @@ export default {
     }),
     confirmUserEmail() {
       return this.emailConfirmation(this.token).then(() => {
-        this.resultMessage = true;
+        this.successMessage = true;
+        setTimeout(() => {
+          this.$router.push({ name: 'auth-login' });
+        }, 5000);
       }).catch((error) => {
         this.errorMessage = true;
-        this.errorText = error.token;
+        this.errorText = error.token[0];
       });
     },
   },
