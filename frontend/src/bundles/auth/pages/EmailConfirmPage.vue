@@ -24,7 +24,7 @@ export default {
 
   data: () => ({
     successMessage: false,
-    errorMessage: true,
+    errorMessage: false,
     errorText: false,
   }),
 
@@ -39,9 +39,9 @@ export default {
     confirmUserEmail() {
       return this.emailConfirmation(this.token).then(() => {
         this.resultMessage = true;
-      }).catch((e) => {
-        this.errorText = 'wrong test';
-        console.dir(e);
+      }).catch((error) => {
+        this.errorMessage = true;
+        this.errorText = error.token;
       });
     },
   },
