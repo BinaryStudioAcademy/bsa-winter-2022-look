@@ -4,6 +4,7 @@ namespace App\Actions\Auth;
 
 use App\Exceptions\User\UserNotFoundException;
 use App\Repositories\User\UserRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,6 +32,10 @@ final class LoginAction
 
         if (!$token) {
             throw new AuthenticationException('Invalid email or password');
+        }
+
+        if (is_null($this->userRepository->getByVerifiedEmail($request->getEmail()))) {
+            throw new AuthorizationException('Please verify your email first to be able to log in');
         }
 
         return new AuthenticationResponse(
