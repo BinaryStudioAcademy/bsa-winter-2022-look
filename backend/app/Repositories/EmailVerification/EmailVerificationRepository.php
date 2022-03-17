@@ -11,7 +11,7 @@ class EmailVerificationRepository extends BaseRepository implements EmailVerific
 {
     public function getByToken(string $token): ?EmailVerification
     {
-        return EmailVerification::where('token', $token)->firstOrFail;
+        return EmailVerification::where('token', $token)->firstOrFail();
     }
 
     public function save(EmailVerification $emailVerification): ?EmailVerification
