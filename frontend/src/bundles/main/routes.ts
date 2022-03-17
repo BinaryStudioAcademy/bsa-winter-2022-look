@@ -5,6 +5,10 @@ const MatchPage = () => import('./pages/MatchPage.vue').then(m => m.default);
 const MapPage = () => import('./pages/MapPage.vue').then(m => m.default);
 const ChatPage = () => import('./pages/ChatPage.vue').then(m => m.default);
 const EventsPage = () => import('./pages/EventsPage.vue').then(m => m.default);
+const SettingsPage = () => import('./pages/SettingsPage.vue').then(m => m.default);
+const SettingsUserDetailsPage = () => import('./pages/SettingsUserDetailsPage.vue').then(m => m.default);
+const SettingsPhotosPage = () => import('./pages/SettingsPhotosPage.vue').then(m => m.default);
+const SettingsChangePasswordPage = () => import('./pages/SettingsChangePasswordPage.vue').then(m => m.default);
 
 export function getMainRoutes(): RouteConfig[] {
   return [
@@ -36,6 +40,28 @@ export function getMainRoutes(): RouteConfig[] {
           component: EventsPage,
           path: '/events',
           name: 'main-events',
+        },
+        {
+          component: SettingsPage,
+          path: '/settings',
+          name: 'main-settings',
+          children: [
+            {
+              component: SettingsUserDetailsPage,
+              path: '/settings/user_details',
+              name: 'main-settings-details',
+            },
+            {
+              component: SettingsPhotosPage,
+              path: '/settings/photos',
+              name: 'main-settings-photos',
+            },
+            {
+              component: SettingsChangePasswordPage,
+              path: '/settings/change_password',
+              name: 'main-settings-change-password',
+            },
+          ],
         },
       ],
     },

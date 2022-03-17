@@ -224,12 +224,13 @@ export default {
 }
 
 .nav-mobile{
+  position: absolute;
   height: 100%;
 }
+
 .list-block-mobile {
   padding-left: 15px;
   border-radius: 4px;
   margin-top: 20px;
 }
-
 </style>
