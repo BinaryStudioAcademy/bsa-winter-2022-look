@@ -2,7 +2,7 @@
   <form :value="!invalid" @submit.prevent="handleSubmit">
     <validation-provider
       v-slot="{ errors }"
-      name="Name"
+      name="name"
       rules="required|min:3"
     >
       <v-text-field
