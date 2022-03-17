@@ -7,14 +7,14 @@ namespace App\Actions\Auth;
 use App\Models\User;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Role;
 
 final class RegisterAction
 {
     private UserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+    ) {
         $this->userRepository = $userRepository;
     }
 
