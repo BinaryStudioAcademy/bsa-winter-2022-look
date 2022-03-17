@@ -45,7 +45,7 @@ export default {
        */
       return this.addUserMedia(payload)
         .then(() =>
-          this.$router.push({ name: 'auth-email_validation_request' }),
+          this.$router.push({ name: 'auth-email_validation' }),
         )
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {

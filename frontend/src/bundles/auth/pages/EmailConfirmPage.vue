@@ -4,7 +4,7 @@
       Your email has been confirmed.You would be redirected to the login page in 5 sec.<br>
       <router-link :to="{ name: 'auth-login' }">Click here if you don`t want to wait.</router-link>
     </div>
-    <div v-if="errorMessage">
+    <div v-if="errorText">
       {{ errorText }}
     </div>
   </div>
@@ -23,9 +23,8 @@ export default {
   },
 
   data: () => ({
-    successMessage: false,
-    errorMessage: false,
-    errorText: false,
+    successMessage: undefined,
+    errorText: undefined,
   }),
 
   beforeMount() {
@@ -43,7 +42,6 @@ export default {
           this.$router.push({ name: 'auth-login' });
         }, 5000);
       }).catch((error) => {
-        this.errorMessage = true;
         this.errorText = error.token[0];
       });
     },

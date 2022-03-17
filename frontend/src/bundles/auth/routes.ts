@@ -44,7 +44,7 @@ export function getAuthRoutes(): RouteConfig[] {
         },
         {
           path: 'email-validation',
-          name: 'auth-email_validation_request',
+          name: 'auth-email_validation',
           component: EmailValidationRequestPage,
         },
         {
