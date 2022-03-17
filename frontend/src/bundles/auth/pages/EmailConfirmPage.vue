@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="successMessage">
-      Your email has been confirmed.You would be redirected to the login page in 5 sec.<br>
+      Your email has been confirmed. You would be redirected to the login page in 5 sec.<br>
       <router-link :to="{ name: 'auth-login' }">Click here if you don`t want to wait.</router-link>
     </div>
     <div v-if="errorText">
@@ -49,9 +49,3 @@ export default {
 
 };
 </script>
-
-<style scoped>
-.h3 {
-  font-size: 100%;
-}
-</style>
