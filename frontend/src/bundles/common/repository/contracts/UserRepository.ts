@@ -37,4 +37,17 @@ export default interface UserRepository {
    * @param {ChangePasswordRequest} payload
    */
   changePassword(payload: ChangePasswordRequest): Promise<void>;
+  /**
+   * Email confirm request
+   *
+   * @param token
+   */
+  emailConfirmation(token: string): Promise<void>;
+
+  /**
+   * Email validation request
+   *
+   * @param email
+   */
+  sendValidationEmail(email: string): Promise<void>;
 }
