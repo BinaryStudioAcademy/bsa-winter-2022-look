@@ -4,7 +4,9 @@
       :user-info="userInfo"
     />
     <v-main>
-      <router-view />
+      <router-view
+        :user-info="userInfo"
+      />
     </v-main>
   </v-layout>
 </template>
