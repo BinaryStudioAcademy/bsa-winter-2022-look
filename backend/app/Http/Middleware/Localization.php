@@ -12,6 +12,9 @@ class Localization
         if (Session::has('locale')) {
             App::setLocale(Session::get('locale'));
         }
+
+        App::setLocale('ua');
+
         return $next($request);
     }
 }

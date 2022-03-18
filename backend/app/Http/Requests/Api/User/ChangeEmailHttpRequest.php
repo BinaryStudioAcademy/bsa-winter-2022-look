@@ -16,7 +16,7 @@ class ChangeEmailHttpRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.unique' => 'This email already used.',
+            __('email.unique') => 'This email already used.',
         ];
     }
 }

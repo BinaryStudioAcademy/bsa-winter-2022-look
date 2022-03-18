@@ -20,12 +20,12 @@ final class RegisterHttpRequest extends ApiFormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Email field can not be empty',
-            'email.unique' => 'Current email already used',
-            'email.email' => 'Current email style is not valid',
-            'name.required' => 'Name field can not be empty',
-            'password.min' => 'Password can\'t be less then 8 characters',
-            'password.required' => 'Password field can not be empty',
+            __('email.required') => 'Email field can not be empty',
+            __('email.unique') => 'Current email already used',
+            __('email.email') => 'Current email style is not valid',
+            __('name.required') => 'Name field can not be empty',
+            __('password.min') => 'Password can\'t be less then 8 characters',
+            __('password.required') => 'Password field can not be empty',
         ];
     }
 }

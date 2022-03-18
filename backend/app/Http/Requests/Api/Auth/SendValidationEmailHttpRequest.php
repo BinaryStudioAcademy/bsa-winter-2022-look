@@ -18,9 +18,9 @@ class SendValidationEmailHttpRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'Email field can not be empty',
-            'email.email' => 'Email is not valid',
-            'email.exists' => 'User with current email is not found',
+            __('email.required') => 'Email field can not be empty',
+            __('email.email') => 'Email is not valid',
+            __('email.exists') => 'User with current email is not found',
         ];
     }
 }

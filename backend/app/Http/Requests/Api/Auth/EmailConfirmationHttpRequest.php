@@ -16,8 +16,8 @@ class EmailConfirmationHttpRequest extends FormRequest
     public function messages()
     {
         return [
-            'token.exists' => 'Current token is wrong or already expired',
-            'token.required' => 'Token can not be empty',
+            __('token.exists') => 'Current token is wrong or already expired',
+            __('token.required') => 'Token can not be empty',
         ];
     }
 }
