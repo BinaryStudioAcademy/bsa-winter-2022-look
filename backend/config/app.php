@@ -53,7 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
-    'front_url' => env('APP_FRONTEND_URL', 'http://localhost:8082'),
+    'front_url' => env('APP_FRONTEND_URL', 'https://staging.look-not-a-tinder.xyz'),
 
     'asset_url' => env('ASSET_URL', null),
 
