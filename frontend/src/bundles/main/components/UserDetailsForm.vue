@@ -14,20 +14,31 @@
         </v-avatar>
       </div>
     </v-row>
-    <v-form>
+    <form :value="!invalid" @submit.prevent="handleSubmit">
       <v-row class="ma-2">
         <div class="col-4">
           <h3>User details</h3>
         </div>
         <div class="col-6">
-          <v-text-field
-            v-model="userInfo.name"
-            label="Full name"
-            required
-          />
+          <validation-provider
+            v-slot="{ errors }"
+            name = 'Password'
+            rules = 'required|min:3'
+          >
+            <v-text-field
+              v-if="userInfo"
+              v-model="userInfo.name"
+              label="Full name"
+              rounded
+              outlined
+              :error-messages="errors"
+            />
+          </validation-provider>
           <v-select
             :items="genders"
             label="Looking for"
+            rounded
+            outlined
           />
         </div>
       </v-row>
@@ -39,24 +50,46 @@
           Social parameters
         </div>
       </v-row>
-    </v-form>
+    </form>
 
   </div>
 </template>
 
 <script>
 
+import namespace from '@/bundles/common/store/modules/user/namespace';
+import { ValidationProvider } from 'vee-validate';
+import { mapState } from 'vuex';
+
 export default {
   name: 'UserDetailsForm',
 
-  data() {
-    return {
-      genders: ['male', 'female'],
-      userInfo: {
-        type: Object,
-        default: undefined,
-      },
-    };
+  components: {
+    ValidationProvider,
   },
+
+  props: {
+    invalid: {
+      type: Boolean,
+      default: false,
+    },
+    processing: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  computed: {
+    ...mapState(namespace, {
+      userInfo: 'user',
+    }),
+    genders() {
+      return [
+        'male',
+        'female',
+      ];
+    },
+  },
+
 };
 </script>

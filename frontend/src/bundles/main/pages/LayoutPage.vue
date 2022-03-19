@@ -5,7 +5,6 @@
     />
     <v-main>
       <router-view
-        :user-info="userInfo"
       />
     </v-main>
   </v-layout>
