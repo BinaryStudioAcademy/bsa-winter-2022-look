@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-row class="ma-2">
-      <div class="col-4">
+      <div class="col-md-3 col-xl-2 col-sm-12">
         <h3>User photo</h3>
       </div>
-      <div class="col-6">
+      <div class="col-md-5 col-xl-3 col-sm-12">
         <v-avatar
           class="user-avatar"
           size=61
@@ -16,13 +16,13 @@
     </v-row>
     <form :value="!invalid" @submit.prevent="handleSubmit">
       <v-row class="ma-2">
-        <div class="col-4">
+        <div class="col-md-3 col-xl-2 col-sm-12">
           <h3>User details</h3>
         </div>
-        <div class="col-6">
+        <div class="col-md-5 col-xl-3 col-sm-12">
           <validation-provider
             v-slot="{ errors }"
-            name = 'Password'
+            name = 'name'
             rules = 'required|min:3'
           >
             <v-text-field
@@ -34,19 +34,32 @@
               :error-messages="errors"
             />
           </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name = 'Password'
+            rules = 'required|min:3'
+          >
+            <v-select
+              :items="genders"
+              label="Looking for"
+              rounded
+              outlined
+              :error-messages="errors"
+            />
+          </validation-provider>
           <v-select
             :items="genders"
-            label="Looking for"
+            label="Gender"
             rounded
             outlined
           />
         </div>
       </v-row>
       <v-row class="ma-2">
-        <div class="col-4">
+        <div class="col-md-3 col-xl-2 col-sm-12">
           <h3>Social network</h3>
         </div>
-        <div class="col-6">
+        <div class="col-md-5 col-xl-3 col-sm-12">
           Social parameters
         </div>
       </v-row>
@@ -85,8 +98,8 @@ export default {
     }),
     genders() {
       return [
-        'male',
-        'female',
+        'Male',
+        'Female',
       ];
     },
   },
