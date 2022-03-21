@@ -178,6 +178,7 @@
         :error-messages="errors"
       />
     </validation-provider>
+    <AutoLocationGoogleField />
 
     <v-btn
       type="submit"
@@ -197,9 +198,11 @@
 
 <script>
 import { ValidationProvider } from 'vee-validate';
+import AutoLocationGoogleField from '@/bundles/auth/components/AutoLocationGoogleField';
 
 export default {
   components: {
+    AutoLocationGoogleField,
     ValidationProvider,
   },
 
