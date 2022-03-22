@@ -28,6 +28,9 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'user'], function () {
+    Route::get('/user-additional-info', [UserController::class, 'getUserAdditionalInfo'])
+        ->middleware('auth:api')
+        ->name('user.get-additional-info');
     Route::post('/change-email', [UserController::class, 'changeEmail'])
         ->middleware('auth:api')
         ->name('user.change-email');
