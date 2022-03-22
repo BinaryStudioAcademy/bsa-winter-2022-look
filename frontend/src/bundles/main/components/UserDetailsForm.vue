@@ -22,8 +22,8 @@
         <div class="col-md-5 col-xl-3 col-sm-12">
           <validation-provider
             v-slot="{ errors }"
-            name = 'name'
-            rules = 'required|min:3'
+            name="name"
+            rules="required|min:3"
           >
             <v-text-field
               v-if="userInfo"
@@ -36,33 +36,42 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name = 'gender_preference'
-            rules = 'required|min:3'
+            name="genderPreference"
+            rules="required|min:3"
           >
             <v-autocomplete
-              :items="gender_preferences"
+              v-model="localUserAdditionalInfo.genderPreferences"
+              :items="genderPreferences"
               label="Looking for"
               rounded
               outlined
               :error-messages="errors"
             />
           </validation-provider>
-          <v-autocomplete
-            :items="genders"
-            label="Gender"
-            rounded
-            outlined
-          />
+          <validation-provider
+            v-slot="{ errors }"
+            name="gender"
+            rules="required|min:3"
+          >
+            <v-autocomplete
+              v-model="localUserAdditionalInfo.gender"
+              :items="genders"
+              label="Gender"
+              rounded
+              outlined
+              :error-messages="errors"
+            />
+          </validation-provider>
           <validation-provider
             v-slot="{ errors }"
             name="location"
-            rules = 'required'
+            rules="required|min:1"
           >
             <v-autocomplete
-              v-model="locationSelected"
+              v-model="localUserAdditionalInfo.location"
               :items="locations"
               small-chips
-              label="Location"
+              label="Country"
               placeholder="Location"
               rounded
               outlined
@@ -72,10 +81,25 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Height"
+            name="age"
           >
             <v-slider
-              v-model="height"
+              v-model="localUserAdditionalInfo.age"
+              min="18"
+              max="100"
+              :thumb-size="25"
+              :error-messages="errors"
+              thumb-label="always"
+              label="Age"
+              inverse-label
+            />
+          </validation-provider>
+          <validation-provider
+            v-slot="{ errors }"
+            name="height"
+          >
+            <v-slider
+              v-model="localUserAdditionalInfo.height"
               min="50"
               max="250"
               :thumb-size="25"
@@ -87,10 +111,10 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name="Weight"
+            name="weight"
           >
             <v-slider
-              v-model="weight"
+              v-model="localUserAdditionalInfo.weight"
               min="30"
               max="250"
               :thumb-size="25"
@@ -103,10 +127,10 @@
           <validation-provider
             v-slot="{ errors }"
             name="interests"
-            rules = 'required'
+            rules="required|min:1"
           >
             <v-autocomplete
-              v-model="interestSelected"
+              v-model="localUserAdditionalInfo.interestSelected"
               :items="interests"
               small-chips
               label="Interests"
@@ -122,7 +146,7 @@
                   v-if="index === 0"
                   class="text-overline grey--text text--darken-3 mx-2"
                 >
-                  +{{ interestSelected.length }} Selected
+                  +{{ localUserAdditionalInfo.interestSelected.length }} Selected
                 </span>
               </template>
             </v-autocomplete>
@@ -131,10 +155,10 @@
           <validation-provider
             v-slot="{ errors }"
             name="hobbies"
-            rules = 'required'
+            rules="required|min:3"
           >
             <v-autocomplete
-              v-model="hobbiesSelected"
+              v-model="localUserAdditionalInfo.hobbiesSelected"
               :items="hobbies"
               small-chips
               label="Hobbies"
@@ -150,7 +174,7 @@
                   v-if="index === 0"
                   class="text-overline grey--text text--darken-3 mx-2"
                 >
-                  +{{ hobbiesSelected.length }} Selected
+                  +{{ localUserAdditionalInfo.hobbiesSelected.length }} Selected
                 </span>
               </template>
             </v-autocomplete>
@@ -162,11 +186,11 @@
             rules="required|min:10"
           >
             <v-textarea
-              v-model="about"
+              v-model="localUserAdditionalInfo.about"
               clearable
               clear-icon="mdi-close-circle"
               rounded
-              label="About yourself"
+              label="Description"
               rows="3"
               hint="At least 10 characters"
               outlined
@@ -183,11 +207,12 @@
         <div class="col-md-5 col-xl-3 col-sm-12">
           <validation-provider
             v-slot="{ errors }"
-            name = 'email'
-            rules = 'required|min:3|email'
+            name="email"
+            rules="required|min:3|email"
           >
             <v-text-field
-              :items="email"
+              v-if="userInfo"
+              v-model="userInfo.email"
               label="Email"
               rounded
               outlined
@@ -196,10 +221,10 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name = 'instagram'
+            name="instagram"
           >
             <v-text-field
-              :items="instagram"
+              v-model="localUserAdditionalInfo.instagram"
               label="Instagram"
               rounded
               outlined
@@ -208,10 +233,10 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name = 'facebook'
+            name="facebook"
           >
             <v-text-field
-              :items="facebook"
+              v-model="localUserAdditionalInfo.facebook"
               label="Facebook"
               rounded
               outlined
@@ -220,10 +245,10 @@
           </validation-provider>
           <validation-provider
             v-slot="{ errors }"
-            name = 'other_social'
+            name="other"
           >
             <v-text-field
-              :items="other_social"
+              v-model="localUserAdditionalInfo.other"
               label="Other"
               rounded
               outlined
@@ -264,7 +289,6 @@ export default {
   components: {
     ValidationProvider,
   },
-
   props: {
     invalid: {
       type: Boolean,
@@ -274,6 +298,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    userAdditionalInfo: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      localUserAdditionalInfo: undefined,
+      successfulMessage: false,
+    };
   },
 
   computed: {
@@ -314,7 +349,7 @@ export default {
         'Male', 'Female', 'Other',
       ];
     },
-    gender_preferences() {
+    genderPreferences() {
       return [
         'Male', 'Female', 'Both',
       ];
@@ -326,6 +361,32 @@ export default {
         'USA',
         'Germany',
       ];
+    },
+  },
+
+  watch: {
+    userAdditionalInfo: {
+      handler: 'fillLocalData',
+      immediate: true,
+    },
+    successfulMessage: function () {
+      this.successfulMessage = true;
+    },
+
+  },
+
+  methods: {
+    fillLocalData(value) {
+      this.localUserAdditionalInfo = { ...value };
+    },
+    handleSubmit() {
+      this.$emit('submit',
+        {
+          name: this.userInfo.name,
+          interests: this.localUserAdditionalInfo.interestSelected,
+          hobbies: this.localUserAdditionalInfo.hobbiesSelected,
+          ...this.localUserAdditionalInfo,
+        });
     },
   },
 
