@@ -11,7 +11,7 @@ class ChangeUserParametersValueFieldType extends Migration
     public function up()
     {
         Schema::table('user_parameters', function (Blueprint $table) {
-            $table->string('parameter_value')->change();
+            $table->string('parameter_value')->nullable()->change();
         });
     }
 

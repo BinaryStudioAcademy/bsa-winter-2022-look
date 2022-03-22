@@ -13,18 +13,18 @@ class UserAdditionalInfoPresenter implements PresenterInterface
     {
         return [
             'gender' => $response->getGender(),
-            'gender_preferences' => $response->getGenderPreferences(),
+            'genderPreferences' => $response->getGenderPreferences(),
             'location' => $response->getLocation(),
             'height' => $response->getHeight(),
             'weight' => $response->getWeight(),
             'age' => $response->getAge(),
-            'interests' => $response->getInterests(),
-            'hobbies' => $response->getHobbies(),
+            'interestSelected' => $response->getInterests(),
+            'hobbiesSelected' => $response->getHobbies(),
             'about' => $response->getBio(),
             'email' => $response->getEmail(),
             'instagram' => $response->getInstagram(),
             'facebook' => $response->getFacebook(),
-            'other_social' => $response->getOther(),
+            'other' => $response->getOther(),
         ];
     }
 }

@@ -6,6 +6,8 @@ namespace App\Actions\User;
 
 class GetUserAdditionalInfoResponse
 {
+    const REPLACE_PATTERN = ['[', ']', '\\', '"'];
+
     public function __construct(
         private array $userParameters,
         private string $userEmail
@@ -19,7 +21,7 @@ class GetUserAdditionalInfoResponse
 
     public function getGenderPreferences()
     {
-        return $this->userParameters['gender_preferences'];
+        return $this->userParameters['genderPreferences'];
     }
 
     public function getLocation()
@@ -44,12 +46,16 @@ class GetUserAdditionalInfoResponse
 
     public function getInterests()
     {
-        return $this->userParameters['interests'];
+        $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters['interests']);
+
+        return explode(',', $result);
     }
 
     public function getHobbies()
     {
-        return $this->userParameters['hobbies'];
+        $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters['hobbies']);
+
+        return explode(',', $result);
     }
 
     public function getBio()
@@ -67,7 +73,7 @@ class GetUserAdditionalInfoResponse
         if (array_key_exists('instagram', $this->userParameters)) {
             return $this->userParameters['instagram'];
         } else {
-            return '';
+            return null;
         }
     }
 
@@ -76,16 +82,16 @@ class GetUserAdditionalInfoResponse
         if (array_key_exists('facebook', $this->userParameters)) {
             return $this->userParameters['facebook'];
         } else {
-            return '';
+            return null;
         }
     }
 
     public function getOther()
     {
-        if (array_key_exists('other_social', $this->userParameters)) {
-            return $this->userParameters['other_social'];
+        if (array_key_exists('other', $this->userParameters)) {
+            return $this->userParameters['other'];
         } else {
-            return '';
+            return null;
         }
     }
 }
