@@ -6,8 +6,6 @@ namespace App\Actions\User;
 
 class ChangeUserParameterRequest
 {
-    const AVAILABLE_USER_PARAMETERS = ['looking', 'gender', 'age', 'weight', 'height', 'bio', 'locations'];
-
     public function __construct(private array $request)
     {
     }
@@ -22,7 +20,7 @@ class ChangeUserParameterRequest
         $response = [];
 
         foreach ($this->request as $parameterName => $parameterValue) {
-            if (!in_array($parameterName, self::AVAILABLE_USER_PARAMETERS)) {
+            if ($parameterName === 'name') {
                 continue;
             }
 

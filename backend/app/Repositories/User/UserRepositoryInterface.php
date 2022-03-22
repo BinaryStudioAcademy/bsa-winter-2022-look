@@ -13,4 +13,5 @@ interface UserRepositoryInterface
     public function save(User $user): User;
     public function deleteById(int $id): void;
     public function getByVerifiedEmail(string $email): ?User;
+    public function getEmailById(int $id): string;
 }
