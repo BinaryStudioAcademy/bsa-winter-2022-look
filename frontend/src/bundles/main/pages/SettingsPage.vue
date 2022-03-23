@@ -4,8 +4,7 @@
     fluid
   >
     <TabsComponent />
-    <router-view
-    />
+    <router-view />
   </v-container>
 </template>
 <style scoped lang="scss">

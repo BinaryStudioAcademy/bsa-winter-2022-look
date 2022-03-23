@@ -6,8 +6,7 @@
     <v-main
       class="page-layout"
     >
-      <router-view
-      />
+      <router-view />
     </v-main>
   </v-layout>
 </template>
