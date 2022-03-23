@@ -162,10 +162,12 @@
     <validation-provider
       v-slot="{ errors }"
       name="about"
-      rules="required|min:10"
+      rules="required|min:10,description|max:500,description"
     >
       <v-textarea
         v-model="about"
+        auto-grow
+        counter="500"
         clearable
         clear-icon="mdi-close-circle"
         rounded

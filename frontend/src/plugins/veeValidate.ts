@@ -4,6 +4,7 @@ import {
   email,
   confirmed,
   min,
+  max,
 } from 'vee-validate/dist/rules';
 
 extend('required', {
@@ -30,6 +31,12 @@ extend('min', {
   ...min,
   params: ['length', 'name'],
   message: 'Your {name} must be at least {length} characters',
+});
+
+extend('max', {
+  ...max,
+  params: ['length', 'name'],
+  message: 'Your {name} about yourself must be no more {length} characters',
 });
 
 extend('phone', {

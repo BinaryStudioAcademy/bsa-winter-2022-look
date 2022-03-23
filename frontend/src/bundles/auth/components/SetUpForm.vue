@@ -3,7 +3,7 @@
     <validation-provider
       v-slot="{ errors }"
       name="name"
-      rules="required|min:3"
+      rules="required|min:3,name"
     >
       <v-text-field
         v-model="fullName"
