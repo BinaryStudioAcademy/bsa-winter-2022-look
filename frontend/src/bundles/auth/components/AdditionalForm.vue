@@ -45,7 +45,7 @@
         type="text"
         name="phone"
         label="Phone"
-        placeholder="(0XX) XXX-XXXX"
+        placeholder="+38(0XX)XXX-XXXX or 0XXXXXXXXX"
         filled
         rounded
         background-color="#faf9f9"
