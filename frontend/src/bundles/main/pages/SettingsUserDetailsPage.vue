@@ -1,19 +1,23 @@
 <template>
-  <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
-    <UserDetailsForm
-      v-model="userAdditionalInfo"
-      :invalid="invalid"
-      :processing="processing"
-      :user-additional-info="userAdditionalInfo"
-      @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
-    />
-    <v-row>
-      <div class="col-md-3 col-xl-2 col-sm-12"></div>
-      <div v-if="successfulMessage" class="successfulMessage col-md-5 col-xl-3 col-sm-12">
-        <p>Changes has been saved</p>
-      </div>
-    </v-row>
-  </validation-observer>
+  <v-container
+    class="router-layout ma-0 pa-1 pa-sm-4 mr-lg-6"
+  >
+    <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
+      <UserDetailsForm
+        v-model="userAdditionalInfo"
+        :invalid="invalid"
+        :processing="processing"
+        :user-additional-info="userAdditionalInfo"
+        @submit="payload => handleSubmit(() => handleUserSubmit(payload))"
+      />
+      <v-row>
+        <div class="col-md-3 col-xl-2 col-sm-12"></div>
+        <div v-if="successfulMessage" class="successfulMessage col-md-5 col-xl-3 col-sm-12">
+          <p>Changes has been saved</p>
+        </div>
+      </v-row>
+    </validation-observer>
+  </v-container>
 </template>
 
 <script>
@@ -89,4 +93,10 @@ export default {
   p {
     padding: 0 10px;
   }
+
+  .router-layout {
+    background-color: white;
+    max-width: 100%;
+  }
+
 </style>

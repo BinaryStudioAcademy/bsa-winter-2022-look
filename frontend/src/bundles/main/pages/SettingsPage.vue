@@ -1,13 +1,14 @@
 <template>
-  <v-container class="container" fluid>
+  <v-container
+    class="container ma-0 pl-0 pr-0"
+    fluid
+  >
     <TabsComponent />
-    <router-view />
+    <router-view
+    />
   </v-container>
 </template>
 <style scoped lang="scss">
-.container {
-  margin: 37px 45px 53px 45px;
-}
 
 .nav {
   display: flex;
@@ -28,3 +29,11 @@ export default {
   },
 };
 </script>
+
+<style>
+
+.container {
+  max-width: 1400px;
+}
+
+</style>

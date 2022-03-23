@@ -1,17 +1,17 @@
 <template>
   <div>
     <div>
-      <h1>Settings</h1>
-      <div class="toolbar">
+      <h1 class="ml-4 mt-3">Settings</h1>
+      <div class="toolbar mt-2 mb-2">
         <router-link
           v-for="item in items"
           :key="item.title"
           :to="{
             name: item.name,
           }"
-          class="toolbar-item"
+          class="toolbar-item ma-3 mt-xs-3 mb-xs-3"
         >
-          {{ item.title }}
+          <h3>{{ item.title }}</h3>
         </router-link>
       </div>
     </div>
@@ -19,15 +19,8 @@
 </template>
 
 <script>
-/* import SettingsUserDetailsPage from '@/bundles/main/pages/SettingsUserDetailsPage';
-import SettingsPhotosPage from '@/bundles/main/pages/SettingsPhotosPage';
-import SettingsChangePasswordPage from '@/bundles/main/pages/SettingsChangePasswordPage'; */
 export default {
-  components: {
-    /* SettingsUserDetailsPage,
-      SettingsPhotosPage,
-      SettingsChangePasswordPage, */
-  },
+
   computed: {
     items() {
       return [
@@ -41,10 +34,11 @@ export default {
 </script>
 
 <style lang="scss" scoped >
-@import "@/assets/scss/override.scss";
+
 .theme--light.v-sheet--outlined {
   border: none;
 }
+
 .v-tabs-slider {
   background-color: white !important;
 }
@@ -55,7 +49,4 @@ export default {
   align-items: center;
 }
 
-.toolbar-item {
-  margin: 20px;
-}
 </style>
