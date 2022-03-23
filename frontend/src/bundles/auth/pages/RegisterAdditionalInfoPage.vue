@@ -14,8 +14,6 @@
 import { ValidationObserver } from 'vee-validate';
 import { ADD_ADDITIONAL_INFO } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
-import userNamespace from '@/bundles/common/store/modules/user/namespace';
-import { FETCH_SESSION_USER } from '@/bundles/common/store/modules/user/types/actions';
 import { mapActions } from 'vuex';
 import AdditionalForm from '../components/AdditionalForm';
 
@@ -35,9 +33,6 @@ export default {
     ...mapActions(namespace, {
       addAdditionalInfo: ADD_ADDITIONAL_INFO,
     }),
-    ...mapActions(userNamespace, {
-      fetchSessionUser: FETCH_SESSION_USER,
-    }),
     handleUserSubmit(payload) {
       if (this.processing) {
         return Promise.resolve();
@@ -49,8 +44,7 @@ export default {
        * TODO set user data when api completed
        */
       return this.addAdditionalInfo(payload)
-        .then(() => this.fetchSessionUser())
-        .then(() => this.$router.push({ name: 'main-list' }))
+        .then(() => this.$router.push({ name: 'auth-registration-media' }))
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
           this.processing = false;

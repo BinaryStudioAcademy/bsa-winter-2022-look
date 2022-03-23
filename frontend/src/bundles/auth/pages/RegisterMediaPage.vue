@@ -16,6 +16,8 @@ import { ADD_USER_MEDIA } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
 import MediaForm from '../components/MediaForm';
+import userNamespace from '@/bundles/common/store/modules/user/namespace';
+import { FETCH_SESSION_USER } from '@/bundles/common/store/modules/user/types/actions';
 
 export default {
   components: {
@@ -33,6 +35,9 @@ export default {
     ...mapActions(namespace, {
       addUserMedia: ADD_USER_MEDIA,
     }),
+    ...mapActions(userNamespace, {
+      fetchSessionUser: FETCH_SESSION_USER,
+    }),
     handleUserSubmit(payload) {
       if (this.processing) {
         return Promise.resolve();
@@ -44,9 +49,8 @@ export default {
        * TODO set user data when api completed
        */
       return this.addUserMedia(payload)
-        .then(() =>
-          this.$router.push({ name: 'auth-login' }),
-        )
+        .then(() => this.fetchSessionUser())
+        .then(() => this.$router.push({ name: 'main-list' }))
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
           this.processing = false;
