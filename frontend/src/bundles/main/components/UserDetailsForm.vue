@@ -372,10 +372,6 @@ export default {
       handler: 'fillLocalData',
       immediate: true,
     },
-    successfulMessage: function () {
-      this.successfulMessage = true;
-    },
-
   },
 
   methods: {

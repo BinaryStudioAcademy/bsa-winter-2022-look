@@ -60,7 +60,9 @@ export default {
       return this.getUserAdditionalInfo().then((response) => {
         this.userAdditionalInfo = response;
       })
-        .catch((e) => this.$refs.observer.setErrors(e));
+        .catch((e) => {
+          this.$refs.observer.setErrors(e);
+        });
     },
 
     handleUserSubmit(payload) {
@@ -75,7 +77,9 @@ export default {
           this.successfulMessage = true;
         },
         )
-        .catch((e) => this.$refs.observer.setErrors(e))
+        .catch((e) => {
+          this.$refs.observer.setErrors(e);
+        })
         .finally(() => {
           this.processing = false;
         });
