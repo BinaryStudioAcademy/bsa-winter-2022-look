@@ -12,10 +12,12 @@ use App\Actions\User\ChangeUserParameterAction;
 use App\Actions\User\ChangeUserParameterRequest;
 use App\Actions\User\DeleteUserFileAction;
 use App\Actions\User\DeleteUserFileRequest;
+use App\Actions\User\GetUserAdditionalInfoAction;
 use App\Actions\User\UploadUserFileAction;
 use App\Actions\User\UploadUserFileRequest;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Controller;
+use App\Http\Presenters\UserAdditionalInfoPresenter;
 use App\Http\Presenters\UserFileUploadPresenter;
 use App\Http\Requests\Api\User\ChangeEmailHttpRequest;
 use App\Http\Requests\Api\User\ChangeUserParameterHttpRequest;
@@ -28,6 +30,15 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends ApiController
 {
+    public function getUserAdditionalInfo(
+        GetUserAdditionalInfoAction $action,
+        UserAdditionalInfoPresenter $presenter
+    ): JsonResponse {
+        $response = $action->execute();
+
+        return $this->successResponse($presenter->present($response));
+    }
+
     public function changeEmail(
         ChangeEmailHttpRequest $request,
         ChangeEmailAction $action
