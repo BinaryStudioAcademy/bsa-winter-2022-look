@@ -30,7 +30,7 @@ extend('confirmed', {
 extend('min', {
   ...min,
   params: ['length', 'name'],
-  message: 'Your {name} about yourself must be at least {length} characters',
+  message: 'Your {name} must be at least {length} characters',
 });
 
 extend('max', {
