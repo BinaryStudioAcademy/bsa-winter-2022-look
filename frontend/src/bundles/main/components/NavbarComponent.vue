@@ -150,10 +150,6 @@ export default {
   padding-left: 45px;
 }
 
-.v-navigation-drawer__border {
-  width: 0 !important;
-}
-
 .logo {
   margin-top: 19px;
 }
@@ -206,13 +202,13 @@ export default {
 .divider {
   margin-top: 9px;
   width: 291px;
-  height: 0px;
+  height: 0;
   border: 1.5px solid rgba(94, 94, 94, 0.4);
   background: rgba(94, 94, 94, 0.4);
 }
 
-.v-application a {
-  color: #8E9396;
+.list-item .router-link-exact-active .router-link-active{
+  color: #8E9396 !important;
 }
 
 .dot-notification {
@@ -230,6 +226,12 @@ export default {
   padding-left: 15px;
   border-radius: 4px;
   margin-top: 20px;
+}
+
+.list-block {
+  .list-item {
+    color: #8E9396;
+  }
 }
 
 </style>
