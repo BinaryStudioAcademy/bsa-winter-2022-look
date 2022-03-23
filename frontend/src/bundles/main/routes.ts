@@ -46,7 +46,7 @@ export function getMainRoutes(): RouteConfig[] {
           children: [
             {
               component: SettingsUserDetailsPage,
-              path: '/settings/user_details',
+              path: '/user_details',
               name: 'main-settings-details',
             },
           ],
