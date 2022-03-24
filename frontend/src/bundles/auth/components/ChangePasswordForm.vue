@@ -7,10 +7,18 @@
     >
       <v-text-field
         v-model="password"
-        label="Password"
-        type="password"
         :error-messages="errors"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showPassword ? 'text' : 'password'"
+        label="Password"
+        name="password"
+        hint="At least 8 characters"
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
         required
+        @click:append="togglePassword"
       />
     </validation-provider>
     <validation-provider
@@ -21,9 +29,17 @@
       <v-text-field
         v-model="passwordConfirmation"
         label="Confirm Password"
-        type="password"
         :error-messages="errors"
+        :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="showConfirmPassword ? 'text' : 'password'"
+        name="confirm-password"
+        hint="At least 8 characters"
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
         required
+        @click:append="toggleConfirmPassword"
       />
     </validation-provider>
 
@@ -68,6 +84,8 @@ export default {
   data: () => ({
     password: undefined,
     passwordConfirmation: undefined,
+    showPassword: false,
+    showConfirmPassword: false,
   }),
 
   methods: {
@@ -76,6 +94,12 @@ export default {
         password: this.password,
         passwordConfirmation: this.passwordConfirmation,
       });
+    },
+    togglePassword() {
+      this.showPassword = !this.showPassword;
+    },
+    toggleConfirmPassword() {
+      this.showConfirmPassword = !this.showConfirmPassword;
     },
   },
 

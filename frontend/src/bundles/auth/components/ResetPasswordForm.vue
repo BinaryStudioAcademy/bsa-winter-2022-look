@@ -9,6 +9,11 @@
         v-model="email"
         :error-messages="errors"
         label="E-mail"
+        placeholder="E-mail"
+        filled
+        rounded
+        background-color="#faf9f9"
+        outlined
       />
     </validation-provider>
     <v-btn
