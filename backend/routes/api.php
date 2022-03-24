@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +21,16 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
     Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'passwordReset'])->name('password.change-request');
+    Route::post('/reset-password', [ForgotPasswordController::class, 'passwordChange'])->name('password.reset');
+    Route::post('/email-confirm', [AuthController::class, 'emailConfirmation'])->name('email-confirmation');
+    Route::post('/send-validation-email', [AuthController::class, 'sendValidationEmail'])->name('send-validation-email');
 });
 
-Route::group(['prefix' => 'v1/user'], function () {
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/user-additional-info', [UserController::class, 'getUserAdditionalInfo'])
+        ->middleware('auth:api')
+        ->name('user.get-additional-info');
     Route::post('/change-email', [UserController::class, 'changeEmail'])
         ->middleware('auth:api')
         ->name('user.change-email');

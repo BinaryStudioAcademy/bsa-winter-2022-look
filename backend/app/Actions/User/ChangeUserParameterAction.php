@@ -16,7 +16,6 @@ class ChangeUserParameterAction
 {
     public function __construct(
         private UserParameterRepository $userParameterRepository,
-        private UserInterestRepository $userInterestRepository,
         private UserRepository $userRepository
     ) {
     }
@@ -41,14 +40,6 @@ class ChangeUserParameterAction
             } catch (\Exception $exception) {
                 throw new CantSaveUserParameterException();
             }
-        }
-
-        try {
-            $userInterests = $this->userInterestRepository->getUserInterests($user->getId());
-            $userInterests->interests = $request->getInterests();
-            $this->userInterestRepository->save($userInterests);
-        } catch (\Exception $exception) {
-            throw new CantSaveUserParameterException();
         }
 
         return new ChangeUserParameterResponse();

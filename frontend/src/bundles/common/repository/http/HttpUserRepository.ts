@@ -5,6 +5,7 @@ import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 import Storage from '@/services/storage';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
+import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
 
 export default class HttpUserRepository implements UserRepository {
   private readonly httpTransport: HttpTransport;
@@ -60,7 +61,39 @@ export default class HttpUserRepository implements UserRepository {
     return this.httpTransport
       .post(
         '/auth/reset-password',
-        payload,
+        {
+          ...payload,
+          password_confirmation: payload.passwordConfirmation,
+        },
       );
+  }
+
+  public emailConfirmation(token: string): Promise<void> {
+    return this.httpTransport
+      .post(
+        '/auth/email-confirm',
+        { token: token },
+      );
+  }
+
+  public sendValidationEmail(email: string): Promise<void> {
+    return this.httpTransport
+      .post(
+        'auth/send-validation-email',
+        { email: email },
+      );
+  }
+
+  public getUserAdditionalInfo(): Promise<void> {
+    return this.httpTransport
+      .get('user/user-additional-info');
+  }
+
+  public setUserAdditionalInfo(payload: ChangeUserInfoRequest): Promise<void> {
+    return this.httpTransport
+      .post('/user/change-user-info',
+        {
+          ...payload,
+        });
   }
 }

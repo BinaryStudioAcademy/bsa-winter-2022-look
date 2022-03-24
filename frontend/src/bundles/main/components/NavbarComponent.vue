@@ -199,7 +199,7 @@ export default {
   computed: {
     menuUser() {
       return [
-        { title: 'Settings', name: 'settings' },
+        { title: 'Settings', name: 'main-settings' },
         { title: 'Logout', name: 'logout' },
       ];
     },
