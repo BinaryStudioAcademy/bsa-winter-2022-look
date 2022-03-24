@@ -7,7 +7,6 @@ namespace App\Actions\Auth;
 use App\Exceptions\User\CantUpdateUserDataException;
 use App\Exceptions\User\InvalidTokenException;
 use App\Exceptions\User\UserNotFoundException;
-use App\Http\Requests\Api\Auth\PasswordChangeRequest;
 use App\Repositories\PasswordReset\PasswordResetRepository;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +21,7 @@ final class PasswordChangeAction
 
     public function execute(PasswordChangeRequest $request): PasswordChangeResponse
     {
-        if (is_null($changePasswordData = $this->passwordResetRepository->getByToken($request->get('token')))) {
+        if (is_null($changePasswordData = $this->passwordResetRepository->getByToken($request->getToken()))) {
             throw new InvalidTokenException();
         }
 
@@ -36,7 +35,7 @@ final class PasswordChangeAction
             throw new CantUpdateUserDataException();
         }
 
-        if (is_null($changePasswordData->delete())) {
+        if (is_null($this->passwordResetRepository->deleteByToken($request->getToken()))) {
             throw new InvalidTokenException();
         }
 
