@@ -8,24 +8,30 @@ use Illuminate\Http\UploadedFile;
 
 class UploadUserFileRequest
 {
+    private UploadedFile $file;
+
     public function __construct(
-        private UploadedFile $file,
-        private string $type
+        private array $files,
     ) {
     }
 
-    public function getFile(): UploadedFile
+    public function getFiles()
+    {
+        return $this->files['files'];
+    }
+
+    public function getFile()
     {
         return $this->file;
+    }
+
+    public function setFile($file)
+    {
+        $this->file = $file;
     }
 
     public function getFormat(): string
     {
         return $this->file->getMimeType();
-    }
-
-    public function getType(): string
-    {
-        return $this->type;
     }
 }

@@ -9,14 +9,18 @@ use App\Models\UserMedia;
 
 class UserFileUploadPresenter implements PresenterInterface
 {
-    public function present(UserMedia $media)
+    public function present(array $files)
     {
-        return [
-            'id' => $media->getId(),
-            'user_id' => $media->getUserId(),
-            'media_type' => $media->getType(),
-            'format' => $media->getFormat(),
-            'filename' => $media->getFileName(),
-        ];
+        $response = [];
+        foreach ($files as $file) {
+            $response[] = [
+                'id' => $file->getId(),
+                'user_id' => $file->getUserId(),
+                'format' => $file->getFormat(),
+                'filename' => $file->getFileName(),
+            ];
+        }
+
+        return $response;
     }
 }

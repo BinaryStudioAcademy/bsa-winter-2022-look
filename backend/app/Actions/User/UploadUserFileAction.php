@@ -24,25 +24,29 @@ class UploadUserFileAction
             throw new UserNotFoundException();
         }
 
-        $filePath = Storage::disk('s3')->putFileAs(
-            Config::get('filesystems.user_files_dir'),
-            $request->getFile(),
-            $request->getFile()->hashName(),
-        );
+        $response = [];
 
-        $media = new UserMedia();
+        foreach ($request->getFiles() as $file) {
+            $media = new UserMedia();
+            $media->user_id = $userId;
+            $request->setFile($file);
+            $filePath = Storage::disk('s3')->putFileAs(
+                Config::get('filesystems.user_files_dir'),
+                $request->getFile(),
+                $request->getFile()->hashName(),
+            );
 
-        $media->user_id = $userId;
-        $media->format = $request->getFormat();
-        $media->media_type = $request->getType();
-        $media->filename = Storage::disk('s3')->path($filePath);
+            $media->format = $request->getFormat();
+            $media->filename = Storage::disk('s3')->path($filePath);
 
-        try {
-            $media = $this->mediaRepository->save($media);
-        } catch (\Exception $exception) {
-            throw new ModelNotFoundException();
+            try {
+                $media = $this->mediaRepository->save($media);
+            } catch (\Exception $exception) {
+                throw new ModelNotFoundException();
+            }
+            $response[] = $media;
         }
 
-        return new UploadUserFileResponse($media);
+        return new UploadUserFileResponse($response);
     }
 }

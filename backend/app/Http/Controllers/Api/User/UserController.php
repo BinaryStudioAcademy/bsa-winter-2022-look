@@ -83,12 +83,11 @@ class UserController extends ApiController
     ) {
         $response = $action->execute(
             new UploadUserFileRequest(
-                $request->file('file'),
-                $request->get('media_type')
+                $request->allFiles(),
             )
         );
 
-        return $this->successResponse($presenter->present($response->getFile()));
+        return $this->successResponse($presenter->present($response->getFiles()));
     }
 
     public function deleteFile(
