@@ -7,12 +7,17 @@ namespace App\Actions\Auth;
 class PasswordChangeRequest
 {
     public function __construct(
-        private string $token
+        private array $request
     ) {
     }
 
     public function getToken()
     {
-        return $this->token;
+        return $this->request['token'];
+    }
+
+    public function getPassword()
+    {
+        return $this->request['password'];
     }
 }

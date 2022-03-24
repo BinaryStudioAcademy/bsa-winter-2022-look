@@ -15,8 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ForgotPasswordController extends Controller
 {
-    public function passwordReset(ForgotPasswordRequest $request, ForgotPasswordAction $action): JsonResponse
-    {
+    public function passwordReset(
+        ForgotPasswordRequest $request,
+        ForgotPasswordAction $action
+    ): JsonResponse {
         $action->execute($request);
 
         return response()->json([], Response::HTTP_NO_CONTENT);
@@ -28,7 +30,7 @@ class ForgotPasswordController extends Controller
     ): JsonResponse {
         $action->execute(
             new PasswordChangeRequest(
-                $request->get('token')
+                $request->all()
             )
         );
 

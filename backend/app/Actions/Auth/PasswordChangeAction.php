@@ -29,9 +29,9 @@ final class PasswordChangeAction
             throw new UserNotFoundException();
         }
 
-        $user->password = Hash::make($request->get('password'));
+        $user->password = Hash::make($request->getPassword());
 
-        if (is_null($user->save())) {
+        if (is_null($this->userRepository->save($user))) {
             throw new CantUpdateUserDataException();
         }
 
