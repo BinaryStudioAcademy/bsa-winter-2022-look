@@ -2,6 +2,7 @@ import User from '@/bundles/common/entity/User';
 import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
+import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
 
 export default interface UserRepository {
   /**
@@ -43,11 +44,21 @@ export default interface UserRepository {
    * @param token
    */
   emailConfirmation(token: string): Promise<void>;
-
   /**
    * Email validation request
    *
    * @param email
    */
   sendValidationEmail(email: string): Promise<void>;
+  /**
+   * Get user additional info request
+   *
+   */
+  getUserAdditionalInfo(): Promise<void>;
+  /**
+   * Change user info request
+   *
+   * @param {ChangeUserInfoRequest} payload
+   */
+  setUserAdditionalInfo(payload: ChangeUserInfoRequest): Promise<void>;
 }

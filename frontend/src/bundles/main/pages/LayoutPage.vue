@@ -3,7 +3,9 @@
     <navbar-component
       :user-info="userInfo"
     />
-    <v-main>
+    <v-main
+      class="page-layout"
+    >
       <router-view />
     </v-main>
   </v-layout>
@@ -24,3 +26,11 @@ export default {
   },
 };
 </script>
+
+<style>
+
+.page-layout {
+  background-color:#faf9f9;
+}
+
+</style>
