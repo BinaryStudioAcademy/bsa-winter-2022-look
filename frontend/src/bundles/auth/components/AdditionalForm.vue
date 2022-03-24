@@ -38,14 +38,15 @@
     <validation-provider
       v-slot="{ errors }"
       name="phone"
-      rules="phone"
+      rules="required|phone"
     >
       <v-text-field
         v-model="phone"
+        v-mask="'+##(###)###-##-##'"
         type="text"
         name="phone"
         label="Phone"
-        placeholder="+38(0XX)XXX-XXXX or 0XXXXXXXXX"
+        placeholder="+38(0XX)XXX-XX-XX"
         filled
         rounded
         background-color="#faf9f9"

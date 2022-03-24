@@ -12,5 +12,8 @@
     },
     "devDependencies": {
         "husky": "^7.0.4"
+    },
+    "dependencies": {
+        "v-mask": "^2.3.0"
     }
 }
