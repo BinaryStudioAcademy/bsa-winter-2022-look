@@ -1,5 +1,17 @@
 <template>
-  <v-container>
-    <p>Match page</p>
-  </v-container>
+  <div>
+    <page-title
+      title="Match"
+    />
+  </div>
 </template>
+
+<script>
+import PageTitle from '@/bundles/common/components/PageTitle';
+
+export default {
+  components: {
+    PageTitle,
+  },
+};
+</script>

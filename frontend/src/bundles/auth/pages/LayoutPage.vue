@@ -35,7 +35,9 @@
         class="greyBg fill-height--centred"
       >
         <div class="form--auth mx-auto my-auto mt-xs-10">
-          <router-link to="/">
+          <router-link
+            :to="{ name: 'home' }"
+          >
             <v-img
               class="mx-auto mx-md-0 my-5 my-md-0"
               max-height="38"

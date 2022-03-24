@@ -54,7 +54,7 @@ export default {
 
       return this.loginUser(payload)
         .then(() =>
-          this.$router.push({ name: 'search' }), // TODO: need to specify correct route name
+          this.$router.push({ name: 'main-list' }), // TODO: need to specify correct route name
         )
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
