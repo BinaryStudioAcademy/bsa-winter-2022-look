@@ -10,7 +10,9 @@
           align="center"
         >
           <v-toolbar-title>
-            <router-link to="/">
+            <router-link
+              :to="{ name: 'home' }"
+            >
               <v-img
                 class="ml-2 mr-md-16"
                 src="@/assets/image/main_logo.svg"

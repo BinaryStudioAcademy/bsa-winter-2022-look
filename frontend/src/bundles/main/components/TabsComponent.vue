@@ -1,8 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 class="ml-4 mt-3">Settings</h1>
-      <div class="toolbar mt-2 mb-2">
+      <div class="toolbar mb-2">
         <router-link
           v-for="item in items"
           :key="item.title"

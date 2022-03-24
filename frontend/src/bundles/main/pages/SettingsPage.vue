@@ -3,6 +3,9 @@
     class="container ma-0 pl-0 pr-0"
     fluid
   >
+    <page-title
+      title="Settings"
+    />
     <TabsComponent />
     <router-view />
   </v-container>
@@ -20,11 +23,14 @@
 }
 </style>
 <script>
+
 import TabsComponent from '@/bundles/main/components/TabsComponent';
+import PageTitle from '@/bundles/common/components/PageTitle';
 
 export default {
   components: {
     TabsComponent,
+    PageTitle,
   },
 };
 </script>

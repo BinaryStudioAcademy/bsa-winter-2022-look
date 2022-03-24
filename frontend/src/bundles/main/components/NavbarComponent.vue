@@ -1,87 +1,165 @@
 <template>
   <div>
     <v-navigation-drawer
-      app
-      absolute
-      class="navbar-container"
+      v-model="drawer"
+      class="px-5 py-2"
       color="greyMain"
-      width=381
-      mobile-breakpoint=600
+      app
+      overlay-color="white"
+      overlay-opacity=".1"
+      mobile-breakpoint="960"
     >
-      <div class="logo">
-        <router-link to="/">
-          <LogoIcon />
-        </router-link>
-      </div>
-      <v-card
-        flex
-        class="user-info-block"
-        color="lightPink"
-        height=100
-        width=291
-        flat
+      <router-link
+        :to="{ name: 'main-list' }"
       >
-        <v-avatar
-          class="user-avatar"
-          size=61
-          right
+        <LogoIcon />
+      </router-link>
+
+      <v-item-group
+        class="items-menu pt-5"
+      >
+
+        <v-menu
+          v-if="user"
+          offset-y
         >
-          <img src="https://randomuser.me/api/portraits/women/81.jpg">
-        </v-avatar>
-        <span v-if="userInfo" class="user-name lightBlack--text">{{ userInfo.name }}</span>
-        <ArrowIcon class="nav-arrow" />
-      </v-card>
-      <div class="list-block">
+          <template #activator="{ on, attrs }">
+            <div
+              v-bind="attrs"
+              class="lightPink pl-2 pr-5 py-2 mb-10 rounded-lg"
+              v-on="on"
+            >
+              <v-list-item-avatar>
+                <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
+              </v-list-item-avatar>
+              <span class="h5 font-weight-regular mr-5">
+                {{ user.name }}
+              </span>
+              <v-icon
+                class="primary--text"
+              >
+                mdi-menu-down
+              </v-icon>
+            </div>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in menuUser"
+              :key="index"
+            >
+              <router-link
+                :to="{
+                  name: item.name,
+                }"
+                class="lightBlack--text"
+              >
+                {{ item.title }}
+              </router-link>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
         <router-link
-          v-for="item in items"
+          v-for="item in menuApp"
           :key="item.title"
           :to="{
             name: item.name,
           }"
-          class="list-item"
+          class="list-item lightGrey--text"
         >
-          <component
-            :is="item.icon"
-          />
-          <span class="space-between" />
-          {{ item.title }}
-          <div v-if="hasNewMessage && item.name === 'main-chat'">
-            <HasMassageDotIcon class="dot-notification" />
-          </div>
-        </router-link>
-      </div>
-      <div class="divider" />
-    </v-navigation-drawer>
-    <div
-      :if="isMobileScreen"
-      class="nav-mobile greyMain"
-    >
-      <v-app-bar clipped-left flat>
-        <v-app-bar-nav-icon @click="drawer = !drawer" />
-      </v-app-bar>
-      <v-navigation-drawer
-        v-model="drawer"
-        width=56
-      >
-        <div class="list-block list-block-mobile">
-          <router-link
-            v-for="item in items"
-            :key="item.title"
-            :to="{
-              name: item.name,
-            }"
-            class="list-item"
+          <v-badge
+            v-if="hasNewMessage && item.name === 'main-chat'"
+            dot
+            overlap
+            bordered
+            color="orange"
           >
             <component
               :is="item.icon"
             />
-            <div v-if="hasNewMessage && item.name === 'main-chat'">
-              <HasMassageDotIcon class="dot-notification" />
-            </div>
+          </v-badge>
+          <component
+            :is="item.icon"
+            v-else
+          />
+          <span class="space-between" />
+          <v-hover
+            v-slot="{ hover }"
+          >
+            <span
+              :class="{ 'primary--text': hover }"
+              class="h5 font-weight-bold"
+            >
+              {{ item.title }}
+            </span>
+          </v-hover>
+        </router-link>
+        <v-divider />
+      </v-item-group>
+
+      <v-item-group
+        class="pt-5"
+      >
+        <v-list-item-title
+          class="font-weight-medium h6 mt-3 mb-3"
+        >
+          Frequently chat
+        </v-list-item-title>
+
+        <v-list-item
+          v-for="(item, index) in frequentlyChat"
+          :key="index"
+          class="d-flex pa-0"
+          flat
+        >
+          <v-badge
+            :color="item.online ? 'green' : 'lightGrey'"
+            dot
+            overlap
+            bordered
+            bottom
+            class="mr-3"
+          >
+            <v-avatar
+              size="32"
+            >
+              <img
+                :src="item.image"
+              >
+            </v-avatar>
+          </v-badge>
+
+          <router-link
+            class="d-block w-100"
+            :to="{name: 'main-chat'}"
+          >
+            <v-list-item-title
+              class="d-flex justify-space-between"
+            >
+              <span
+                class="text-14 lightBlack--text"
+              >
+                {{ item.name }}
+              </span>
+              <span
+                class="counter-msg primary font-weight-bold text-14 white--text"
+              >
+                5
+              </span>
+            </v-list-item-title>
           </router-link>
-        </div>
-      </v-navigation-drawer>
-    </div>
+        </v-list-item>
+      </v-item-group>
+    </v-navigation-drawer>
+    <v-app-bar
+      flat
+      class="d-md-none headerMain"
+    >
+      <LogoIcon />
+      <v-app-bar-nav-icon
+        @click="drawer = !drawer"
+      />
+    </v-app-bar>
   </div>
 </template>
 <script>
@@ -97,8 +175,8 @@ import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon
 
 export default {
   components: {
-    ArrowIcon,
     LogoIcon,
+    ArrowIcon,
     ListIcon,
     LikeIcon,
     MapIcon,
@@ -107,18 +185,25 @@ export default {
     HasMassageDotIcon,
   },
   props: {
-    userInfo: {
+    user: {
       type: Object,
       default: undefined,
     },
   },
   data() {
     return {
-      drawer: false,
+      drawer: null,
+      messages: 1,
     };
   },
   computed: {
-    items() {
+    menuUser() {
+      return [
+        { title: 'Settings', name: 'main-settings' },
+        { title: 'Logout', name: 'logout' },
+      ];
+    },
+    menuApp() {
       return [
         { title: 'List', icon: 'ListIcon', name: 'main-list' },
         { title: 'Your match', icon: 'LikeIcon', name: 'main-match' },
@@ -127,61 +212,43 @@ export default {
         { title: 'Events', icon: 'EventsIcon', name: 'main-events' },
       ];
     },
+    frequentlyChat() {
+      return [
+        {
+          image: 'https://randomuser.me/api/portraits/women/1.jpg',
+          id: 1,
+          name: 'Zoe Kim',
+          online: true,
+          distance: '500m',
+        },
+        {
+          image: 'https://randomuser.me/api/portraits/women/2.jpg',
+          id: 2,
+          name: 'Monica Biluc',
+          online: false,
+          distance: '1500m',
+        },
+        {
+          image: 'https://randomuser.me/api/portraits/women/3.jpg',
+          id: 3,
+          name: 'Tatiana Carder',
+          online: true,
+          distance: '700m',
+        },
+      ];
+    },
     hasNewMessage() {
       return true;
     },
-    isMobileScreen() {
-      return window.innerWidth < 600;
-    },
   },
-
 };
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/override.scss";
-
-.navbar-container {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 22px;
-  border: none;
-  padding-left: 45px;
-}
-
-.logo {
-  margin-top: 19px;
-}
-
-.user-info-block {
-  margin-top: 26px;
-}
-
-.user-avatar {
-  margin: 19px 12px 20px 29px;
-}
-
-.user-name {
-  display: inline-block;
-  max-width: 129px;
-  font-weight: 400;
-}
-
-.nav-arrow {
-  margin-bottom: 4px;
-  margin-left: 13px;
-  cursor: pointer;
-}
-
-.list-block {
-  margin-top: 53px;
-  .list-item {
-    &:hover {
-      svg path {
-        fill: #FE5FAA;
-      }
-      color: #FE5FAA;
+.list-item {
+  &:hover {
+    svg path {
+      fill: #FE5FAA;
     }
   }
 }
@@ -199,39 +266,7 @@ export default {
   list-style-type: none;
 }
 
-.divider {
-  margin-top: 9px;
-  width: 291px;
-  height: 0;
-  border: 1.5px solid rgba(94, 94, 94, 0.4);
-  background: rgba(94, 94, 94, 0.4);
+.v-navigation-drawer__border {
+  background: transparent !important;
 }
-
-.list-item .router-link-exact-active .router-link-active{
-  color: #8E9396 !important;
-}
-
-.dot-notification {
-  position: relative;
-  top: -7px;
-  left: -61px;
-  border: 1px solid white;
-  border-radius: 50%;
-}
-
-.nav-mobile{
-  height: 100%;
-}
-.list-block-mobile {
-  padding-left: 15px;
-  border-radius: 4px;
-  margin-top: 20px;
-}
-
-.list-block {
-  .list-item {
-    color: #8E9396;
-  }
-}
-
 </style>
