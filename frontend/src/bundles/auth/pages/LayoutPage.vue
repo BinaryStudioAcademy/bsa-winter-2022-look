@@ -59,11 +59,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow-y: scroll;
   @media screen and (max-width: 959px) {
     height: auto;
   }
 }
+
 .form--auth {
   max-width: 320px;
   width: 100%;
@@ -71,7 +71,6 @@
 p {
   font-size: 18px;
 }
-
 .image--auth_dog {
   @media screen and (max-width: 959px) {
     max-width: 250px !important;
