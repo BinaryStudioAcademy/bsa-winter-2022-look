@@ -12,17 +12,19 @@ class ChangeUserParameterHttpRequest extends FormRequest
     {
         return [
             'name' => 'string|required|min:3',
-            'looking' => 'string|required',
+            'genderPreferences' => 'string|required',
             'gender' => 'string|required',
             'age' => 'int|required|min:18',
             'weight' => 'int|required',
             'height' => 'int|required',
-            'bio' => 'string',
-            'phone' => 'required|regex:/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/',
-            'locations' => 'required|array|min:1',
-            'locations.*' => 'required|string|distinct|min:3',
+            'about' => 'string',
+            'location' => 'required|string|min:1',
             'interests' => 'required|array|min:1',
             'interests.*' => 'required|string|distinct|min:3',
+            'other' => 'string|nullable',
+            'facebook' => 'string|nullable',
+            'instagram' => 'string|nullable',
+            'hobbies' => 'required|min:1',
         ];
     }
 
@@ -30,7 +32,7 @@ class ChangeUserParameterHttpRequest extends FormRequest
     {
         return [
             'name.required' => 'Name field can not be empty',
-            'looking.required' => 'Looking field can not be empty',
+            'gender_preferences.required' => 'Looking field can not be empty',
             'gender.required' => 'Gender field can not be empty',
             'age.required' => 'Age field can not be empty',
             'age.int' => 'Age field must be a number',

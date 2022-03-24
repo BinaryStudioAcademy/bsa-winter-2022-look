@@ -2,6 +2,7 @@
 
 namespace App\Actions\Auth;
 
+use App\Exceptions\Auth\EmailVerificationRequiredException;
 use App\Exceptions\User\UserNotFoundException;
 use App\Repositories\User\UserRepository;
 use Illuminate\Auth\AuthenticationException;
@@ -31,6 +32,10 @@ final class LoginAction
 
         if (!$token) {
             throw new AuthenticationException('Invalid email or password');
+        }
+
+        if (is_null($this->userRepository->getByVerifiedEmail($request->getEmail()))) {
+            throw new EmailVerificationRequiredException();
         }
 
         return new AuthenticationResponse(

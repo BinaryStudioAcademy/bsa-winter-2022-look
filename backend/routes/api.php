@@ -23,9 +23,14 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api');
     Route::post('/forgot-password', [ForgotPasswordController::class, 'passwordReset'])->name('password.change-request');
     Route::post('/reset-password', [ForgotPasswordController::class, 'passwordChange'])->name('password.reset');
+    Route::post('/email-confirm', [AuthController::class, 'emailConfirmation'])->name('email-confirmation');
+    Route::post('/send-validation-email', [AuthController::class, 'sendValidationEmail'])->name('send-validation-email');
 });
 
 Route::group(['prefix' => 'user'], function () {
+    Route::get('/user-additional-info', [UserController::class, 'getUserAdditionalInfo'])
+        ->middleware('auth:api')
+        ->name('user.get-additional-info');
     Route::post('/change-email', [UserController::class, 'changeEmail'])
         ->middleware('auth:api')
         ->name('user.change-email');

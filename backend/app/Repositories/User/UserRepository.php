@@ -40,4 +40,9 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
     {
         $user->markEmailAsVerified();
     }
+
+    public function getEmailById(int $id): string
+    {
+        return User::findOrFail($id)->email;
+    }
 }

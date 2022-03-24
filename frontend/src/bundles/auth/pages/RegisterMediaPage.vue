@@ -49,8 +49,9 @@ export default {
        * TODO set user data when api completed
        */
       return this.addUserMedia(payload)
-        .then(() => this.fetchSessionUser())
-        .then(() => this.$router.push({ name: 'main-list' }))
+        .then(() =>
+          this.$router.push({ name: 'auth-email_validation' }),
+        )
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
           this.processing = false;

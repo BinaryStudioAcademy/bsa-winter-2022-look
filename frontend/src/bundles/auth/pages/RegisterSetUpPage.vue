@@ -12,7 +12,7 @@
 
 <script>
 import { ValidationObserver } from 'vee-validate';
-import { CREATE_USER, LOGIN_USER } from '../store/modules/auth/types/actions';
+import { CREATE_USER, SEND_VALIDATION_EMAIL } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
 import SetUpForm from '../components/SetUpForm';
@@ -32,7 +32,7 @@ export default {
   methods: {
     ...mapActions(namespace, {
       createUser: CREATE_USER,
-      loginUser: LOGIN_USER,
+      sendValidationEmail: SEND_VALIDATION_EMAIL,
     }),
     handleUserSubmit(payload) {
       if (this.processing) {
@@ -42,8 +42,10 @@ export default {
       this.processing = true;
 
       return this.createUser(payload)
-        .then(() => this.loginUser({ email: payload.email, password: payload.password }))
-        .then(() => this.$router.push({ name: 'auth-registration-additional_info' }))
+        .then(() => {
+          this.sendValidationEmail(payload.email);
+          this.$router.push({ name: 'auth-registration-additional_info' });
+        })
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
           this.processing = false;
