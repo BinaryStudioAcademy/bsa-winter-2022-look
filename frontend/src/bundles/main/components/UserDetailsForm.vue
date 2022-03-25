@@ -87,7 +87,7 @@
           >
             <v-slider
               v-model="localUserAdditionalInfo.age"
-              min="18"
+              min="14"
               max="100"
               :thumb-size="25"
               :error-messages="errors"
@@ -190,6 +190,7 @@
             <v-textarea
               v-model="localUserAdditionalInfo.about"
               clearable
+              auto-grow
               clear-icon="mdi-close-circle"
               rounded
               label="Description"
