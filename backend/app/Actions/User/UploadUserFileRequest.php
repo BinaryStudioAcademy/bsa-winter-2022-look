@@ -15,12 +15,12 @@ class UploadUserFileRequest
     ) {
     }
 
-    public function getFiles()
+    public function getFiles(): array
     {
         return $this->files['files'];
     }
 
-    public function getFile()
+    public function getFile(): UploadedFile
     {
         return $this->file;
     }

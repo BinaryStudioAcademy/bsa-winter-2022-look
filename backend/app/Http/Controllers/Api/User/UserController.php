@@ -16,7 +16,6 @@ use App\Actions\User\GetUserAdditionalInfoAction;
 use App\Actions\User\UploadUserFileAction;
 use App\Actions\User\UploadUserFileRequest;
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Controllers\Controller;
 use App\Http\Presenters\UserAdditionalInfoPresenter;
 use App\Http\Presenters\UserFileUploadPresenter;
 use App\Http\Requests\Api\User\ChangeEmailHttpRequest;
@@ -24,9 +23,7 @@ use App\Http\Requests\Api\User\ChangeUserParameterHttpRequest;
 use App\Http\Requests\Api\User\ChangePasswordHttpRequest;
 use App\Http\Requests\Api\User\DeleteUserFileHttpRequest;
 use App\Http\Requests\Api\User\UploadUserFileHttpRequest;
-use App\Models\UserMedia;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends ApiController
 {

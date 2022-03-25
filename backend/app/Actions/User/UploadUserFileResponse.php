@@ -10,7 +10,7 @@ class UploadUserFileResponse
     {
     }
 
-    public function getFiles()
+    public function getFiles(): array
     {
         return $this->files;
     }
