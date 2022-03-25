@@ -1,12 +1,19 @@
 <template>
-  <v-layout>
+  <v-app
+    class="greyBg"
+  >
     <navbar-component
-      :user-info="userInfo"
+      :user="user"
     />
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-layout>
+    <v-container
+      fluid
+      class="py-4 px-5"
+    >
+      <v-main>
+        <router-view />
+      </v-main>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -19,7 +26,7 @@ export default {
   components: { NavbarComponent },
   computed: {
     ...mapState(namespace, {
-      userInfo: 'user',
+      user: 'user',
     }),
   },
 };

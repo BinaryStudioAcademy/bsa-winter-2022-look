@@ -27,6 +27,7 @@ export default new Vuetify({
         lightPink: '#FFEBF5',
         lightBlack: '#282828',
         lightGrey: '#8E9396',
+        green: '#40BF13',
       },
     },
   },

@@ -44,9 +44,7 @@ export default {
        * TODO set user data when api completed
        */
       return this.addAdditionalInfo(payload)
-        .then(() =>
-          this.$router.push({ name: 'auth-registration-media' }),
-        )
+        .then(() => this.$router.push({ name: 'auth-registration-media' }))
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
           this.processing = false;

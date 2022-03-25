@@ -9,5 +9,5 @@ use App\Models\PasswordResets;
 interface PasswordResetRepositoryInterface
 {
     public function getByToken(string $token): ?PasswordResets;
-    public function deleteByToken(string $token): void;
+    public function deleteByToken(string $token): int;
 }

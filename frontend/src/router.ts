@@ -7,6 +7,8 @@ import Vue from 'vue';
 
 Vue.use(Router);
 
+const REDIRECT_TO = 'main-list';
+
 const router = new Router({
   mode: 'history',
   routes: [
@@ -18,6 +20,10 @@ const router = new Router({
         ...getHomeRoutes(),
         ...getMainRoutes(),
       ],
+    },
+    {
+      path: '*',
+      redirect: { name: REDIRECT_TO },
     },
   ],
 });

@@ -10,7 +10,9 @@
           align="center"
         >
           <v-toolbar-title>
-            <router-link to="/">
+            <router-link
+              :to="{ name: 'home' }"
+            >
               <v-img
                 class="ml-2 mr-md-16"
                 src="@/assets/image/main_logo.svg"
@@ -33,7 +35,7 @@
             justify="end"
           >
             <router-link
-              :to="{ name: 'auth-login' }"
+              :to="{ name: 'main-list' }"
               class="to-user hidden-md-and-down"
             >
               <v-list-item>

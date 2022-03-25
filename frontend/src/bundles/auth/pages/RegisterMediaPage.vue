@@ -16,6 +16,8 @@ import { ADD_USER_MEDIA } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
 import MediaForm from '../components/MediaForm';
+import userNamespace from '@/bundles/common/store/modules/user/namespace';
+import { FETCH_SESSION_USER } from '@/bundles/common/store/modules/user/types/actions';
 
 export default {
   components: {
@@ -32,6 +34,9 @@ export default {
   methods: {
     ...mapActions(namespace, {
       addUserMedia: ADD_USER_MEDIA,
+    }),
+    ...mapActions(userNamespace, {
+      fetchSessionUser: FETCH_SESSION_USER,
     }),
     handleUserSubmit(payload) {
       if (this.processing) {
