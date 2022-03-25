@@ -41,7 +41,7 @@ extend('max', {
 
 extend('phone', {
   validate(value) {
-    const phoneReg = /^(\+[0-9]{2})?\(?[0-9]{3}\)?[0-9]{3}-?[0-9]{4}$/;
+    const phoneReg = /^\+[0-9]{2}\([0-9]{3}\)[0-9]{3}-[0-9]{2}-[0-9]{2}$/;
     return phoneReg.test(value);
   },
   message: 'Phone must be valid',
