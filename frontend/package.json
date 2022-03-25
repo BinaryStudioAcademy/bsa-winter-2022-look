@@ -12,6 +12,7 @@
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
     "eslint-plugin-vue": "^7.20.0",
+    "v-mask": "^2.3.0",
     "vee-validate": "^3.4.14",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
