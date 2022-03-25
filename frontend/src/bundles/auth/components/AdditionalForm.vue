@@ -74,6 +74,21 @@
     </validation-provider>
     <validation-provider
       v-slot="{ errors }"
+      name="Age"
+    >
+      <v-slider
+        v-model="age"
+        min="14"
+        max="120"
+        :thumb-size="25"
+        :error-messages="errors"
+        thumb-label="always"
+        label="Age, years"
+        inverse-label
+      />
+    </validation-provider>
+    <validation-provider
+      v-slot="{ errors }"
       name="Height"
     >
       <v-slider
@@ -219,6 +234,7 @@ export default {
 
   data() {
     return {
+      age: 25,
       height: 150,
       weight: 140,
       about: undefined,
@@ -304,6 +320,7 @@ export default {
   methods: {
     handleSubmit() {
       this.$emit('submit', {
+        age: this.age,
         height: this.height,
         weight: this.weight,
         about: this.about,
