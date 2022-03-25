@@ -38,14 +38,15 @@
     <validation-provider
       v-slot="{ errors }"
       name="phone"
-      rules="phone"
+      rules="required|phone"
     >
       <v-text-field
         v-model="phone"
+        v-mask="'+##(###)###-##-##'"
         type="text"
         name="phone"
         label="Phone"
-        placeholder="+38(0XX)XXX-XXXX or 0XXXXXXXXX"
+        placeholder="+38(067)123-45-67"
         filled
         rounded
         background-color="#faf9f9"
@@ -69,6 +70,21 @@
         outlined
         clearable
         :error-messages="errors"
+      />
+    </validation-provider>
+    <validation-provider
+      v-slot="{ errors }"
+      name="Age"
+    >
+      <v-slider
+        v-model="age"
+        min="14"
+        max="120"
+        :thumb-size="25"
+        :error-messages="errors"
+        thumb-label="always"
+        label="Age, years"
+        inverse-label
       />
     </validation-provider>
     <validation-provider
@@ -218,6 +234,7 @@ export default {
 
   data() {
     return {
+      age: 25,
       height: 150,
       weight: 140,
       about: undefined,
@@ -303,6 +320,7 @@ export default {
   methods: {
     handleSubmit() {
       this.$emit('submit', {
+        age: this.age,
         height: this.height,
         weight: this.weight,
         about: this.about,
