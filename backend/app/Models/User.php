@@ -96,4 +96,9 @@ final class User extends Authenticatable implements JWTSubject
     {
         return $this->getRoleId() === 2;
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

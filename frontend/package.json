@@ -12,6 +12,8 @@
     "axios": "^0.25.0",
     "core-js": "^3.6.5",
     "eslint-plugin-vue": "^7.20.0",
+    "laravel-echo": "^1.11.4",
+    "pusher-js": "^7.0.6",
     "vee-validate": "^3.4.14",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
