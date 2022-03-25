@@ -183,6 +183,7 @@ import IconChat from '../components/icons/IconChat';
 import IconMail from '../components/icons/IconMail';
 import namespace from '@/bundles/common/store/modules/user/namespace';
 import { mapState } from 'vuex';
+import router from '@/router';
 
 export default {
   components: {
@@ -192,6 +193,9 @@ export default {
     IconVideoChat,
     IconChat,
     IconMail,
+  },
+  beforeRouteEnter() {
+    router.push({ name: 'main-list' });
   },
   computed: {
     ...mapState(namespace, {
