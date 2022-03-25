@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Auth\CantLoginException;
 use App\Exceptions\Auth\EmailVerificationRequiredException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Nette\Schema\ValidationException;
@@ -37,6 +38,9 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof EmailVerificationRequiredException) {
             return response()->json(['errors' => [['email' => $e->getMessage()]]], $e->getCode());
+        }
+        if ($e instanceof CantLoginException) {
+            return response()->json(['errors' => [['password' => $e->getMessage()]]], $e->getCode());
         }
 
         return parent::render($request, $e);
