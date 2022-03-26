@@ -10,7 +10,6 @@ use App\Models\UserMedia;
 use App\Repositories\UserMedia\UserMediaRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 class UploadUserFileAction
@@ -33,17 +32,18 @@ class UploadUserFileAction
             $request->setFile($file);
 
             try {
-                $filePath = Storage::disk('s3')->putFileAs(
-                    Config::get('filesystems.user_files_dir'),
+                ($filePath = Storage::disk(config('filesystems.storage_type'))->putFileAs(
+                    (config('filesystems.user_files_dir') . $userId),
                     $request->getFile(),
                     $request->getFile()->hashName(),
-                );
+                    'option'
+                ));
             } catch (\Exception $exception) {
                 throw new CantUploadUserFileException();
             }
 
             $media->format = $request->getFormat();
-            $media->filename = Storage::disk('s3')->path($filePath);
+            $media->filename = Storage::disk(config('filesystems.storage_type'))->path($filePath);
 
             try {
                 $media = $this->mediaRepository->save($media);

@@ -9,8 +9,8 @@ class UploadUserFileHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'files' => 'required',
-            'files.*' => 'mimetypes:image/bmp,image/png,image/jpeg,video/mp4,video/mpeg,video/x-msvideo',
+            'files' => 'required|array|max:50',
+            'files.*' => 'max:100000|mimetypes:image/bmp,image/png,image/jpeg,video/mp4,video/mpeg,video/x-msvideo',
         ];
     }
 
@@ -18,6 +18,8 @@ class UploadUserFileHttpRequest extends FormRequest
     {
         return [
             'files.required' => 'Files not found',
+            'files.max' => 'You can not upload more them 50 files at once',
+            'files.*.max' => 'File size can\'t be more then 100 mb',
         ];
     }
 }

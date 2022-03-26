@@ -9,7 +9,7 @@ use Throwable;
 
 final class CantUploadUserFileException extends BaseException
 {
-    public function __construct($message = 'Can\'t upload file, try again later', $code = 404, Throwable $previous = null)
+    public function __construct($message = 'Can\'t upload file, try again later', $code = 503, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
