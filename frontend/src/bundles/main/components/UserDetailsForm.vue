@@ -193,7 +193,7 @@
               auto-grow
               clear-icon="mdi-close-circle"
               rounded
-              label="Description"
+              label="About yourself"
               rows="3"
               hint="At least 10 characters"
               outlined
