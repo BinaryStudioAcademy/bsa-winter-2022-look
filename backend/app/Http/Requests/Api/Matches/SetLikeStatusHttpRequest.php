@@ -11,8 +11,11 @@ class SetLikeStatusHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'require|exists:users',
-            'status' => 'required',
+            'id' => 'required|exists:users',
+            'status' => 'required|string|in:like,dislike',
+            'location' => 'string|nullable',
+            'min_age' => 'int|min:18|max:100|nullable',
+            'max_age' => 'int|min:18|max:100|nullable',
         ];
     }
 }

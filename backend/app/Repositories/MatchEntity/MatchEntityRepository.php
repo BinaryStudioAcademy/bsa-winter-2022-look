@@ -14,4 +14,19 @@ final class MatchEntityRepository extends BaseRepository implements MatchEntityR
     {
         return MatchEntity::all();
     }
+
+    public function save(MatchEntity $matchEntity): bool
+    {
+        return $matchEntity->save();
+    }
+
+    public function getLikedByUser(int $id): array
+    {
+        return MatchEntity::where(['first_user_id' => $id, 'status' => 'like'])->get()->pluck('second_user_id')->all();
+    }
+
+    public function getWhoLikedUser(int $id): array
+    {
+        return MatchEntity::where(['second_user_id' => $id, 'status' => 'like'])->get()->pluck('first_user_id')->all();
+    }
 }

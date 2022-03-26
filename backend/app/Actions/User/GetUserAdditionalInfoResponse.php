@@ -10,8 +10,13 @@ class GetUserAdditionalInfoResponse
 
     public function __construct(
         private array $userParameters,
-        private string $userEmail
+        private ?string $userEmail = null
     ) {
+    }
+
+    public function getAvatar(): string
+    {
+        return 'https://randomuser.me/api/portraits/women/80.jpg';
     }
 
     public function getGender()
@@ -31,31 +36,51 @@ class GetUserAdditionalInfoResponse
 
     public function getHeight()
     {
-        return $this->userParameters['height'];
+        if (array_key_exists('height', $this->userParameters)) {
+            return $this->userParameters['height'];
+        } else {
+            return null;
+        }
     }
 
     public function getWeight()
     {
-        return $this->userParameters['weight'];
+        if (array_key_exists('weight', $this->userParameters)) {
+            return $this->userParameters['weight'];
+        } else {
+            return null;
+        }
     }
 
     public function getAge()
     {
-        return $this->userParameters['age'];
+        if (array_key_exists('age', $this->userParameters)) {
+            return $this->userParameters['age'];
+        } else {
+            return null;
+        }
     }
 
     public function getInterests()
     {
-        $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters['interests']);
+        if (array_key_exists('interrests', $this->userParameters)) {
+            $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters['interests']);
 
-        return explode(',', $result);
+            return explode(',', $result);
+        } else {
+            return null;
+        }
     }
 
     public function getHobbies()
     {
-        $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters['hobbies']);
+        if (array_key_exists('hobbies', $this->userParameters)) {
+            $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters['hobbies']);
 
-        return explode(',', $result);
+            return explode(',', $result);
+        } else {
+            return null;
+        }
     }
 
     public function getBio()

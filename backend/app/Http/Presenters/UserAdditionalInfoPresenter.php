@@ -12,6 +12,7 @@ class UserAdditionalInfoPresenter implements PresenterInterface
     public function present(GetUserAdditionalInfoResponse $response): array
     {
         return [
+            'avatar' => $response->getAvatar(),
             'gender' => $response->getGender(),
             'genderPreferences' => $response->getGenderPreferences(),
             'location' => $response->getLocation(),
