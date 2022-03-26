@@ -35,7 +35,7 @@
             justify="end"
           >
             <router-link
-              :to="{ name: 'auth-login' }"
+              :to="{ name: 'main-list' }"
               class="to-user hidden-md-and-down"
             >
               <v-list-item>
