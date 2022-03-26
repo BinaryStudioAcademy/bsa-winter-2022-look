@@ -15,7 +15,13 @@ class UserFileUploadPresenter implements PresenterInterface
 
         foreach ($files as $file) {
             $response[] = [
-                'url' => Storage::disk(config('filesystems.storage_type'))->temporaryUrl($file->getFilename(), '+2 minutes'),
+                'url' => Storage::disk(
+                    config('filesystems.storage_type')
+                )
+                    ->temporaryUrl(
+                        $file->getFilename(),
+                        '+5 minutes'
+                    ),
             ];
         }
 

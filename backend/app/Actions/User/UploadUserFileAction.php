@@ -32,12 +32,10 @@ class UploadUserFileAction
             $request->setFile($file);
 
             try {
-                ($filePath = Storage::disk(config('filesystems.storage_type'))->putFileAs(
+                $filePath = Storage::disk(config('filesystems.storage_type'))->putFile(
                     (config('filesystems.user_files_dir') . $userId),
-                    $request->getFile(),
-                    $request->getFile()->hashName(),
-                    'option'
-                ));
+                    $request->getFile()
+                );
             } catch (\Exception $exception) {
                 throw new CantUploadUserFileException();
             }
