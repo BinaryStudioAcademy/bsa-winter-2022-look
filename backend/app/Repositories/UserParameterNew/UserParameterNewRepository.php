@@ -10,7 +10,7 @@ class UserParameterNewRepository implements UserParameterNewRepositoryInterface
 {
     public function getByUserId(int $id): UserParameterNew
     {
-        return UserParameterNew::where('user_id', $id)->firstOrCreate();
+        return UserParameterNew::firstOrNew(['user_id' => $id]);
     }
 
     public function save(UserParameterNew $userParameter): bool

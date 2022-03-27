@@ -13,9 +13,15 @@ class UserParameterNew extends Model
 
     protected $table = 'user_parameters_new';
 
+    protected $casts = [
+        'interests' => 'array',
+        'hobbies' => 'array',
+    ];
+
     public $timestamps = false;
 
     protected $fillable = [
+        'user_id',
         'gender',
         'gender_preferences',
         'location',

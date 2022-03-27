@@ -11,7 +11,6 @@ class CreateUserParametersNewTable extends Migration
         Schema::create('user_parameters_new', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('phone');
             $table->enum('gender', ['Male', 'Female', 'Other']);
             $table->enum('gender_preferences', ['Male', 'Female', 'Both']);
             $table->string('location');
