@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Matches;
 
 use App\Actions\Matches\GetAllMatchesAction;
+use App\Actions\Matches\GetAllUsersListAction;
+use App\Actions\Matches\GetAllUsersListRequest;
 use App\Actions\Matches\SetLikeStatusAction;
 use App\Actions\Matches\SetLikeStatusRequest;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\UserAdditionalInfoPresenter;
+use App\Http\Requests\Api\Matches\GetAllUsersListHttpRequest;
 use App\Http\Requests\Api\Matches\SetLikeStatusHttpRequest;
 use Illuminate\Http\JsonResponse;
 
@@ -20,8 +23,8 @@ class MatchesController extends ApiController
     ): JsonResponse {
         $action->execute(
             new SetLikeStatusRequest(
-                    $request->all()
-                )
+                $request->all()
+            )
         );
 
         return $this->emptyResponse();
@@ -41,7 +44,15 @@ class MatchesController extends ApiController
         return $this->successResponse(['users' => $responseData]);
     }
 
-    public function getUsersList()
-    {
+    public function getUsersList(
+        GetAllUsersListAction $action,
+        GetAllUsersListHttpRequest $request
+    ) {
+        $action
+            ->execute(
+                new GetAllUsersListRequest(
+                    $request->all()
+                )
+            );
     }
 }

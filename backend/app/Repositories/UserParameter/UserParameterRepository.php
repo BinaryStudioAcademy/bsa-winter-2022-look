@@ -10,6 +10,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class UserParameterRepository extends BaseRepository implements UserParameterRepositoryInterface
 {
+    const GENDER_PREFERENCE_REQUEST = [
+        'Male' => ['Male'],
+        'Female' => ['Female'],
+        'Both' => ['Male', 'Female'],
+    ];
+
     public function findAll(): Collection
     {
         return UserParameter::all();
@@ -35,5 +41,15 @@ final class UserParameterRepository extends BaseRepository implements UserParame
         $userParameter->save();
 
         return $userParameter;
+    }
+
+    public function findSuitableUsers(
+        int $userId,
+        string $genderPreference,
+        string $location,
+        int $minAge,
+        int $maxAge,
+    ) {
+        return UserParameter::where('parameter_key', 'gender');
     }
 }
