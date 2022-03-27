@@ -4,22 +4,25 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersParametersNewTable extends Migration
+class CreateUserParametersNewTable extends Migration
 {
     public function up()
     {
-        Schema::create('users_parameters_new', function (Blueprint $table) {
+        Schema::create('user_parameters_new', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('phone');
             $table->enum('gender', ['Male', 'Female', 'Other']);
-            $table->enum('gender_preference', ['Male', 'Female', 'Both']);
+            $table->enum('gender_preferences', ['Male', 'Female', 'Both']);
             $table->string('location');
             $table->integer('age');
             $table->integer('height')->nullable();
             $table->integer('weight')->nullable();
             $table->string('interests')->nullable();
             $table->string('hobbies')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('other')->nullable();
             $table->text('about');
 
             $table
