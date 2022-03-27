@@ -34,5 +34,6 @@ class UserParameterNew extends Model
         'instagram',
         'facebook',
         'other',
+        'phone',
     ];
 }

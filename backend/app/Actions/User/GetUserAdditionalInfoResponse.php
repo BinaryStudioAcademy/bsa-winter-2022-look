@@ -48,24 +48,12 @@ class GetUserAdditionalInfoResponse
 
     public function getInterests()
     {
-        if (is_null($this->userParameters->interests)) {
-            return null;
-        } else {
-            $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters->interests);
-
-            return explode(',', $result);
-        }
+        return $this->userParameters->interests;
     }
 
     public function getHobbies()
     {
-        if (is_null($this->userParameters->hobbies)) {
-            return null;
-        } else {
-            $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters->hobbies);
-
-            return explode(',', $result);
-        }
+        return $this->userParameters->hobbies;
     }
 
     public function getBio()
