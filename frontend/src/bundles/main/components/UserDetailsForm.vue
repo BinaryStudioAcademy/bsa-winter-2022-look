@@ -87,7 +87,7 @@
           >
             <v-slider
               v-model="localUserAdditionalInfo.age"
-              min="14"
+              min="18"
               max="100"
               :thumb-size="25"
               :error-messages="errors"
