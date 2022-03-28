@@ -6,7 +6,7 @@
 
 <script>
 import namespace from '../store/modules/user/namespace';
-import { mapActions, mapState } from 'vuex';
+import { mapActions } from 'vuex';
 import { FETCH_SESSION_USER } from '../store/modules/user/types/actions';
 import store from '@/store';
 
@@ -20,12 +20,7 @@ export default {
       next();
     }
 
-    next({ name: 'home' });
-  },
-  computed: {
-    ...mapState(namespace, {
-      isAuthorized: 'isAuthorized',
-    }),
+    next({ name: 'auth-login' });
   },
   created() {
     return this.fetchUser();
