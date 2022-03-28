@@ -9,6 +9,7 @@ use App\Actions\Matches\GetAllUsersListAction;
 use App\Actions\Matches\GetAllUsersListRequest;
 use App\Actions\Matches\SetLikeStatusAction;
 use App\Actions\Matches\SetLikeStatusRequest;
+use App\Actions\User\GetUserAdditionalInfoResponse;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\UserAdditionalInfoPresenter;
 use App\Http\Requests\Api\Matches\GetAllUsersListHttpRequest;
@@ -33,12 +34,12 @@ class MatchesController extends ApiController
     public function getAllMatches(
         GetAllMatchesAction $action,
         UserAdditionalInfoPresenter $presenter
-    ) {
+    ): JsonResponse {
         $result = $action->execute();
 
         $responseData = [];
-        foreach ($result->getAllUsers() as $user) {
-            $responseData[] = $presenter->present($user);
+        foreach ($result->getUsers() as $user) {
+            $responseData[] = $presenter->present(new GetUserAdditionalInfoResponse($user));
         }
 
         return $this->successResponse(['users' => $responseData]);
@@ -46,13 +47,21 @@ class MatchesController extends ApiController
 
     public function getUsersList(
         GetAllUsersListAction $action,
-        GetAllUsersListHttpRequest $request
-    ) {
-        $action
+        GetAllUsersListHttpRequest $request,
+        UserAdditionalInfoPresenter $presenter
+    ): JsonResponse {
+        $result = $action
             ->execute(
                 new GetAllUsersListRequest(
                     $request->all()
                 )
             );
+
+        $responseData = [];
+        foreach ($result->getUsers() as $user) {
+            $responseData[] = $presenter->present(new GetUserAdditionalInfoResponse($user));
+        }
+
+        return $this->successResponse(['users' => $responseData]);
     }
 }

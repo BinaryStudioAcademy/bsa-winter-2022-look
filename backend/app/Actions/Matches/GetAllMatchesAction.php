@@ -6,14 +6,15 @@ namespace App\Actions\Matches;
 
 use App\Exceptions\User\UserNotFoundException;
 use App\Repositories\MatchEntity\MatchEntityRepository;
-use App\Repositories\UserParameter\UserParameterRepository;
+use App\Repositories\UserParameterNew\UserParameterNewRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 class GetAllMatchesAction
 {
     public function __construct(
         private MatchEntityRepository $matchRepository,
-        private UserParameterRepository $userRepository
+        private UserParameterNewRepository $userParameterRepository
     ) {
     }
 
@@ -23,15 +24,21 @@ class GetAllMatchesAction
             throw new UserNotFoundException();
         }
 
-        $likedByUser = $this->matchRepository->getLikedByUser($userId);
-        $whoLikedUser = $this->matchRepository->getWhoLikedUser($userId);
-        $findMatchedId = array_intersect($likedByUser, $whoLikedUser);
-
-        $result = [];
-        foreach ($findMatchedId as $id) {
-            $result[] = $this->userRepository->findAllByUserId($id);
+        try {
+            $likedByUser = $this->matchRepository->getLikedByUser($userId);
+            $whoLikedUser = $this->matchRepository->getWhoLikedUser($userId);
+        } catch (\Exception $e) {
+            throw new ModelNotFoundException();
         }
 
-        return new GetAllMatchesResponse($result);
+        $matchedId = array_intersect($likedByUser, $whoLikedUser);
+
+        try {
+            $users = $this->userParameterRepository->getUsersById($matchedId);
+        } catch (\Exception $e) {
+            throw new ModelNotFoundException();
+        }
+
+        return new GetAllMatchesResponse($users);
     }
 }

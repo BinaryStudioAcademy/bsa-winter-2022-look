@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions\Matches;
 
-use App\Actions\User\GetUserAdditionalInfoResponse;
-
 class GetAllMatchesResponse
 {
     public function __construct(
@@ -13,13 +11,8 @@ class GetAllMatchesResponse
     ) {
     }
 
-    public function getAllUsers(): array
+    public function getUsers(): array
     {
-        $result = [];
-        foreach ($this->usersParameters as $userParameter) {
-            $result[] = new GetUserAdditionalInfoResponse($userParameter);
-        }
-
-        return $result;
+        return $this->usersParameters;
     }
 }

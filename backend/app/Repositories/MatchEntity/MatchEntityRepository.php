@@ -29,4 +29,9 @@ final class MatchEntityRepository extends BaseRepository implements MatchEntityR
     {
         return MatchEntity::where(['second_user_id' => $id, 'status' => 'like'])->get()->pluck('first_user_id')->all();
     }
+
+    public function usersRatedByUser(int $userId): array
+    {
+        return MatchEntity::where('first_user_id', $userId)->get()->pluck('second_user_id')->all();
+    }
 }

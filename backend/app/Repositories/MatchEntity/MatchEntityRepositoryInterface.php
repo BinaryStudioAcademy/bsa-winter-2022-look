@@ -13,4 +13,5 @@ interface MatchEntityRepositoryInterface
     public function save(MatchEntity $matchEntity): bool;
     public function getLikedByUser(int $id): array;
     public function getWhoLikedUser(int $id): array;
+    public function usersRatedByUser(int $userId): array;
 }

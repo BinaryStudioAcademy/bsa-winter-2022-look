@@ -17,21 +17,6 @@ class ChangeUserParameterRequest
 
     public function getAllParameters(): array
     {
-        $response = [];
-
-        foreach ($this->request as $parameterName => $parameterValue) {
-            if ($parameterName === 'name') {
-                continue;
-            }
-
-            $response[$parameterName] = $parameterValue;
-        }
-
-        return $response;
-    }
-
-    public function getInterests():array
-    {
-        return $this->request['interests'];
+        return $this->request;
     }
 }
