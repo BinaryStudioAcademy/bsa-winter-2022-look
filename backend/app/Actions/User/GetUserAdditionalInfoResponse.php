@@ -13,6 +13,11 @@ class GetUserAdditionalInfoResponse
         private string|null $userEmail = null
     ) {
     }
+    // TODO change to the true avatar when ready
+    public function getAvatarUrl(): string
+    {
+        return 'https://randomuser.me/api/portraits/women/56.jpg';
+    }
 
     public function getId()
     {

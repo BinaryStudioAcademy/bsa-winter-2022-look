@@ -11,9 +11,9 @@ class GetAllUsersListHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'location' => 'string|nullable',
-            'min_age' => 'int|min:18|max:100|nullable',
-            'max_age' => 'int|min:18|max:100|nullable',
+            'range' => 'required|int|min:1',
+            'min_age' => 'required|int|min:18|max:100',
+            'max_age' => 'required|int|min:18|max:100',
         ];
     }
 
@@ -27,6 +27,9 @@ class GetAllUsersListHttpRequest extends FormRequest
             'min_age.min' => 'Age field cant be less then 18',
             'min_age.max' => 'Age field cant be more then 100',
             'max_age.max' => 'Age field cant be more then 100',
+            'range.required' => 'Range field required',
+            'range.int' => 'Range field must be integer',
+            'range.min' => 'Search range cant be less then 1 km',
         ];
     }
 }

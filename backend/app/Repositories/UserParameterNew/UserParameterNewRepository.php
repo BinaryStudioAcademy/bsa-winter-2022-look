@@ -34,27 +34,27 @@ class UserParameterNewRepository implements UserParameterNewRepositoryInterface
         array $ratedUsers,
         string $gender,
         string $genderPreference,
-        string $location,
+        array $usersInRange,
         int $minAge,
         int $maxAge
     ): array {
         return UserParameterNew::select('user_parameters_new.*', 'users.name as name')
-                ->join('users', 'users.id', '=', 'user_parameters_new.user_id')
-                ->whereNotIn('user_id', $ratedUsers)
-                ->whereIn('gender', self::GENDER_PREFERENCE_REQUEST[$genderPreference])
-                ->whereIn('gender_preferences', self::GENDER_REQUEST[$gender])
-                ->where('location', $location)
-                ->where('user_id', '!=', $userId)
-                ->havingBetween('age', [$minAge, $maxAge])
-                ->limit(100)
-                ->get()
-                ->all();
+            ->join('users', 'users.id', '=', 'user_parameters_new.user_id')
+            ->whereNotIn('user_id', $ratedUsers)
+            ->whereIn('user_id', $usersInRange)
+            ->whereIn('gender', self::GENDER_PREFERENCE_REQUEST[$genderPreference])
+            ->whereIn('gender_preferences', self::GENDER_REQUEST[$gender])
+            ->where('user_id', '!=', $userId)
+            ->havingBetween('age', [$minAge, $maxAge])
+            ->limit(100)
+            ->get()
+            ->all();
     }
 
     public function getUsersById(array $usersId): array
     {
         return UserParameterNew::select('user_parameters_new.*', 'users.name as name')
-                ->join('users', 'users.id', '=', 'user_parameters_new.user_id')
-                ->whereIn('user_id', $usersId)->get()->all();
+            ->join('users', 'users.id', '=', 'user_parameters_new.user_id')
+            ->whereIn('user_id', $usersId)->get()->all();
     }
 }

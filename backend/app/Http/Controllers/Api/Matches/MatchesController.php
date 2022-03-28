@@ -53,7 +53,8 @@ class MatchesController extends ApiController
         $result = $action
             ->execute(
                 new GetAllUsersListRequest(
-                    $request->all()
+                    $request->all(),
+                    $request->ip()
                 )
             );
 

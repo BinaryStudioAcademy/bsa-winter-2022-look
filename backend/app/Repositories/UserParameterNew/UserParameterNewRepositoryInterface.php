@@ -15,7 +15,7 @@ interface UserParameterNewRepositoryInterface
         array $ratedUsers,
         string $gender,
         string $genderPreference,
-        string $location,
+        array $usersInRange,
         int $minAge,
         int $maxAge
     ): array;
