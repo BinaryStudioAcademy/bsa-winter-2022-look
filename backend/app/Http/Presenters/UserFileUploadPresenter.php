@@ -18,9 +18,8 @@ class UserFileUploadPresenter implements PresenterInterface
                 'url' => Storage::disk(
                     config('filesystems.storage_type')
                 )
-                    ->temporaryUrl(
-                        $file->getFilename(),
-                        '+5 minutes'
+                    ->url(
+                        $file->getFilename()
                     ),
             ];
         }
