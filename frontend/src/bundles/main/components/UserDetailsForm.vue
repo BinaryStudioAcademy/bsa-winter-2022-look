@@ -94,6 +94,7 @@
               thumb-label="always"
               label="Age"
               inverse-label
+              class="age"
             />
           </validation-provider>
           <validation-provider
@@ -392,3 +393,9 @@ export default {
 
 };
 </script>
+
+<style lang="scss" scoped>
+  .age {
+    margin-top: 20px;
+  }
+</style>
