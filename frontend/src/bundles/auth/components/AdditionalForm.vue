@@ -22,7 +22,7 @@
     <validation-provider
       name="gender_preference"
     >
-      <p>Your preference selection <span class="orange--text font-weight-bold">{{ gender_preference }}</span></p>
+      <p>Your preference selection <span class="primary--text font-weight-bold">{{ gender_preference }}</span></p>
       <v-radio-group
         v-model="gender_preference"
         row
