@@ -8,8 +8,6 @@ use App\Models\UserParameterNew;
 
 class GetUserAdditionalInfoResponse
 {
-    const REPLACE_PATTERN = ['[', ']', '\\', '"'];
-
     public function __construct(
         private UserParameterNew $userParameters,
         private string $userEmail
