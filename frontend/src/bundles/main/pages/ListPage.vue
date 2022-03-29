@@ -1,7 +1,7 @@
 <template>
   <div>
     <page-title
-      title="List"
+      title="Find your crash"
     />
     <div class="lightBlack--text text-12 pb-md-4 pb-3">
       There are <span class="orange--text">34098</span> candidates
@@ -11,29 +11,34 @@
       <div
         class="d-flex"
       >
-        <v-autocomplete
-          v-model="agesSelected"
-          :items="ages"
-          small-chips
-          label="Age"
-          placeholder="Age"
-          filled
-          rounded
-          background-color="#faf9f9"
-          outlined
-          multiple
-          clearable
-          class="mr-4 w-280"
-        >
-          <template #selection="{ index }">
-            <span
-              v-if="index === 0"
-              class="text-overline grey--text text--darken-3 mx-2"
-            >
-              +{{ agesSelected.length }} Selected
-            </span>
-          </template>
-        </v-autocomplete>
+        <div class="slider-range">
+          <v-range-slider
+            v-model="range"
+            :max="max"
+            :min="min"
+            class="align-center"
+            thumb-label="always"
+          >
+            <template>
+              <v-text-field
+                :value="range[0]"
+                class="mt-0 pt-0 slider-text"
+                single-line
+                type="number"
+                @change="$set(range, 0, $event)"
+              />
+            </template>
+            <template>
+              <v-text-field
+                :value="range[1]"
+                class="mt-0 pt-0 slider-text"
+                single-line
+                type="number"
+                @change="$set(range, 1, $event)"
+              />
+            </template>
+          </v-range-slider>
+        </div>
         <v-autocomplete
           v-model="locationSelected"
           :items="locations"
@@ -75,7 +80,7 @@
             elevation="0"
           >
             <v-img
-              :src="user.image"
+              :src="user.avatar"
               height="255"
               class="grey darken-4"
             >
@@ -159,6 +164,9 @@ import HeartIcon from '@/bundles/main/components/icons/HeartIcon';
 import NoLikeIcon from '@/bundles/main/components/icons/NoLikeIcon';
 import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import PageTitle from '@/bundles/common/components/PageTitle';
+import { mapActions } from 'vuex';
+import namespace from '../../auth/store/modules/auth/namespace';
+import { GET_USERS_LIST } from '../../auth/store/modules/auth/types/actions';
 
 export default {
   components: {
@@ -177,6 +185,10 @@ export default {
         'Germany',
       ],
       locationSelected: undefined,
+      users: undefined,
+      min: 18,
+      max: 100,
+      range: [18, 100],
     };
   },
 
@@ -188,94 +200,41 @@ export default {
         40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
       ];
     },
-    users() {
-      return [
-        {
-          image: 'https://randomuser.me/api/portraits/women/1.jpg',
-          id: 1,
-          name: 'Zoe Kim',
-          online: true,
-          distance: '500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/2.jpg',
-          id: 2,
-          name: 'Monica Biluc',
-          online: false,
-          distance: '1500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/3.jpg',
-          id: 3,
-          name: 'Tatiana Carder',
-          online: true,
-          distance: '700m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/4.jpg',
-          id: 4,
-          name: 'Gretchen Gouse',
-          online: false,
-          distance: '2500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/5.jpg',
-          id: 5,
-          name: 'Madelyn Geidt',
-          online: false,
-          distance: '1500 km',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/6.jpg',
-          id: 6,
-          name: 'Zoe Kim',
-          online: true,
-          distance: '500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/7.jpg',
-          id: 7,
-          name: 'Monica Biluc',
-          online: false,
-          distance: '1500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/8.jpg',
-          id: 8,
-          name: 'Tatiana Carder',
-          online: true,
-          distance: '700m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/9.jpg',
-          id: 9,
-          name: 'Gretchen Gouse',
-          online: false,
-          distance: '2500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/10.jpg',
-          id: 10,
-          name: 'Madelyn Geidt',
-          online: false,
-          distance: '1500 km',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/11.jpg',
-          id: 11,
-          name: 'Gretchen Gouse',
-          online: false,
-          distance: '2500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/12.jpg',
-          id: 12,
-          name: 'Madelyn Geidt',
-          online: false,
-          distance: '1500 km',
-        },
-      ];
+  },
+
+  beforeMount() {
+    this.getUsers();
+  },
+
+  methods: {
+    ...mapActions(namespace, {
+      getUsersList: GET_USERS_LIST,
+    }),
+    getUsers() {
+      return this.getUsersList({
+        min_age: 18,
+        max_age: 100,
+        range: 700,
+      }).then(data => {
+        this.users = data.users;
+      });
     },
   },
+
 };
 </script>
+
+<style>
+
+.slider {
+  width: 60px;
+}
+
+.slider-range {
+  display: flex;
+  width: 400px;
+  align-items: center;
+  justify-content: center;
+}
+
+</style>
