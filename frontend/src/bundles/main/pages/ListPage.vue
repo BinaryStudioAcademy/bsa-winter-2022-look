@@ -110,7 +110,7 @@
                   icon
                   rounded
                   small
-                  @click="rateUserById(user.id, rate[0], index)"
+                  @click="rateUserById(user.id, rate.dislike, index)"
                 >
                   <NoLikeIcon />
                 </v-btn>
@@ -122,7 +122,7 @@
                   icon
                   rounded
                   small
-                  @click="rateUserById(user.id, rate[1], index)"
+                  @click="rateUserById(user.id, rate.like, index)"
                 >
                   <HeartIcon />
                 </v-btn>
@@ -207,15 +207,11 @@ export default {
       age_max: 100,
       age: [18, 100],
       range: 500,
+      rate: {
+        like: 'like',
+        dislike: 'dislike',
+      },
     };
-  },
-
-  computed: {
-    rate() {
-      return [
-        'like', 'dislike',
-      ];
-    },
   },
 
   beforeMount() {
@@ -247,9 +243,6 @@ export default {
       }).catch(error => {
         console.dir(error);
       });
-    },
-    testi(value) {
-      alert(value);
     },
   },
 
