@@ -7,52 +7,65 @@
       There are <span class="orange--text">34098</span> candidates
     </div>
 
-    <div class="block-filter d-flex">
+    <div class="block-filter d-flex search-bar">
       <div
         class="d-flex"
       >
         <div class="slider-range">
           <v-range-slider
-            v-model="range"
-            :max="max"
-            :min="min"
+            v-model="age"
+            :max="age_max"
+            :min="age_min"
             class="align-center"
             thumb-label="always"
+            label="Age"
           >
             <template>
               <v-text-field
-                :value="range[0]"
+                :value="age[0]"
                 class="mt-0 pt-0 slider-text"
                 single-line
                 type="number"
-                @change="$set(range, 0, $event)"
+                @change="$set(age, 0, $event)"
               />
             </template>
             <template>
               <v-text-field
-                :value="range[1]"
+                :value="age[1]"
                 class="mt-0 pt-0 slider-text"
                 single-line
                 type="number"
-                @change="$set(range, 1, $event)"
+                @change="$set(age, 1, $event)"
               />
             </template>
           </v-range-slider>
         </div>
-        <v-autocomplete
-          v-model="locationSelected"
-          :items="locations"
-          small-chips
-          label="Location"
-          placeholder="Location"
-          filled
-          rounded
-          background-color="#faf9f9"
-          outlined
-          clearable
-          class="mr-4 w-280"
-        />
+        <div class="slider-range">
+          <v-slider
+            v-model="range"
+            min="0"
+            max="1000"
+            thumb-label="always"
+            label="Search distance, km"
+            inverse-label
+          />
+        </div>
       </div>
+      <div class="button-holder">
+        <v-btn
+          class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
+          color="primary"
+          large
+          rounded
+          depressed
+          max-width="100"
+          width="50%"
+          @click="getUsers"
+        >
+          Save
+        </v-btn>
+      </div>
+
       <v-spacer />
       <v-checkbox
         label="Only online"
@@ -90,12 +103,14 @@
               >
                 <v-spacer />
                 <v-btn
+                  v-model="user.id"
                   class="greyMain mt-4 mr-3"
                   depressed
                   fab
                   icon
                   rounded
                   small
+                  @click="testi(user.id)"
                 >
                   <NoLikeIcon />
                 </v-btn>
@@ -186,9 +201,10 @@ export default {
       ],
       locationSelected: undefined,
       users: undefined,
-      min: 18,
-      max: 100,
-      range: [18, 100],
+      age_min: 18,
+      age_max: 100,
+      age: [18, 100],
+      range: 50,
     };
   },
 
@@ -212,12 +228,15 @@ export default {
     }),
     getUsers() {
       return this.getUsersList({
-        min_age: 18,
-        max_age: 100,
-        range: 700,
+        min_age: this.age[0],
+        max_age: this.age[1],
+        range: this.range,
       }).then(data => {
         this.users = data.users;
       });
+    },
+    testi(value) {
+      alert(value);
     },
   },
 
@@ -226,14 +245,20 @@ export default {
 
 <style>
 
-.slider {
-  width: 60px;
+.search-bar {
+  height: 80px;
+}
+
+.button-holder {
+  display: flex;
+  align-items: center;
 }
 
 .slider-range {
+  margin: 0 14px;
   display: flex;
   width: 400px;
-  align-items: center;
+  align-items: end;
   justify-content: center;
 }
 
