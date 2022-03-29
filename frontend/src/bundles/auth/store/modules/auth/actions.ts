@@ -11,6 +11,7 @@ import {
   GET_USER_ADDITIONAL_INFO,
   SET_USER_ADDITIONAL_INFO,
   GET_USERS_LIST,
+  RATE_USER,
 } from './types/actions';
 import UserRequest from '@/bundles/common/repository/requests/UserRequest';
 import { ActionTree } from 'vuex';
@@ -20,6 +21,7 @@ import UserLoginRequest from '@/bundles/common/repository/requests/UserLoginRequ
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
 import UsersListRequest from '@/bundles/common/repository/requests/UsersListRequest';
+import RateUserRequest from '@/bundles/common/repository/requests/RateUserRequest';
 
 export function getActions<R>(): ActionTree<AuthState, R> {
   return {
@@ -60,6 +62,9 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     },
     [GET_USERS_LIST](args, data: UsersListRequest): Promise<void> {
       return userRepository.getUsersList(data);
+    },
+    [RATE_USER](args, data: RateUserRequest): Promise<void> {
+      return userRepository.rateUser(data);
     },
   };
 }

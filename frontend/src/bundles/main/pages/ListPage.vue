@@ -110,17 +110,19 @@
                   icon
                   rounded
                   small
-                  @click="testi(user.id)"
+                  @click="rateUserById(user.id, rate[0], index)"
                 >
                   <NoLikeIcon />
                 </v-btn>
                 <v-btn
+                  v-model="user.id"
                   class="greyMain mt-4 mr-1"
                   depressed
                   fab
                   icon
                   rounded
                   small
+                  @click="rateUserById(user.id, rate[1], index)"
                 >
                   <HeartIcon />
                 </v-btn>
@@ -181,7 +183,7 @@ import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import PageTitle from '@/bundles/common/components/PageTitle';
 import { mapActions } from 'vuex';
 import namespace from '../../auth/store/modules/auth/namespace';
-import { GET_USERS_LIST } from '../../auth/store/modules/auth/types/actions';
+import { GET_USERS_LIST, RATE_USER } from '../../auth/store/modules/auth/types/actions';
 
 export default {
   components: {
@@ -204,16 +206,14 @@ export default {
       age_min: 18,
       age_max: 100,
       age: [18, 100],
-      range: 50,
+      range: 500,
     };
   },
 
   computed: {
-    ages() {
+    rate() {
       return [
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-        30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+        'like', 'dislike',
       ];
     },
   },
@@ -225,6 +225,7 @@ export default {
   methods: {
     ...mapActions(namespace, {
       getUsersList: GET_USERS_LIST,
+      rateUser: RATE_USER,
     }),
     getUsers() {
       return this.getUsersList({
@@ -233,6 +234,18 @@ export default {
         range: this.range,
       }).then(data => {
         this.users = data.users;
+      }).catch(error => {
+        console.dir(error);
+      });
+    },
+    rateUserById(id, value, index) {
+      return this.rateUser({
+        id: id,
+        status: value,
+      }).then(() => {
+        this.users.splice(index, 1);
+      }).catch(error => {
+        console.dir(error);
       });
     },
     testi(value) {
