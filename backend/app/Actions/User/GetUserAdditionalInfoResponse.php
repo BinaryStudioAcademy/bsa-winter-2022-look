@@ -102,6 +102,6 @@ class GetUserAdditionalInfoResponse
 
     public function onlineCheck()
     {
-        return Cache::has('user-is-online-' . $this->userParameters->id);
+        return Cache::has('user-is-online-' . $this->userParameters->user_id);
     }
 }

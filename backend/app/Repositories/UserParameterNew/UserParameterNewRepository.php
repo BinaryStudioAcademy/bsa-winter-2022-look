@@ -15,8 +15,8 @@ class UserParameterNewRepository implements UserParameterNewRepositoryInterface
     ];
 
     const GENDER_REQUEST = [
-        'Male' => ['Female', 'Both'],
-        'Female' => ['Male', 'Both'],
+        'Male' => ['Male', 'Both'],
+        'Female' => ['Female', 'Both'],
     ];
 
     public function getByUserId(int $id): UserParameterNew
