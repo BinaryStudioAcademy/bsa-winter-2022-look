@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\User;
 
 use App\Models\UserParameterNew;
+use Illuminate\Support\Facades\Cache;
 
 class GetUserAdditionalInfoResponse
 {
@@ -97,5 +98,10 @@ class GetUserAdditionalInfoResponse
     public function getDistance()
     {
         return $this->userParameters->distance;
+    }
+
+    public function onlineCheck()
+    {
+        return Cache::has('user-is-online-' . $this->userParameters->id);
     }
 }

@@ -38,7 +38,7 @@ class UserParameterNewRepository implements UserParameterNewRepositoryInterface
         int $minAge,
         int $maxAge
     ): array {
-        return UserParameterNew::select('user_parameters_new.*', 'users.name as name')
+        return UserParameterNew::select('user_parameters_new.*', 'users.name as name', 'users.last_seen as last_seen')
             ->join('users', 'users.id', '=', 'user_parameters_new.user_id')
             ->whereNotIn('user_id', $ratedUsers)
             ->whereIn('user_id', $usersInRange)

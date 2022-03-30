@@ -29,6 +29,7 @@ class UserAdditionalInfoPresenter implements PresenterInterface
             'other' => $response->getOther(),
             'avatar' => $response->getAvatarUrl(),
             'distance' => $response->getDistance(),
+            'online' => $response->onlineCheck(),
         ];
     }
 }
