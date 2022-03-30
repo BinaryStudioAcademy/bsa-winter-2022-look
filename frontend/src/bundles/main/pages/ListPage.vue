@@ -62,7 +62,7 @@
       <div class="slider-parent col-md-4 col-xl-3 col-sm-12">
         <v-slider
           v-model="range"
-          min="0"
+          min="1"
           max="1000"
           thumb-label="always"
           label="Range, km"
@@ -171,7 +171,7 @@
                   <div
                     class="text-12 font-weight-regular border--text"
                   >
-                    {{ user.distance }}
+                    {{ user.distance }} km
                   </div>
                 </v-col>
                 <v-col
