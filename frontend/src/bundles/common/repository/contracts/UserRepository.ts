@@ -75,4 +75,9 @@ export default interface UserRepository {
    * @param {RateUserRequest} payload
    */
   rateUser(payload: RateUserRequest): Promise<void>;
+
+  /**
+   * Get All matched users
+   */
+  getMatchedUsers(): Promise<void>;
 }

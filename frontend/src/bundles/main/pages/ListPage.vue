@@ -1,59 +1,88 @@
 <template>
   <div>
     <page-title
+      class="d-none d-sm-flex"
       title="Find your crash"
     />
-    <div class="lightBlack--text text-12 pb-md-4 pb-3">
+    <div class="lightBlack--text text-12 pb-md-4 pb-3 d-none d-sm-flex">
       There are <span class="orange--text">34098</span> candidates
     </div>
 
-    <div class="block-filter d-flex search-bar">
-      <div
-        class="d-flex"
+    <div class="preference-button-positioner">
+      <v-btn
+        class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-3 d-flex d-sm-none preference-button"
+        color="primary"
+        absolute
+        large
+        rounded
+        depressed
+        max-width="100"
+        width="50%"
+        @click="searchBar = !searchBar"
       >
-        <div class="slider-range">
-          <v-range-slider
-            v-model="age"
-            :max="age_max"
-            :min="age_min"
-            class="align-center"
-            thumb-label="always"
-            label="Age"
-          >
-            <template>
-              <v-text-field
-                :value="age[0]"
-                class="mt-0 pt-0 slider-text"
-                single-line
-                type="number"
-                @change="$set(age, 0, $event)"
-              />
-            </template>
-            <template>
-              <v-text-field
-                :value="age[1]"
-                class="mt-0 pt-0 slider-text"
-                single-line
-                type="number"
-                @change="$set(age, 1, $event)"
-              />
-            </template>
-          </v-range-slider>
-        </div>
-        <div class="slider-range">
-          <v-slider
-            v-model="range"
-            min="0"
-            max="1000"
-            thumb-label="always"
-            label="Search distance, km"
-            inverse-label
-          />
-        </div>
+        Preference
+      </v-btn>
+    </div>
+    <div class=".d-flex .d-sm-none pt-8"></div>
+
+    <div
+      v-if="searchBar"
+      class="block-filter search-bar d-flex flex-column flex-sm-row"
+    >
+      <div class="slider-parent col-md-4 col-xl-3 col-sm-12">
+        <v-range-slider
+          v-model="age"
+          :max="age_max"
+          :min="age_min"
+          class="align-center"
+          thumb-label="always"
+          label="Age"
+        >
+          <template>
+            <v-text-field
+              :value="age[0]"
+              class="mt-0 pt-0 slider-text"
+              single-line
+              type="number"
+              @change="$set(age, 0, $event)"
+            />
+          </template>
+          <template>
+            <v-text-field
+              :value="age[1]"
+              class="mt-0 pt-0 slider-text"
+              single-line
+              type="number"
+              @change="$set(age, 1, $event)"
+            />
+          </template>
+        </v-range-slider>
       </div>
-      <div class="button-holder">
+
+      <div class="slider-parent col-md-4 col-xl-3 col-sm-12">
+        <v-slider
+          v-model="range"
+          min="0"
+          max="1000"
+          thumb-label="always"
+          label="Range, km"
+          inverse-label
+        />
+      </div>
+
+      <div class="status-check mt-0 ml-3 col-sm-12">
+        <v-checkbox
+          class="mt-3"
+          label="Only online"
+          color="primary"
+          value="false"
+          hide-details
+        />
+      </div>
+
+      <div class="col-md-1 col-xl-1 col-sm-12 pt-1">
         <v-btn
-          class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
+          class="white--text text-capitalize font-weight-bold d-flex mx-auto"
           color="primary"
           large
           rounded
@@ -66,13 +95,6 @@
         </v-btn>
       </div>
 
-      <v-spacer />
-      <v-checkbox
-        label="Only online"
-        color="primary"
-        value="false"
-        hide-details
-      />
     </div>
 
     <div class="users">
@@ -194,14 +216,6 @@ export default {
   },
   data() {
     return {
-      agesSelected: [],
-      locations: [
-        'Ukraine',
-        'Canada',
-        'USA',
-        'Germany',
-      ],
-      locationSelected: undefined,
       users: undefined,
       age_min: 18,
       age_max: 100,
@@ -211,11 +225,13 @@ export default {
         like: 'like',
         dislike: 'dislike',
       },
+      searchBar: true,
     };
   },
 
   beforeMount() {
     this.getUsers();
+    this.hideSearchbar();
   },
 
   methods: {
@@ -234,15 +250,20 @@ export default {
         console.dir(error);
       });
     },
-    rateUserById(id, value, index) {
+    rateUserById(id, rate, index) {
       return this.rateUser({
         id: id,
-        status: value,
+        status: rate,
       }).then(() => {
         this.users.splice(index, 1);
       }).catch(error => {
         console.dir(error);
       });
+    },
+    hideSearchbar() {
+      if (document.documentElement.clientWidth <= 600) {
+        this.searchBar = false;
+      }
     },
   },
 
@@ -251,21 +272,19 @@ export default {
 
 <style>
 
-.search-bar {
+.search-bar > * {
   height: 80px;
+  z-index: 6;
 }
 
-.button-holder {
-  display: flex;
+.status-check {
+  justify-content: center;
   align-items: center;
 }
 
-.slider-range {
-  margin: 0 14px;
-  display: flex;
-  width: 400px;
-  align-items: end;
-  justify-content: center;
+.preference-button {
+  top: -66px;
+  right: 0px;
 }
 
 </style>

@@ -114,4 +114,9 @@ export default class HttpUserRepository implements UserRepository {
           ...payload,
         });
   }
+
+  public getMatchedUsers(): Promise<any> {
+    return this.httpTransport
+      .get('/match/all-matches');
+  }
 }
