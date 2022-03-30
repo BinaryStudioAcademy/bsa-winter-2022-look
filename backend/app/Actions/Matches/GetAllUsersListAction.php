@@ -6,6 +6,7 @@ namespace App\Actions\Matches;
 
 use App\Exceptions\User\UserNotFoundException;
 use App\Repositories\MatchEntity\MatchEntityRepository;
+use App\Repositories\User\UserRepository;
 use App\Repositories\UserLocation\UserLocationRepository;
 use App\Repositories\UserParameterNew\UserParameterNewRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -17,7 +18,8 @@ class GetAllUsersListAction
     public function __construct(
         private UserParameterNewRepository $parameterRepository,
         private MatchEntityRepository $matchRepository,
-        private UserLocationRepository $locationRepository
+        private UserLocationRepository $locationRepository,
+        private UserRepository $userRepository
     ) {
     }
 
@@ -74,6 +76,10 @@ class GetAllUsersListAction
             throw new ModelNotFoundException();
         }
 
-        return new GetAllUsersListResponse($usersList, $usersInRangeDistance);
+        if (is_null($usersAmount = $this->userRepository->getUsersAmount())) {
+            throw new ModelNotFoundException();
+        }
+
+        return new GetAllUsersListResponse($usersList, $usersInRangeDistance, $usersAmount);
     }
 }

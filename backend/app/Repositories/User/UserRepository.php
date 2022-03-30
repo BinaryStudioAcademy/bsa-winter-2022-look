@@ -45,4 +45,9 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
     {
         return User::findOrFail($id)->email;
     }
+
+    public function getUsersAmount(): int
+    {
+        return User::count();
+    }
 }

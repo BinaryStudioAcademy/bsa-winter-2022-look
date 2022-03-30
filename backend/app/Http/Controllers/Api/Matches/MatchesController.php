@@ -58,12 +58,12 @@ class MatchesController extends ApiController
                 )
             );
 
-        $responseData = [];
+        $usersData = [];
         foreach ($result->getUsers() as $key => $user) {
             $user->distance = $result->distanceToUser($user->user_id);
-            $responseData[] = $presenter->present(new GetUserAdditionalInfoResponse($user));
+            $usersData[] = $presenter->present(new GetUserAdditionalInfoResponse($user));
         }
 
-        return $this->successResponse(['users' => $responseData]);
+        return $this->successResponse(['users' => $usersData, 'usersTotal' => $result->usersAmount()]);
     }
 }

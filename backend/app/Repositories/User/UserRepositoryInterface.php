@@ -14,4 +14,5 @@ interface UserRepositoryInterface
     public function deleteById(int $id): void;
     public function getByVerifiedEmail(string $email): ?User;
     public function getEmailById(int $id): string;
+    public function getUsersAmount(): int;
 }
