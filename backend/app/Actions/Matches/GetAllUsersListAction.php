@@ -52,6 +52,13 @@ class GetAllUsersListAction
             throw new ModelNotFoundException();
         }
 
+        $usersInRangeId = [];
+        $usersInRangeDistance = [];
+        foreach ($usersInRange as $parameter => $value) {
+            $usersInRangeId[] = $value['user_id'];
+            $usersInRangeDistance[$value['user_id']] = $value['distance'];
+        }
+
         if (is_null(
             $usersList = $this->parameterRepository
                 ->getUsersByParameters(
@@ -59,7 +66,7 @@ class GetAllUsersListAction
                     $ratedUsers,
                     $userParameter->gender,
                     $userParameter->gender_preferences,
-                    $usersInRange,
+                    $usersInRangeId,
                     $request->getMinAge(),
                     $request->getMaxAge()
                 )
@@ -67,6 +74,6 @@ class GetAllUsersListAction
             throw new ModelNotFoundException();
         }
 
-        return new GetAllUsersListResponse($usersList);
+        return new GetAllUsersListResponse($usersList, $usersInRangeDistance);
     }
 }

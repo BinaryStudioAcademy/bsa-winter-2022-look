@@ -93,4 +93,9 @@ class GetUserAdditionalInfoResponse
     {
         return $this->userParameters->other;
     }
+
+    public function getDistance()
+    {
+        return $this->userParameters->distance;
+    }
 }

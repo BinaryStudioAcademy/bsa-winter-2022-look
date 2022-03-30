@@ -29,7 +29,6 @@ class UserLocationRepository implements UserLocationRepositoryInterface
             $range
         )
             ->get()
-            ->pluck('user_id')
-            ->all();
+            ->toArray();
     }
 }

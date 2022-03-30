@@ -28,6 +28,7 @@ class UserAdditionalInfoPresenter implements PresenterInterface
             'facebook' => $response->getFacebook(),
             'other' => $response->getOther(),
             'avatar' => $response->getAvatarUrl(),
+            'distance' => $response->getDistance(),
         ];
     }
 }

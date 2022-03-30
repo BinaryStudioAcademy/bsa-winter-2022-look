@@ -54,6 +54,6 @@ Route::group(['prefix' => 'match', 'middleware' => 'auth:api'], function () {
        ->name('matches.set-like-status');
    Route::get('/all-matches', [MatchesController::class, 'getAllMatches'])
        ->name('matches.get-all-matches');
-    Route::get('/all-users-list', [MatchesController::class, 'getUsersList'])
+    Route::post('/all-users-list', [MatchesController::class, 'getUsersList'])
         ->name('matches.get-users-list');
 });
