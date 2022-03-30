@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\UserAdditionalInfoPresenter;
 use App\Http\Requests\Api\Matches\GetAllUsersListHttpRequest;
 use App\Http\Requests\Api\Matches\SetLikeStatusHttpRequest;
+use App\Repositories\UserParameterNew\UserParameterNewRepository;
 use Illuminate\Http\JsonResponse;
 
 class MatchesController extends ApiController
@@ -48,7 +49,8 @@ class MatchesController extends ApiController
     public function getUsersList(
         GetAllUsersListAction $action,
         GetAllUsersListHttpRequest $request,
-        UserAdditionalInfoPresenter $presenter
+        UserAdditionalInfoPresenter $presenter,
+        UserParameterNewRepository $userRepository
     ): JsonResponse {
         $result = $action
             ->execute(
@@ -60,6 +62,9 @@ class MatchesController extends ApiController
 
         $usersData = [];
         foreach ($result->getUsers() as $key => $user) {
+            if ($result->statusRequest() && ($userRepository->isUserOnline($user) === false)) {
+                continue;
+            }
             $user->distance = $result->distanceToUser($user->user_id);
             $usersData[] = $presenter->present(new GetUserAdditionalInfoResponse($user));
         }

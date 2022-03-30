@@ -9,7 +9,8 @@ class GetAllUsersListResponse
     public function __construct(
         private array $usersList,
         private array $distanceToUsers,
-        private int $usersAmount
+        private int $usersAmount,
+        private bool $usersStatusRequest
     ) {
     }
 
@@ -26,5 +27,10 @@ class GetAllUsersListResponse
     public function usersAmount(): int
     {
         return $this->usersAmount;
+    }
+
+    public function statusRequest()
+    {
+        return $this->usersStatusRequest;
     }
 }

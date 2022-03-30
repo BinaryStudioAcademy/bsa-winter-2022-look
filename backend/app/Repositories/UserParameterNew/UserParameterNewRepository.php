@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repositories\UserParameterNew;
 
 use App\Models\UserParameterNew;
+use Illuminate\Support\Facades\Cache;
 
 class UserParameterNewRepository implements UserParameterNewRepositoryInterface
 {
@@ -56,5 +57,10 @@ class UserParameterNewRepository implements UserParameterNewRepositoryInterface
         return UserParameterNew::select('user_parameters_new.*', 'users.name as name')
             ->join('users', 'users.id', '=', 'user_parameters_new.user_id')
             ->whereIn('user_id', $usersId)->get()->all();
+    }
+
+    public function isUserOnline(UserParameterNew $user): bool
+    {
+        return Cache::has('user-is-online-' . $user->user_id);
     }
 }

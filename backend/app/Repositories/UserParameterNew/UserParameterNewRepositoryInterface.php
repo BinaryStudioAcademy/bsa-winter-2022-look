@@ -10,6 +10,8 @@ interface UserParameterNewRepositoryInterface
 {
     public function getByUserId(int $id): UserParameterNew;
     public function save(UserParameterNew $userParameter): bool;
+    public function getUsersById(array $usersId): array;
+    public function isUserOnline(UserParameterNew $user): bool;
     public function getUsersByParameters(
         int $userId,
         array $ratedUsers,
@@ -19,5 +21,4 @@ interface UserParameterNewRepositoryInterface
         int $minAge,
         int $maxAge
     ): array;
-    public function getUsersById(array $usersId): array;
 }
