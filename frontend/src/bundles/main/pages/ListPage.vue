@@ -23,7 +23,7 @@
         Preference
       </v-btn>
     </div>
-    <div class=".d-flex .d-sm-none pt-8"></div>
+    <div class="pt-4"></div>
 
     <div
       v-if="searchBar"
@@ -70,9 +70,9 @@
         />
       </div>
 
-      <div class="status-check mt-0 ml-3 col-sm-12">
+      <div class="status-check mt-0 col-md-1 ml-1 col-xl-1 col-sm-12">
         <v-checkbox
-          class="mt-3"
+          class="mt-0 pt-1"
           label="Only online"
           color="primary"
           value="false"
@@ -80,7 +80,7 @@
         />
       </div>
 
-      <div class="col-md-1 col-xl-1 col-sm-12 pt-1">
+      <div class="col-md-2 col-xl-2 col-sm-12 pt-1">
         <v-btn
           class="white--text text-capitalize font-weight-bold d-flex mx-auto"
           color="primary"
@@ -278,8 +278,11 @@ export default {
 }
 
 .status-check {
+  height: auto;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 0 12px !important;
 }
 
 .preference-button {
