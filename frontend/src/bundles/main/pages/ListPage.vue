@@ -4,8 +4,10 @@
       class="d-none d-sm-flex"
       title="Find your crash"
     />
-    <div class="lightBlack--text text-12 pb-md-4 pb-3 d-none d-sm-flex">
-      There are <span class="orange--text">34098</span> candidates
+    <div
+      v-if="totalUsers"
+      class="lightBlack--text text-12 pb-md-4 pb-3 d-none d-sm-flex">
+      There are&nbsp;<span class="orange--text">{{ totalUsers }}</span>&nbsp;candidates
     </div>
 
     <div class="preference-button-positioner">
@@ -72,10 +74,11 @@
 
       <div class="status-check mt-0 col-md-1 ml-1 col-xl-1 col-sm-12">
         <v-checkbox
+          v-model="onlineStatus"
           class="mt-0 pt-1"
           label="Only online"
           color="primary"
-          value="false"
+          value="true"
           hide-details
         />
       </div>
@@ -226,6 +229,8 @@ export default {
         dislike: 'dislike',
       },
       searchBar: true,
+      totalUsers: undefined,
+      onlineStatus: false,
     };
   },
 
@@ -244,8 +249,10 @@ export default {
         min_age: this.age[0],
         max_age: this.age[1],
         range: this.range,
+        status: this.onlineStatus,
       }).then(data => {
         this.users = data.users;
+        this.totalUsers = data.usersTotal;
       }).catch(error => {
         console.dir(error);
       });
