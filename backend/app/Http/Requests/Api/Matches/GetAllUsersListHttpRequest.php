@@ -14,6 +14,7 @@ class GetAllUsersListHttpRequest extends FormRequest
             'range' => 'required|int|min:1',
             'min_age' => 'required|int|min:18|max:100',
             'max_age' => 'required|int|min:18|max:100',
+            'status' => 'bool|nullable',
         ];
     }
 

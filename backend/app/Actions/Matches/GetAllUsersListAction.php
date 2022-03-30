@@ -30,6 +30,7 @@ class GetAllUsersListAction
         }
 
         $currentLocation = Location::get($request->getUserIp());
+        $userStatusRequest = $request->getStatusRequest();
 
         if (is_null($userLocation = $this->locationRepository->getUserLocationByUserId($userId))) {
             throw new ModelNotFoundException();
@@ -80,6 +81,6 @@ class GetAllUsersListAction
             throw new ModelNotFoundException();
         }
 
-        return new GetAllUsersListResponse($usersList, $usersInRangeDistance, $usersAmount);
+        return new GetAllUsersListResponse($usersList, $usersInRangeDistance, $usersAmount, $userStatusRequest);
     }
 }

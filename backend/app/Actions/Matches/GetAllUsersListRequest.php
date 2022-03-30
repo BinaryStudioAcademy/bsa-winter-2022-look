@@ -36,4 +36,9 @@ class GetAllUsersListRequest
             return $this->ip;
         }
     }
+
+    public function getStatusRequest(): bool
+    {
+        return $this->request['status'];
+    }
 }
