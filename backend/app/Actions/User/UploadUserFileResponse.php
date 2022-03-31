@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Actions\User;
 
-use App\Models\UserMedia;
-
 class UploadUserFileResponse
 {
-    public function __construct(private UserMedia $image)
+    public function __construct(private array $files)
     {
     }
 
-    public function getFile(): UserMedia
+    public function getFiles(): array
     {
-        return $this->image;
+        return $this->files;
     }
 }

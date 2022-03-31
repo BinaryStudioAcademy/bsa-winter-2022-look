@@ -70,6 +70,7 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
-    'user_files_dir' => 'user-files'
+    'user_files_dir' => 'user-files/user/',
 
+    'storage_type' => 's3'
 ];

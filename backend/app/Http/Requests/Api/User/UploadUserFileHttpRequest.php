@@ -9,17 +9,17 @@ class UploadUserFileHttpRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|mimetypes:image/bmp,image/png,image/jpeg,video/mp4,video/mpeg,video/x-msvideo',
-            'media_type' => 'required',
+            'files' => 'required|array|max:50',
+            'files.*' => 'max:100000|mimetypes:image/bmp,image/png,image/jpeg,video/mp4,video/mpeg,video/x-msvideo',
         ];
     }
 
     public function messages()
     {
         return [
-            'file.required' => 'File not found',
-            'file.file' => 'Current file format is not supported',
-            'media_type.required' => 'media_type field can not be empty',
+            'files.required' => 'Files not found',
+            'files.max' => 'You can not upload more them 50 files at once',
+            'files.*.max' => 'File size can\'t be more then 100 mb',
         ];
     }
 }
