@@ -11,7 +11,9 @@ import {
   GET_USER_ADDITIONAL_INFO,
   SET_USER_ADDITIONAL_INFO,
   GET_USERS_LIST,
-  RATE_USER, GET_USERS_MATCHED,
+  RATE_USER,
+  GET_USERS_MATCHED,
+  GET_USERS_LIKED,
 } from './types/actions';
 import UserRequest from '@/bundles/common/repository/requests/UserRequest';
 import { ActionTree } from 'vuex';
@@ -68,6 +70,9 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     },
     [GET_USERS_MATCHED](args, status): Promise<void> {
       return userRepository.getMatchedUsers(status);
+    },
+    [GET_USERS_LIKED](args, status): Promise<void> {
+      return userRepository.getLikedUsers(status);
     },
   };
 }

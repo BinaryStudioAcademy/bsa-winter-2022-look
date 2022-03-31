@@ -172,6 +172,7 @@ import MapIcon from '@/bundles/main/components/icons/MapIcon';
 import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import EventsIcon from '@/bundles/main/components/icons/EventsIcon';
 import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon';
+import HalfHearth from '@/bundles/main/components/icons/HalfHearth';
 
 export default {
   components: {
@@ -183,6 +184,7 @@ export default {
     ChatIcon,
     EventsIcon,
     HasMassageDotIcon,
+    HalfHearth,
   },
   props: {
     user: {
@@ -206,6 +208,7 @@ export default {
     menuApp() {
       return [
         { title: 'List', icon: 'ListIcon', name: 'main-list' },
+        { title: 'Liked users', icon: 'HalfHearth', name: 'main-liked' },
         { title: 'Your match', icon: 'LikeIcon', name: 'main-match' },
         { title: 'Map', icon: 'MapIcon', name: 'main-map' },
         { title: 'Chat', icon: 'ChatIcon', name: 'main-chat' },

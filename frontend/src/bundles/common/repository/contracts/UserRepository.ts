@@ -82,4 +82,10 @@ export default interface UserRepository {
    * @param status
    */
   getMatchedUsers(status: boolean): Promise<void>;
+  /**
+   * Get All matched users
+   *
+   * @param status
+   */
+  getLikedUsers(status: boolean): Promise<void>;
 }

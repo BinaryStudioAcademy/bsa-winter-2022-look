@@ -121,4 +121,11 @@ export default class HttpUserRepository implements UserRepository {
         { status: status },
       );
   }
+
+  public getLikedUsers(status: boolean): Promise<any> {
+    return this.httpTransport
+      .post('/match/all-liked',
+        { status: status },
+      );
+  }
 }
