@@ -237,7 +237,7 @@ export default {
     }),
     handleLogout() {
       this.logoutUser()
-        .then(() => this.$router.push({ name: 'auth-login' }));
+        .then(() => this.$router.push({ name: 'home' }));
     },
   },
 };

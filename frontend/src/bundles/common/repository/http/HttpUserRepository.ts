@@ -50,7 +50,6 @@ export default class HttpUserRepository implements UserRepository {
         '/auth/logout',
       ).then(() => {
         Storage.removeToken();
-        Storage.removeTokenType();
       });
   }
 
