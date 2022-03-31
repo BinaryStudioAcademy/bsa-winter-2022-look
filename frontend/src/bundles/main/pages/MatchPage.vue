@@ -72,15 +72,25 @@
                 <v-col
                   cols="9"
                 >
-                  <v-badge
-                    :color="user.online ? 'green' : 'lightGrey'"
+                  <v-chip
+                    color="white"
                     class="h6 font-weight-bold lightBlack--text"
                     dot
                     inline
                     left
                   >
-                    {{ user.name }}
-                  </v-badge>
+                    <v-icon
+                      left
+                      x-small
+                      :color="user.online ? 'green' : 'lightGrey'"
+                    >
+                      mdi-circle
+                    </v-icon>
+
+                    <div class="user-name">
+                      {{ user.name }}
+                    </div>
+                  </v-chip>
                   <div
                     class="text-12 font-weight-regular border--text"
                   >
