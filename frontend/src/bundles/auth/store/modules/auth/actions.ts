@@ -10,7 +10,7 @@ import {
   USER_EMAIL_CONFIRMATION,
   SEND_VALIDATION_EMAIL,
   GET_USER_ADDITIONAL_INFO,
-  SET_USER_ADDITIONAL_INFO,
+  SET_USER_ADDITIONAL_INFO, REGISTER_USER_ADDITIONAL_INFO,
 } from './types/actions';
 import UserRequest from '@/bundles/common/repository/requests/UserRequest';
 import { ActionTree } from 'vuex';
@@ -21,6 +21,7 @@ import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePa
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
 import { RESET_USER } from '@/bundles/common/store/modules/user/types/mutations';
 import namespace from '@/bundles/common/store/modules/user/namespace';
+import RegisterAdditionalInfoRequest from "@/bundles/common/repository/requests/RegisterAdditionalInfoRequest";
 
 export function getActions<R>(): ActionTree<AuthState, R> {
   return {
@@ -62,6 +63,9 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     },
     [SET_USER_ADDITIONAL_INFO](args, data: ChangeUserInfoRequest): Promise<void> {
       return userRepository.setUserAdditionalInfo(data);
+    },
+    [REGISTER_USER_ADDITIONAL_INFO](args, data: RegisterAdditionalInfoRequest): Promise<void> {
+      return userRepository.registerUserAdditionalInfo(data);
     },
   };
 }

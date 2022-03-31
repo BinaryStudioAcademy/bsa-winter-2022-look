@@ -6,6 +6,7 @@ import UserRequest from '../requests/UserRequest';
 import Storage from '@/services/storage';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
+import RegisterAdditionalInfoRequest from '@/bundles/common/repository/requests/RegisterAdditionalInfoRequest';
 
 export default class HttpUserRepository implements UserRepository {
   private readonly httpTransport: HttpTransport;
@@ -99,6 +100,14 @@ export default class HttpUserRepository implements UserRepository {
   }
 
   public setUserAdditionalInfo(payload: ChangeUserInfoRequest): Promise<void> {
+    return this.httpTransport
+      .post('/user/change-user-info',
+        {
+          ...payload,
+        });
+  }
+
+  public registerUserAdditionalInfo(payload: RegisterAdditionalInfoRequest): Promise<void> {
     return this.httpTransport
       .post('/user/change-user-info',
         {
