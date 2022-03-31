@@ -200,6 +200,9 @@
 
 <script>
 import PageTitle from '@/bundles/common/components/PageTitle';
+import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
+import NoLikeIcon from '@/bundles/main/components/icons/NoLikeIcon';
+import HeartIcon from '@/bundles/main/components/icons/HeartIcon';
 import { mapActions } from 'vuex';
 import namespace from '../../auth/store/modules/auth/namespace';
 import { GET_USERS_LIST, RATE_USER } from '../../auth/store/modules/auth/types/actions';
@@ -207,6 +210,9 @@ import { GET_USERS_LIST, RATE_USER } from '../../auth/store/modules/auth/types/a
 export default {
   components: {
     PageTitle,
+    ChatIcon,
+    NoLikeIcon,
+    HeartIcon,
   },
   data() {
     return {
