@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Presenters;
 
 use App\Actions\User\GetUserAdditionalInfoResponse;
-use App\Repositories\User\UserRepository;
+use App\Repositories\UserParameterNew\UserParameterNewRepository;
 
 class AllUsersAdditionalInfoPresenter
 {
     public function __construct(
-        private UserRepository $userRepository,
+        private UserParameterNewRepository $userRepository,
         private UserAdditionalInfoPresenter $presenter
     ) {
     }
