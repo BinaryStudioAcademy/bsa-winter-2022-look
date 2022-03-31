@@ -320,6 +320,9 @@ export default {
   methods: {
     handleSubmit() {
       this.$emit('submit', {
+        id: this.$store.state.auth.user.id,
+        email: this.$store.state.auth.user.email,
+        name: this.$store.state.auth.user.name,
         age: this.age,
         height: this.height,
         weight: this.weight,
@@ -328,7 +331,8 @@ export default {
         interest: this.interestSelected,
         hobby: this.hobbiesSelected,
         gender: this.gender,
-        gender_preference: this.gender_preference,
+        gender_preferences: this.gender_preference,
+        location: this.locationSelected,
       });
     },
   },

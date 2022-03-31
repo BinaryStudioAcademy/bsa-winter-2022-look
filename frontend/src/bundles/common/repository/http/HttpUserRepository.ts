@@ -109,7 +109,7 @@ export default class HttpUserRepository implements UserRepository {
 
   public registerUserAdditionalInfo(payload: RegisterAdditionalInfoRequest): Promise<void> {
     return this.httpTransport
-      .post('/user/change-user-info',
+      .post('/auth/register-additional-info',
         {
           ...payload,
         });

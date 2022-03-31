@@ -12,7 +12,7 @@
 
 <script>
 import { ValidationObserver } from 'vee-validate';
-import { ADD_ADDITIONAL_INFO } from '../store/modules/auth/types/actions';
+import {ADD_ADDITIONAL_INFO, REGISTER_USER_ADDITIONAL_INFO} from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
 import AdditionalForm from '../components/AdditionalForm';
@@ -32,6 +32,7 @@ export default {
   methods: {
     ...mapActions(namespace, {
       addAdditionalInfo: ADD_ADDITIONAL_INFO,
+      registerUserAdditionalInfo: REGISTER_USER_ADDITIONAL_INFO,
     }),
     handleUserSubmit(payload) {
       if (this.processing) {
@@ -43,7 +44,7 @@ export default {
       /**
        * TODO set user data when api completed
        */
-      return this.addAdditionalInfo(payload)
+      return this.registerUserAdditionalInfo(payload)
         .then(() => this.$router.push({ name: 'auth-registration-media' }))
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
