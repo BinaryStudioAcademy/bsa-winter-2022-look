@@ -80,7 +80,17 @@
 </template>
 
 <script>
+
+import HeartIcon from '@/bundles/main/components/icons/HeartIcon';
+import NoLikeIcon from '@/bundles/main/components/icons/NoLikeIcon';
+import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
+
 export default {
+  components: {
+    HeartIcon,
+    NoLikeIcon,
+    ChatIcon,
+  },
   props: {
     user: {
       type: Object,
