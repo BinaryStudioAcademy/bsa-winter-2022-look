@@ -78,7 +78,7 @@
     >
       <v-slider
         v-model="age"
-        min="14"
+        min="18"
         max="120"
         :thumb-size="25"
         :error-messages="errors"
