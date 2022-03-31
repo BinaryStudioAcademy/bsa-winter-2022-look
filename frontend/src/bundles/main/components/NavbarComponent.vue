@@ -165,9 +165,11 @@ import MapIcon from '@/bundles/main/components/icons/MapIcon';
 import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import EventsIcon from '@/bundles/main/components/icons/EventsIcon';
 import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon';
-import namespace from '@/bundles/common/store/modules/user/namespace';
+import namespace from '@/bundles/auth/store/modules/auth/namespace';
+import userNamespace from '@/bundles/common/store/modules/user/namespace';
 import { LOGOUT_USER } from '@/bundles/auth/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
+import { RESET_USER } from '@/bundles/common/store/modules/user/types/mutations';
 
 export default {
   components: {
@@ -235,9 +237,13 @@ export default {
     ...mapActions(namespace, {
       logoutUser: LOGOUT_USER,
     }),
+    ...mapMutations(userNamespace, {
+      resetUser: RESET_USER,
+    }),
     handleLogout() {
-      this.logoutUser();
-      this.$router.push({ name: 'auth-login' });
+      this.logoutUser()
+        .then(() => this.resetUser())
+        .then(() => this.$router.push({ name: 'auth-login' }));
     },
   },
 };
