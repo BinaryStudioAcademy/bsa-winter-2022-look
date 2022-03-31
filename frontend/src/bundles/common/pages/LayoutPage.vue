@@ -8,10 +8,10 @@
 import namespace from '../store/modules/user/namespace';
 import { mapActions } from 'vuex';
 import { FETCH_SESSION_USER } from '../store/modules/user/types/actions';
-import store from '@/store';
+// import store from '@/store';
 
 export default {
-  beforeRouteEnter(to, from, next) {
+/*  beforeRouteEnter(to, from, next) {
     if (
       store.state.user.isAuthorized ||
       to.name.includes('auth') ||
@@ -21,7 +21,7 @@ export default {
     }
 
     next({ name: 'auth-login' });
-  },
+  }, */
   created() {
     return this.fetchUser();
   },

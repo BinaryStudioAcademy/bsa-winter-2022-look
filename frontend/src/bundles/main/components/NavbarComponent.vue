@@ -165,9 +165,9 @@ import MapIcon from '@/bundles/main/components/icons/MapIcon';
 import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import EventsIcon from '@/bundles/main/components/icons/EventsIcon';
 import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon';
-import { mapMutations } from 'vuex';
 import namespace from '@/bundles/common/store/modules/user/namespace';
-import { RESET_USER } from '@/bundles/common/store/modules/user/types/mutations';
+import { LOGOUT_USER } from '@/bundles/auth/store/modules/auth/types/actions';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -232,13 +232,12 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(namespace, {
-      resetUser: RESET_USER,
+    ...mapActions(namespace, {
+      logoutUser: LOGOUT_USER,
     }),
     handleLogout() {
-      this.resetUser();
-      localStorage.clear();
-      this.$router.push('/auth');
+      this.logoutUser();
+      this.$router.push({ name: 'auth-login' });
     },
   },
 };

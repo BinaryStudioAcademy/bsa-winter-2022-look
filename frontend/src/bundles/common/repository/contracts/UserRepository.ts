@@ -16,7 +16,11 @@ export default interface UserRepository {
      *
      * @param {UserLoginRequest} payload
      */
-  login(payload: UserLoginRequest): Promise<void>;
+  login(payload: UserLoginRequest): Promise<void>; /**
+     * Logout User
+     *
+     */
+  logout(): Promise<void>;
   /**
      * Get User
      *

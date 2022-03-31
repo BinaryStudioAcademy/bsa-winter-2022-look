@@ -2,6 +2,7 @@ import { SET_USER } from './types/mutations';
 import {
   CREATE_USER,
   LOGIN_USER,
+  LOGOUT_USER,
   ADD_ADDITIONAL_INFO,
   ADD_USER_MEDIA,
   RESET_USER_PASSWORD,
@@ -27,6 +28,9 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     },
     [LOGIN_USER](args, data: UserLoginRequest): Promise<void> {
       return userRepository.login(data);
+    },
+    [LOGOUT_USER](): Promise<void> {
+      return userRepository.logout();
     },
 
     /**
