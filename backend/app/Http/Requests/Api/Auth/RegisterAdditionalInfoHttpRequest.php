@@ -2,18 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Api\User;
+namespace App\Http\Requests\Api\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangeUserParameterHttpRequest extends FormRequest
+class RegisterAdditionalInfoHttpRequest extends FormRequest
 {
     public function rules()
     {
         return [
-            'name' => 'string|required|min:3',
+            'id' => 'required|int',
+            'name' => 'required|string',
+            'email' => 'required|email',
             'gender_preferences' => 'string|required',
             'gender' => 'string|required',
+            'phone' => 'required',
             'age' => 'int|required|min:18',
             'weight' => 'int|nullable',
             'height' => 'int|nullable',
@@ -21,9 +24,6 @@ class ChangeUserParameterHttpRequest extends FormRequest
             'location' => 'required|string|min:1',
             'interests' => 'array|nullable',
             'interests.*' => 'string|distinct|min:2',
-            'other' => 'string|nullable',
-            'facebook' => 'string|nullable',
-            'instagram' => 'string|nullable',
             'hobbies' => 'array|nullable',
             'hobbies.*' => 'string|distinct|min:2',
         ];
@@ -32,7 +32,6 @@ class ChangeUserParameterHttpRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name field can not be empty',
             'gender_preferences.required' => 'Looking field can not be empty',
             'gender.required' => 'Gender field can not be empty',
             'age.required' => 'Age field can not be empty',

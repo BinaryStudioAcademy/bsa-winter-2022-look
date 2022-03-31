@@ -19,4 +19,14 @@ class ChangeUserParameterRequest
     {
         return $this->request;
     }
+
+    public function getUserId(): int
+    {
+        return $this->request['id'];
+    }
+
+    public function getEmail(): string
+    {
+        return $this->request['email'];
+    }
 }

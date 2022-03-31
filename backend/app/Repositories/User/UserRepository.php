@@ -21,7 +21,9 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
 
     public function getByVerifiedEmail(string $email): ?User
     {
-        return User::where('email', $email)->whereNotNull('email_verified_at')->first();
+        return User::where('email', $email)
+            ->whereNotNull('email_verified_at')
+            ->first();
     }
 
     public function save(User $user): User
@@ -44,5 +46,14 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
     public function getEmailById(int $id): string
     {
         return User::findOrFail($id)->email;
+    }
+
+    public function getByAllUserValues(int $id, string $email, string $name): ?User
+    {
+        return User::where('id', $id)
+            ->where('email', $email)
+            ->where('name', $name)
+            ->get()
+            ->first();
     }
 }
