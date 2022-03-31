@@ -31,4 +31,21 @@ class UserLocationRepository implements UserLocationRepositoryInterface
             ->get()
             ->toArray();
     }
+
+    public function getDistToUsersById(UserLocation $user, array $usersId): array
+    {
+        return UserLocation::distance(
+            $user->latitude,
+            $user->longitude
+        )
+            ->whereIn('user_id', $usersId)
+            ->get()
+            ->pluck('distance', 'user_id')
+            ->all();
+    }
+
+    public function getUserLocation(int $userId): UserLocation
+    {
+        return UserLocation::where('user_id', $userId)->get()->first();
+    }
 }

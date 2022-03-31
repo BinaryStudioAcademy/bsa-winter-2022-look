@@ -7,12 +7,35 @@ namespace App\Actions\Matches;
 class GetAllMatchesResponse
 {
     public function __construct(
-        private array $usersParameters
+        private array $usersList,
+        private array $distanceToUsers,
+        private int $usersAmount,
+        private bool $usersStatusRequest
     ) {
     }
 
     public function getUsers(): array
     {
-        return $this->usersParameters;
+        return $this->usersList;
+    }
+
+    public function distanceToUser($userId): int
+    {
+        return intval($this->distanceToUsers[$userId]);
+    }
+
+    public function distanceToUsers(): array
+    {
+        return $this->distanceToUsers;
+    }
+
+    public function usersAmount(): int
+    {
+        return $this->usersAmount;
+    }
+
+    public function statusRequest(): bool
+    {
+        return $this->usersStatusRequest;
     }
 }

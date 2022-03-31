@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Actions\Matches;
 
-class GetAllUsersListResponse
+class GetAllLikedResponse
 {
     public function __construct(
         private array $usersList,
@@ -22,6 +22,11 @@ class GetAllUsersListResponse
     public function distanceToUser($userId): int
     {
         return intval($this->distanceToUsers[$userId]);
+    }
+
+    public function distanceToUsers(): array
+    {
+        return $this->distanceToUsers;
     }
 
     public function usersAmount(): int
