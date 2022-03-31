@@ -102,49 +102,6 @@
         @click="drawer = !drawer"
       />
       <v-spacer />
-      <v-menu
-        v-if="user"
-        bottom
-        min-width="200px"
-        rounded
-        offset-y
-      >
-        <template #activator="{ on }">
-          <v-btn
-            icon
-            x-large
-            v-on="on"
-          >
-            <v-avatar
-              size="36"
-            >
-              <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
-            </v-avatar>
-          </v-btn>
-        </template>
-        <v-card>
-          <v-list-item-content class="justify-center">
-            <div class="mx-auto text-center">
-              <v-btn
-                depressed
-                rounded
-                text
-                :to="{name: 'main-settings-details'}"
-              >
-                Settings
-              </v-btn>
-              <v-divider class="my-3" />
-              <v-btn
-                depressed
-                rounded
-                text
-              >
-                Logout
-              </v-btn>
-            </div>
-          </v-list-item-content>
-        </v-card>
-      </v-menu>
     </v-app-bar>
   </div>
 </template>
