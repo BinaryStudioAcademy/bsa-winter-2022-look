@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register-additional-info', [AuthController::class, 'registerAdditionalInfo'])->name('register.additional-info');
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:api');
     Route::get('/me', [AuthController::class, 'me'])->middleware('auth:api');
@@ -27,23 +28,17 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/send-validation-email', [AuthController::class, 'sendValidationEmail'])->name('send-validation-email');
 });
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::get('/user-additional-info', [UserController::class, 'getUserAdditionalInfo'])
-        ->middleware('auth:api')
         ->name('user.get-additional-info');
     Route::post('/change-email', [UserController::class, 'changeEmail'])
-        ->middleware('auth:api')
         ->name('user.change-email');
     Route::post('/change-password', [UserController::class, 'changePassword'])
-        ->middleware('auth:api')
         ->name('user.change-password');
     Route::post('/change-user-info', [UserController::class, 'changeInfo'])
-        ->middleware('auth:api')
         ->name('user.change-info');
     Route::post('/upload-user-file', [UserController::class, 'uploadFile'])
-        ->middleware('auth:api')
         ->name('user.upload-file');
     Route::post('/delete-user-file', [UserController::class, 'deleteFile'])
-        ->middleware('auth:api')
         ->name('user.delete-file');
 });

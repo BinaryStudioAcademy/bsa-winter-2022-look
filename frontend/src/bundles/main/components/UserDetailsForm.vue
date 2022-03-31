@@ -386,6 +386,7 @@ export default {
           name: this.userInfo.name,
           interests: this.localUserAdditionalInfo.interestSelected,
           hobbies: this.localUserAdditionalInfo.hobbiesSelected,
+          gender_preferences: this.localUserAdditionalInfo.genderPreferences,
           ...this.localUserAdditionalInfo,
         });
     },
