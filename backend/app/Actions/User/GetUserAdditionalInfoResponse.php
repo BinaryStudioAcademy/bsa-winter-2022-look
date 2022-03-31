@@ -5,13 +5,29 @@ declare(strict_types=1);
 namespace App\Actions\User;
 
 use App\Models\UserParameterNew;
+use Illuminate\Support\Facades\Cache;
 
 class GetUserAdditionalInfoResponse
 {
     public function __construct(
         private UserParameterNew $userParameters,
-        private string $userEmail
+        private string|null $userEmail = null
     ) {
+    }
+    // TODO change to the true avatar when ready
+    public function getAvatarUrl(): string
+    {
+        return 'https://randomuser.me/api/portraits/women/56.jpg';
+    }
+
+    public function getId()
+    {
+        return $this->userParameters->user_id;
+    }
+
+    public function getName()
+    {
+        return $this->userParameters->name;
     }
 
     public function getGender()
@@ -77,5 +93,15 @@ class GetUserAdditionalInfoResponse
     public function getOther()
     {
         return $this->userParameters->other;
+    }
+
+    public function getDistance()
+    {
+        return $this->userParameters->distance;
+    }
+
+    public function onlineCheck()
+    {
+        return Cache::has('user-is-online-' . $this->userParameters->user_id);
     }
 }

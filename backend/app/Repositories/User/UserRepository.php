@@ -56,4 +56,9 @@ final class UserRepository extends BaseRepository implements UserRepositoryInter
             ->get()
             ->first();
     }
+
+    public function getUsersAmount(): int
+    {
+        return User::count();
+    }
 }

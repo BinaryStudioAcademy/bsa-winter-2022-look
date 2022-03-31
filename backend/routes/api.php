@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\ForgotPasswordController;
+use App\Http\Controllers\Api\Matches\MatchesController;
 use App\Http\Controllers\Api\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,16 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
         ->name('user.upload-file');
     Route::post('/delete-user-file', [UserController::class, 'deleteFile'])
         ->name('user.delete-file');
+});
+
+Route::group(['prefix' => 'match', 'middleware' => 'auth:api'], function () {
+   Route::post('/set-like-status', [MatchesController::class, 'setLikeStatus'])
+       ->name('matches.set-like-status');
+   Route::post('/all-matches', [MatchesController::class, 'getAllMatches'])
+       ->name('matches.get-all-matches');
+    Route::post('/all-users-list', [MatchesController::class, 'getUsersList'])
+        ->name('matches.get-users-list');
+    Route::post('/all-liked', [MatchesController::class, 'getAllLiked'])
+        ->name('matches.get-all-liked');
+
 });

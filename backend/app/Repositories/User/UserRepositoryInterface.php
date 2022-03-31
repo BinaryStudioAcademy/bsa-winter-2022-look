@@ -15,4 +15,5 @@ interface UserRepositoryInterface
     public function getByVerifiedEmail(string $email): ?User;
     public function getEmailById(int $id): string;
     public function getByAllUserValues(int $id, string $email, string $name): ?User;
+    public function getUsersAmount(): int;
 }

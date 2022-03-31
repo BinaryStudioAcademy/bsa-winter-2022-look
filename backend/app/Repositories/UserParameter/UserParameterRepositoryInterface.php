@@ -12,5 +12,4 @@ interface UserParameterRepositoryInterface
     public function findAll(): Collection;
     public function getUserParameter(int $userId, string $parameter): ?UserParameter;
     public function save(UserParameter $userParameter): UserParameter;
-    public function findAllByUserId(int $userId);
 }
