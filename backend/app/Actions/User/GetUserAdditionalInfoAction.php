@@ -6,14 +6,14 @@ namespace App\Actions\User;
 
 use App\Exceptions\User\UserNotFoundException;
 use App\Repositories\User\UserRepository;
-use App\Repositories\UserParameterNew\UserParameterNewRepository;
+use App\Repositories\UserParameter\UserParameterRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
 class GetUserAdditionalInfoAction
 {
     public function __construct(
-        private UserParameterNewRepository $parameterRepository,
+        private UserParameterRepository $parameterRepository,
         private UserRepository $userRepository
     ) {
     }
@@ -28,7 +28,7 @@ class GetUserAdditionalInfoAction
             throw new UserNotFoundException();
         }
 
-        if (is_null($userParameters = $this->parameterRepository->getByUserId($userId))) {
+        if (is_null($userParameters = $this->parameterRepository->findAllByUserId($userId))) {
             throw new ModelNotFoundException();
         }
 

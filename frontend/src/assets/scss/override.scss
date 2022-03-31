@@ -80,9 +80,8 @@ p {
   width: 100%;
 }
 
-.w-280 {
-  max-width: 280px;
-  width: 100%;
+.v-navigation-drawer {
+  z-index: 999 !important;
 }
 
 .counter-msg {
