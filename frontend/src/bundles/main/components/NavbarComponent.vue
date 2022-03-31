@@ -43,18 +43,11 @@
             </div>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(item, index) in menuUser"
-              :key="index"
-            >
-              <router-link
-                :to="{
-                  name: item.name,
-                }"
-                class="lightBlack--text"
-              >
-                {{ item.title }}
-              </router-link>
+            <v-list-item>
+              <router-link :to="{ name: 'main-settings-details'}" class="lightBlack--text">Settings</router-link>
+            </v-list-item>
+            <v-list-item>
+              <v-btn class="lightBlack--text" @click.prevent="handleLogout">Log out</v-btn>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -157,6 +150,9 @@
 </template>
 <script>
 
+import namespace from '@/bundles/auth/store/modules/auth/namespace';
+import { LOGOUT_USER } from '@/bundles/auth/store/modules/auth/types/actions';
+import { mapActions } from 'vuex';
 import LogoIcon from '@/bundles/main/components/icons/LogoIcon';
 import ArrowIcon from '@/bundles/main/components/icons/ArrowIcon';
 import ListIcon from '@/bundles/main/components/icons/ListIcon';
@@ -192,12 +188,6 @@ export default {
     };
   },
   computed: {
-    menuUser() {
-      return [
-        { title: 'Settings', name: 'main-settings-details' },
-        { title: 'Logout', name: 'logout' },
-      ];
-    },
     menuApp() {
       return [
         { title: 'List', icon: 'ListIcon', name: 'main-list' },
@@ -234,6 +224,15 @@ export default {
     },
     hasNewMessage() {
       return true;
+    },
+  },
+  methods: {
+    ...mapActions(namespace, {
+      logoutUser: LOGOUT_USER,
+    }),
+    handleLogout() {
+      this.logoutUser()
+        .then(() => this.$router.push({ name: 'home' }));
     },
   },
 };

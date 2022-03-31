@@ -80,9 +80,6 @@
 
 <script>
 
-import HeartIcon from '@/bundles/main/components/icons/HeartIcon';
-import NoLikeIcon from '@/bundles/main/components/icons/NoLikeIcon';
-import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import PageTitle from '@/bundles/common/components/PageTitle';
 import UserCard from '@/bundles/main/components/UserCard';
 
@@ -90,9 +87,6 @@ export default {
   components: {
     UserCard,
     PageTitle,
-    HeartIcon,
-    NoLikeIcon,
-    ChatIcon,
   },
   data() {
     return {
