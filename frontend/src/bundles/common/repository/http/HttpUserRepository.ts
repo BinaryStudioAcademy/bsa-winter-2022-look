@@ -46,6 +46,15 @@ export default class HttpUserRepository implements UserRepository {
       });
   }
 
+  public logout(): Promise<void> {
+    return this.httpTransport
+      .post(
+        '/auth/logout',
+      ).then(() => {
+        Storage.removeToken();
+      });
+  }
+
   public get(): Promise<User> {
     return this.httpTransport
       .get('/auth/me');

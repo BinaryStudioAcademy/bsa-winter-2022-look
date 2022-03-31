@@ -2,6 +2,7 @@ import { SET_USER } from './types/mutations';
 import {
   CREATE_USER,
   LOGIN_USER,
+  LOGOUT_USER,
   ADD_ADDITIONAL_INFO,
   ADD_USER_MEDIA,
   RESET_USER_PASSWORD,
@@ -24,6 +25,8 @@ import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePa
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
 import UsersListRequest from '@/bundles/common/repository/requests/UsersListRequest';
 import RateUserRequest from '@/bundles/common/repository/requests/RateUserRequest';
+import { RESET_USER } from '@/bundles/common/store/modules/user/types/mutations';
+import namespace from '@/bundles/common/store/modules/user/namespace';
 
 export function getActions<R>(): ActionTree<AuthState, R> {
   return {
@@ -33,6 +36,10 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     },
     [LOGIN_USER](args, data: UserLoginRequest): Promise<void> {
       return userRepository.login(data);
+    },
+    [LOGOUT_USER]({ commit }): Promise<void> {
+      return userRepository.logout()
+        .then(() => commit(`${namespace}/${RESET_USER}`, null, { root: true }));
     },
 
     /**

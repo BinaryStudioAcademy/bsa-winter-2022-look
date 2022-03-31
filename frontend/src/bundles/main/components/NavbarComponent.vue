@@ -43,18 +43,11 @@
             </div>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(item, index) in menuUser"
-              :key="index"
-            >
-              <router-link
-                :to="{
-                  name: item.name,
-                }"
-                class="lightBlack--text"
-              >
-                {{ item.title }}
-              </router-link>
+            <v-list-item>
+              <router-link :to="{ name: 'main-settings-details'}" class="lightBlack--text">Settings</router-link>
+            </v-list-item>
+            <v-list-item>
+              <v-btn class="lightBlack--text" @click.prevent="handleLogout">Log out</v-btn>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -172,6 +165,9 @@ import MapIcon from '@/bundles/main/components/icons/MapIcon';
 import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import EventsIcon from '@/bundles/main/components/icons/EventsIcon';
 import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon';
+import namespace from '@/bundles/auth/store/modules/auth/namespace';
+import { LOGOUT_USER } from '@/bundles/auth/store/modules/auth/types/actions';
+import { mapActions } from 'vuex';
 import HalfHearth from '@/bundles/main/components/icons/HalfHearth';
 
 export default {
@@ -199,16 +195,9 @@ export default {
     };
   },
   computed: {
-    menuUser() {
-      return [
-        { title: 'Settings', name: 'main-settings-details' },
-        { title: 'Logout', name: 'logout' },
-      ];
-    },
     menuApp() {
       return [
         { title: 'List', icon: 'ListIcon', name: 'main-list' },
-        { title: 'Liked users', icon: 'HalfHearth', name: 'main-liked' },
         { title: 'Your match', icon: 'LikeIcon', name: 'main-match' },
         { title: 'Map', icon: 'MapIcon', name: 'main-map' },
         { title: 'Chat', icon: 'ChatIcon', name: 'main-chat' },
@@ -242,6 +231,15 @@ export default {
     },
     hasNewMessage() {
       return true;
+    },
+  },
+  methods: {
+    ...mapActions(namespace, {
+      logoutUser: LOGOUT_USER,
+    }),
+    handleLogout() {
+      this.logoutUser()
+        .then(() => this.$router.push({ name: 'home' }));
     },
   },
 };
