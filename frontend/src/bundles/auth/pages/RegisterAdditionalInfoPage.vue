@@ -12,7 +12,7 @@
 
 <script>
 import { ValidationObserver } from 'vee-validate';
-import {ADD_ADDITIONAL_INFO, REGISTER_USER_ADDITIONAL_INFO} from '../store/modules/auth/types/actions';
+import { REGISTER_USER_ADDITIONAL_INFO } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
 import { mapActions } from 'vuex';
 import AdditionalForm from '../components/AdditionalForm';
@@ -31,7 +31,6 @@ export default {
 
   methods: {
     ...mapActions(namespace, {
-      addAdditionalInfo: ADD_ADDITIONAL_INFO,
       registerUserAdditionalInfo: REGISTER_USER_ADDITIONAL_INFO,
     }),
     handleUserSubmit(payload) {
