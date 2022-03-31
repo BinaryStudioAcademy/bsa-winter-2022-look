@@ -19,6 +19,7 @@ import userRepository from '@/bundles/common/repository/userRepository';
 import UserLoginRequest from '@/bundles/common/repository/requests/UserLoginRequest';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
+import { RESET_USER } from '@/bundles/common/store/modules/user/types/mutations';
 
 export function getActions<R>(): ActionTree<AuthState, R> {
   return {
@@ -29,8 +30,9 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     [LOGIN_USER](args, data: UserLoginRequest): Promise<void> {
       return userRepository.login(data);
     },
-    [LOGOUT_USER](): Promise<void> {
-      return userRepository.logout();
+    [LOGOUT_USER]({ commit }): Promise<void> {
+      return userRepository.logout()
+        .then(() => commit(RESET_USER));
     },
 
     /**
