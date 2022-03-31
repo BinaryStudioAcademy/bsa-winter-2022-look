@@ -11,7 +11,7 @@ class CreateUserMediaTable extends Migration
         Schema::create('user_media', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('media_type');
+            $table->string('media_type')->nullable();
             $table->string('format');
             $table->string('filename');
             $table->timestamps();

@@ -28,8 +28,7 @@
             rules="required|min:3"
           >
             <v-text-field
-              v-if="userInfo"
-              v-model="userInfo.name"
+              v-model="localUserAdditionalInfo.name"
               label="Full name"
               rounded
               outlined
@@ -383,9 +382,9 @@ export default {
     handleSubmit() {
       this.$emit('submit',
         {
-          name: this.userInfo.name,
           interests: this.localUserAdditionalInfo.interestSelected,
           hobbies: this.localUserAdditionalInfo.hobbiesSelected,
+          gender_preferences: this.localUserAdditionalInfo.genderPreferences,
           ...this.localUserAdditionalInfo,
         });
     },

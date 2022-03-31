@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Actions\User;
 
+use App\Exceptions\User\CantUploadUserFileException;
 use App\Exceptions\User\UserNotFoundException;
 use App\Models\UserMedia;
 use App\Repositories\UserMedia\UserMediaRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 class UploadUserFileAction
@@ -24,25 +24,33 @@ class UploadUserFileAction
             throw new UserNotFoundException();
         }
 
-        $filePath = Storage::disk('s3')->putFileAs(
-            Config::get('filesystems.user_files_dir'),
-            $request->getFile(),
-            $request->getFile()->hashName(),
-        );
+        $response = [];
 
-        $media = new UserMedia();
+        foreach ($request->getFiles() as $file) {
+            $media = new UserMedia();
+            $media->user_id = $userId;
+            $request->setFile($file);
 
-        $media->user_id = $userId;
-        $media->format = $request->getFormat();
-        $media->media_type = $request->getType();
-        $media->filename = Storage::disk('s3')->path($filePath);
+            try {
+                $filePath = Storage::disk(config('filesystems.storage_type'))->putFile(
+                    (config('filesystems.user_files_dir') . $userId),
+                    $request->getFile()
+                );
+            } catch (\Exception $exception) {
+                throw new CantUploadUserFileException();
+            }
 
-        try {
-            $media = $this->mediaRepository->save($media);
-        } catch (\Exception $exception) {
-            throw new ModelNotFoundException();
+            $media->format = $request->getFormat();
+            $media->filename = Storage::disk(config('filesystems.storage_type'))->path($filePath);
+
+            try {
+                $media = $this->mediaRepository->save($media);
+            } catch (\Exception $exception) {
+                throw new ModelNotFoundException();
+            }
+            $response[] = $media;
         }
 
-        return new UploadUserFileResponse($media);
+        return new UploadUserFileResponse($response);
     }
 }

@@ -5,18 +5,25 @@ declare(strict_types=1);
 namespace App\Http\Presenters;
 
 use App\Contracts\PresenterInterface;
-use App\Models\UserMedia;
+use Illuminate\Support\Facades\Storage;
 
 class UserFileUploadPresenter implements PresenterInterface
 {
-    public function present(UserMedia $media)
+    public function present(array $files):array
     {
-        return [
-            'id' => $media->getId(),
-            'user_id' => $media->getUserId(),
-            'media_type' => $media->getType(),
-            'format' => $media->getFormat(),
-            'filename' => $media->getFileName(),
-        ];
+        $response = [];
+
+        foreach ($files as $file) {
+            $response[] = [
+                'url' => Storage::disk(
+                    config('filesystems.storage_type')
+                )
+                    ->url(
+                        $file->getFilename()
+                    ),
+            ];
+        }
+
+        return $response;
     }
 }

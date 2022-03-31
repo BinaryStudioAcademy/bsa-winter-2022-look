@@ -17,21 +17,16 @@ class ChangeUserParameterRequest
 
     public function getAllParameters(): array
     {
-        $response = [];
-
-        foreach ($this->request as $parameterName => $parameterValue) {
-            if ($parameterName === 'name') {
-                continue;
-            }
-
-            $response[$parameterName] = $parameterValue;
-        }
-
-        return $response;
+        return $this->request;
     }
 
-    public function getInterests():array
+    public function getUserId(): int
     {
-        return $this->request['interests'];
+        return $this->request['id'];
+    }
+
+    public function getEmail(): string
+    {
+        return $this->request['email'];
     }
 }
