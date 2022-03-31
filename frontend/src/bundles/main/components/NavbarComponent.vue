@@ -90,73 +90,26 @@
         <v-divider />
       </v-item-group>
 
-      <v-item-group
-        class="pt-5"
-      >
-        <v-list-item-title
-          class="font-weight-medium h6 mt-3 mb-3"
-        >
-          Frequently chat
-        </v-list-item-title>
-
-        <v-list-item
-          v-for="(item, index) in frequentlyChat"
-          :key="index"
-          class="d-flex pa-0"
-          flat
-        >
-          <v-badge
-            :color="item.online ? 'green' : 'lightGrey'"
-            dot
-            overlap
-            bordered
-            bottom
-            class="mr-3"
-          >
-            <v-avatar
-              size="32"
-            >
-              <img
-                :src="item.image"
-              >
-            </v-avatar>
-          </v-badge>
-
-          <router-link
-            class="d-block w-100"
-            :to="{name: 'main-chat'}"
-          >
-            <v-list-item-title
-              class="d-flex justify-space-between"
-            >
-              <span
-                class="text-14 lightBlack--text"
-              >
-                {{ item.name }}
-              </span>
-              <span
-                class="counter-msg primary font-weight-bold text-14 white--text"
-              >
-                5
-              </span>
-            </v-list-item-title>
-          </router-link>
-        </v-list-item>
-      </v-item-group>
+      <FrequentlyChat
+        :frequently-chat="frequentlyChat"
+      />
     </v-navigation-drawer>
     <v-app-bar
       flat
       class="d-md-none headerMain"
     >
-      <LogoIcon />
       <v-app-bar-nav-icon
         @click="drawer = !drawer"
       />
+      <v-spacer />
     </v-app-bar>
   </div>
 </template>
 <script>
 
+import namespace from '@/bundles/auth/store/modules/auth/namespace';
+import { LOGOUT_USER } from '@/bundles/auth/store/modules/auth/types/actions';
+import { mapActions } from 'vuex';
 import LogoIcon from '@/bundles/main/components/icons/LogoIcon';
 import ArrowIcon from '@/bundles/main/components/icons/ArrowIcon';
 import ListIcon from '@/bundles/main/components/icons/ListIcon';
@@ -165,12 +118,11 @@ import MapIcon from '@/bundles/main/components/icons/MapIcon';
 import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import EventsIcon from '@/bundles/main/components/icons/EventsIcon';
 import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon';
-import namespace from '@/bundles/auth/store/modules/auth/namespace';
-import { LOGOUT_USER } from '@/bundles/auth/store/modules/auth/types/actions';
-import { mapActions } from 'vuex';
+import FrequentlyChat from '@/bundles/main/components/FrequentlyChat';
 
 export default {
   components: {
+    FrequentlyChat,
     LogoIcon,
     ArrowIcon,
     ListIcon,
@@ -209,21 +161,21 @@ export default {
           id: 1,
           name: 'Zoe Kim',
           online: true,
-          distance: '500m',
+          message: 3,
         },
         {
           image: 'https://randomuser.me/api/portraits/women/2.jpg',
           id: 2,
           name: 'Monica Biluc',
           online: false,
-          distance: '1500m',
+          message: 1,
         },
         {
           image: 'https://randomuser.me/api/portraits/women/3.jpg',
           id: 3,
           name: 'Tatiana Carder',
           online: true,
-          distance: '700m',
+          message: 0,
         },
       ];
     },

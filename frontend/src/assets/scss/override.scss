@@ -81,7 +81,8 @@ p {
 }
 
 .w-280 {
-  width: 280px;
+  max-width: 280px;
+  width: 100%;
 }
 
 .counter-msg {
