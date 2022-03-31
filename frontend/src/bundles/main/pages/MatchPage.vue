@@ -3,8 +3,11 @@
     <page-title
       title="Match"
     />
-    <div class="lightBlack--text text-12 pb-md-4 pb-3">
-      There are <span class="orange--text">34098</span> candidates
+    <div
+      v-if="totalUsers"
+      class="lightBlack--text text-12 pb-md-4 pb-3"
+    >
+      There are&nbsp;<span class="orange--text">{{ totalUsers }}</span>&nbsp;candidates
     </div>
 
     <div class="block-filter d-flex search-bar">
@@ -15,10 +18,11 @@
 
       <v-spacer />
       <v-checkbox
+        class="mt-0 pt-1"
         label="Only online"
         color="primary"
-        value="false"
         hide-details
+        @click="checkboxSwitcher"
       />
     </div>
 
@@ -84,7 +88,7 @@
                   <div
                     class="text-12 font-weight-regular border--text"
                   >
-                    {{ user.distance }}
+                    {{ user.distance }} km
                   </div>
                 </v-col>
                 <v-col
@@ -129,10 +133,8 @@ export default {
   data() {
     return {
       users: undefined,
-      rate: {
-        like: 'like',
-        dislike: 'dislike',
-      },
+      totalUsers: undefined,
+      onlineStatus: false,
     };
   },
 
@@ -148,9 +150,10 @@ export default {
 
     ),
     getUsers() {
-      return this.getMatchedUsers()
+      return this.getMatchedUsers(this.onlineStatus)
         .then(data => {
           this.users = data.users;
+          this.totalUsers = data.usersTotal;
         }).catch(error => {
           console.dir(error);
         });
@@ -164,6 +167,10 @@ export default {
       }).catch(error => {
         console.dir(error);
       });
+    },
+    checkboxSwitcher() {
+      this.onlineStatus = !this.onlineStatus;
+      this.getUsers();
     },
 
   },

@@ -115,8 +115,10 @@ export default class HttpUserRepository implements UserRepository {
         });
   }
 
-  public getMatchedUsers(): Promise<any> {
+  public getMatchedUsers(status: boolean): Promise<any> {
     return this.httpTransport
-      .get('/match/all-matches');
+      .post('/match/all-matches',
+        { status: status },
+      );
   }
 }

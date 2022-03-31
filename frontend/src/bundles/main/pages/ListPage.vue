@@ -74,12 +74,11 @@
 
       <div class="status-check mt-0 col-md-1 ml-1 col-xl-1 col-sm-12">
         <v-checkbox
-          v-model="onlineStatus"
           class="mt-0 pt-1"
           label="Only online"
           color="primary"
-          value="true"
           hide-details
+          @click="onlineStatus = !onlineStatus"
         />
       </div>
 

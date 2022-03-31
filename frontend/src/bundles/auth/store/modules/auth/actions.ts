@@ -66,8 +66,8 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     [RATE_USER](args, data: RateUserRequest): Promise<void> {
       return userRepository.rateUser(data);
     },
-    [GET_USERS_MATCHED](): Promise<void> {
-      return userRepository.getMatchedUsers();
+    [GET_USERS_MATCHED](args, status): Promise<void> {
+      return userRepository.getMatchedUsers(status);
     },
   };
 }
