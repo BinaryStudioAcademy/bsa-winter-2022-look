@@ -118,6 +118,7 @@
               :src="user.avatar"
               height="255"
               class="grey darken-4"
+              position="top center"
             >
               <v-app-bar
                 flat

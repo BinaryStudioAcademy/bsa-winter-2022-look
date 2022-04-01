@@ -25,9 +25,7 @@
     </div>
 
     <div class="users">
-      <v-row
-        justify="space-around"
-      >
+      <v-row>
         <v-col
           v-for="(user, index) in users"
           :key="index"
@@ -45,6 +43,7 @@
               :src="user.avatar"
               height="255"
               class="grey darken-4"
+              position="top center"
             >
               <v-app-bar
                 flat
