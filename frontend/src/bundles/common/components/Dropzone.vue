@@ -5,6 +5,7 @@
     :options="dropzoneOptions"
     :include-styling="false"
     :use-custom-slot=true
+    v-on:vdropzone-file-added="returnFile"
   >
     <div class="dropzone border--text">
       <div class="dropzone-container border--text">
@@ -38,6 +39,7 @@ export default {
         previewTemplate: this.template(),
         acceptedFiles: 'image/*, video/*',
       },
+      files: undefined,
     };
   },
 
@@ -58,6 +60,9 @@ export default {
         -->
       </div>
         `;
+    },
+    returnFile(file) {
+      console.dir(file);
     },
   },
 };

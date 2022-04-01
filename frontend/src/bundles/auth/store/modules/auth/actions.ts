@@ -21,6 +21,7 @@ import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePa
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
 import { RESET_USER } from '@/bundles/common/store/modules/user/types/mutations';
 import namespace from '@/bundles/common/store/modules/user/namespace';
+import AddUserMediaRequest from '@/bundles/common/repository/requests/AddUserMediaRequest';
 
 export function getActions<R>(): ActionTree<AuthState, R> {
   return {
@@ -42,8 +43,8 @@ export function getActions<R>(): ActionTree<AuthState, R> {
     [ADD_ADDITIONAL_INFO](args, data: UserRequest): Promise<void> {
       return userRepository.patch(data);
     },
-    [ADD_USER_MEDIA](args, data: UserRequest): Promise<void> {
-      return userRepository.patch(data);
+    [ADD_USER_MEDIA](args, data: AddUserMediaRequest): Promise<void> {
+      return userRepository.addUserMedia(data);
     },
     [RESET_USER_PASSWORD](args, email): Promise<void> {
       return userRepository.resetPassword(email);

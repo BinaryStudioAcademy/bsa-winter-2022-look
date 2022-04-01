@@ -3,6 +3,7 @@ import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
+import AddUserMediaRequest from '@/bundles/common/repository/requests/AddUserMediaRequest';
 
 export default interface UserRepository {
   /**
@@ -66,4 +67,10 @@ export default interface UserRepository {
    * @param {ChangeUserInfoRequest} payload
    */
   setUserAdditionalInfo(payload: ChangeUserInfoRequest): Promise<void>;
+  /**
+   * Change user info request
+   *
+   * @param {AddUserMediaRequest} payload
+   */
+  addUserMedia(payload: AddUserMediaRequest): Promise<void>;
 }
