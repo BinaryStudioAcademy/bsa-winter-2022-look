@@ -13,7 +13,6 @@ export default {
   created() {
     return this.fetchUser();
   },
-
   methods: {
     ...mapActions(namespace, {
       fetchUser: FETCH_SESSION_USER,

@@ -10,12 +10,15 @@ use App\Actions\Auth\LoginRequest;
 use App\Actions\Auth\LogoutAction;
 use App\Actions\Auth\SendValidationEmailAction;
 use App\Actions\Auth\SendValidationEmailRequest;
+use App\Actions\User\ChangeUserParameterAction;
+use App\Actions\User\ChangeUserParameterRequest;
 use App\Actions\User\UploadUserFileAction;
 use App\Actions\User\UploadUserFileRequest;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Presenters\AuthenticationResponseArrayPresenter;
 use App\Http\Requests\Api\Auth\EmailConfirmationHttpRequest;
 use App\Http\Requests\Api\Auth\LoginHttpRequest;
+use App\Http\Requests\Api\Auth\RegisterAdditionalInfoHttpRequest;
 use App\Http\Requests\Api\Auth\SendValidationEmailHttpRequest;
 use App\Http\Requests\Api\Auth\UploadRegisterFileHttpRequest;
 use Illuminate\Http\JsonResponse;
@@ -48,6 +51,19 @@ final class AuthController extends ApiController
         )->getUser();
 
         return $this->successResponse($this->presenter->present($response), JsonResponse::HTTP_CREATED);
+    }
+
+    public function registerAdditionalInfo(
+        RegisterAdditionalInfoHttpRequest $request,
+        ChangeUserParameterAction $action
+    ): JsonResponse {
+        $action->execute(
+            new ChangeUserParameterRequest(
+                $request->all()
+            )
+        );
+
+        return $this->emptyResponse();
     }
 
     public function login(

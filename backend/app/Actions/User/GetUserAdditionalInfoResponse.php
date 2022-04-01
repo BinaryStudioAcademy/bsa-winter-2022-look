@@ -4,63 +4,75 @@ declare(strict_types=1);
 
 namespace App\Actions\User;
 
+use App\Models\UserParameterNew;
+use Illuminate\Support\Facades\Cache;
+
 class GetUserAdditionalInfoResponse
 {
-    const REPLACE_PATTERN = ['[', ']', '\\', '"'];
-
     public function __construct(
-        private array $userParameters,
-        private string $userEmail
+        private UserParameterNew $userParameters,
+        private string|null $userEmail = null
     ) {
+    }
+    // TODO change to the true avatar when ready
+    public function getAvatarUrl(): string
+    {
+        return 'https://randomuser.me/api/portraits/women/56.jpg';
+    }
+
+    public function getId()
+    {
+        return $this->userParameters->user_id;
+    }
+
+    public function getName()
+    {
+        return $this->userParameters->name;
     }
 
     public function getGender()
     {
-        return $this->userParameters['gender'];
+        return $this->userParameters->gender;
     }
 
     public function getGenderPreferences()
     {
-        return $this->userParameters['genderPreferences'];
+        return $this->userParameters->gender_preferences;
     }
 
     public function getLocation()
     {
-        return $this->userParameters['location'];
+        return $this->userParameters->location;
     }
 
     public function getHeight()
     {
-        return $this->userParameters['height'];
+        return $this->userParameters->height;
     }
 
     public function getWeight()
     {
-        return $this->userParameters['weight'];
+        return $this->userParameters->weight;
     }
 
     public function getAge()
     {
-        return $this->userParameters['age'];
+        return $this->userParameters->age;
     }
 
     public function getInterests()
     {
-        $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters['interests']);
-
-        return explode(',', $result);
+        return $this->userParameters->interests;
     }
 
     public function getHobbies()
     {
-        $result = str_replace(self::REPLACE_PATTERN, '', $this->userParameters['hobbies']);
-
-        return explode(',', $result);
+        return $this->userParameters->hobbies;
     }
 
     public function getBio()
     {
-        return $this->userParameters['about'];
+        return $this->userParameters->about;
     }
 
     public function getEmail()
@@ -70,28 +82,26 @@ class GetUserAdditionalInfoResponse
 
     public function getInstagram()
     {
-        if (array_key_exists('instagram', $this->userParameters)) {
-            return $this->userParameters['instagram'];
-        } else {
-            return null;
-        }
+        return $this->userParameters->instagram;
     }
 
     public function getFacebook()
     {
-        if (array_key_exists('facebook', $this->userParameters)) {
-            return $this->userParameters['facebook'];
-        } else {
-            return null;
-        }
+        return $this->userParameters->facebook;
     }
 
     public function getOther()
     {
-        if (array_key_exists('other', $this->userParameters)) {
-            return $this->userParameters['other'];
-        } else {
-            return null;
-        }
+        return $this->userParameters->other;
+    }
+
+    public function getDistance()
+    {
+        return $this->userParameters->distance;
+    }
+
+    public function onlineCheck()
+    {
+        return Cache::has('user-is-online-' . $this->userParameters->user_id);
     }
 }

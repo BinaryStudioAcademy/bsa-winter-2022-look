@@ -28,8 +28,7 @@
             rules="required|min:3"
           >
             <v-text-field
-              v-if="userInfo"
-              v-model="userInfo.name"
+              v-model="localUserAdditionalInfo.name"
               label="Full name"
               rounded
               outlined
@@ -94,6 +93,7 @@
               thumb-label="always"
               label="Age"
               inverse-label
+              class="age"
             />
           </validation-provider>
           <validation-provider
@@ -190,9 +190,10 @@
             <v-textarea
               v-model="localUserAdditionalInfo.about"
               clearable
+              auto-grow
               clear-icon="mdi-close-circle"
               rounded
-              label="Description"
+              label="About yourself"
               rows="3"
               hint="At least 10 characters"
               outlined
@@ -381,9 +382,9 @@ export default {
     handleSubmit() {
       this.$emit('submit',
         {
-          name: this.userInfo.name,
           interests: this.localUserAdditionalInfo.interestSelected,
           hobbies: this.localUserAdditionalInfo.hobbiesSelected,
+          gender_preferences: this.localUserAdditionalInfo.genderPreferences,
           ...this.localUserAdditionalInfo,
         });
     },
@@ -391,3 +392,9 @@ export default {
 
 };
 </script>
+
+<style lang="scss" scoped>
+  .age {
+    margin-top: 20px;
+  }
+</style>

@@ -18,7 +18,6 @@ a:-webkit-any-link {
 .v-autocomplete__content.v-menu__content {
   border-radius: 30px !important;
 }
-
 .h1 {
   font-family: 'Lora', sans-serif !important;
   font-size: 40px !important;
@@ -82,7 +81,8 @@ p {
 }
 
 .w-280 {
-  width: 280px;
+  max-width: 280px;
+  width: 100%;
 }
 
 .counter-msg {
@@ -130,13 +130,12 @@ p {
 }
 
 ::-webkit-scrollbar {
-  width: 20px;
+  width: 5px;
   border-radius: 100px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #e4e4e4;
-  border-radius: 100px;
+  background: white;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -144,4 +143,9 @@ p {
   border-left: 0;
   border-right: 0;
   background-color: #fe5faa;
+}
+
+.v-autocomplete__content::-webkit-scrollbar-button:single-button {
+  background-color: transparent;
+  height: 25px;
 }

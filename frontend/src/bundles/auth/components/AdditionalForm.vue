@@ -22,7 +22,7 @@
     <validation-provider
       name="gender_preference"
     >
-      <p>Your preference selection <span class="orange--text font-weight-bold">{{ gender_preference }}</span></p>
+      <p>Your preference selection <span class="primary--text font-weight-bold">{{ gender_preference }}</span></p>
       <v-radio-group
         v-model="gender_preference"
         row
@@ -78,7 +78,7 @@
     >
       <v-slider
         v-model="age"
-        min="14"
+        min="18"
         max="120"
         :thumb-size="25"
         :error-messages="errors"

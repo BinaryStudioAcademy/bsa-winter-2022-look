@@ -13,7 +13,9 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "malhal/laravel-geographical": "^1.0",
         "sentry/sentry-laravel": "^2.11",
+        "stevebauman/location": "^6.3",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
