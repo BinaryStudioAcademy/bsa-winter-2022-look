@@ -233,7 +233,6 @@ export default {
 .info span {
   display: inline-block;
   max-width: 90px;
-  padding: 3px 6px 3px 0;
   white-space: pre-wrap;
   overflow-wrap: break-word;
 }
