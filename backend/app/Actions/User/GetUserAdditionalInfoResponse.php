@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Cache;
 
 class GetUserAdditionalInfoResponse
 {
+    const DEFAULT_AVATAR = 'https://look-staging.s3.eu-central-1.amazonaws.com/user-files/user/5/vW1TxMFzhA2v1Uc4IQDm8WFDJUIlfe8FDifJR9YS.png';
+
     public function __construct(
         private UserParameterNew $userParameters,
         private string|null $userEmail = null
@@ -18,6 +20,10 @@ class GetUserAdditionalInfoResponse
     // TODO change to the true avatar when ready
     public function getAvatarUrl(UserMediaRepository $userMediaRepository, $userId): string
     {
+        if (is_null($userMediaRepository->getUrlByUserId($userId))) {
+            return self::DEFAULT_AVATAR;
+        }
+
         return $userMediaRepository->getUrlByUserId($userId);
     }
 
