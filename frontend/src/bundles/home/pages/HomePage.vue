@@ -1,7 +1,6 @@
 <template>
   <div>
     <Header
-      :menu-items="menuItems"
       :is-authorized="isAuthorized"
       :user-info="userInfo"
     />
@@ -223,30 +222,6 @@ export default {
         },
       ];
     },
-    menuItems() {
-      return [
-        {
-          url: 'products',
-          title: 'Products',
-        },
-        {
-          url: 'learn',
-          title: 'Learn',
-        },
-        {
-          url: 'safety',
-          title: 'Safety',
-        },
-        {
-          url: 'support',
-          title: 'Support',
-        },
-        {
-          url: 'download',
-          title: 'Download',
-        },
-      ];
-    },
   },
 };
 </script>
@@ -255,9 +230,7 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/scss/override.scss";
-
-::v-deep .header-person {
+.header-person {
   margin: 0 auto -40px;
 }
 

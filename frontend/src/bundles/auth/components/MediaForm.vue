@@ -13,7 +13,7 @@
     <v-btn
       type="submit"
       :disabled="invalid"
-      class="white--text text-capitalize font-weight-bold mr-4"
+      class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
       color="primary"
       large
       rounded

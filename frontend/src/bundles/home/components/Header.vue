@@ -10,7 +10,9 @@
           align="center"
         >
           <v-toolbar-title>
-            <router-link to="/">
+            <router-link
+              :to="{ name: 'home' }"
+            >
               <v-img
                 class="ml-2 mr-md-16"
                 src="@/assets/image/main_logo.svg"
@@ -19,15 +21,10 @@
           </v-toolbar-title>
           <v-toolbar-items class="hidden-md-and-down">
             <v-btn
-              v-for="(item, index) in menuItems"
-              :key="index"
               depressed
-              :to="item.url"
               :ripple="false"
               class="menu-header--nav text-capitalize font-weight-bold mr-3"
-            >
-              {{ item.title }}
-            </v-btn>
+            />
           </v-toolbar-items>
           <v-spacer
             class="hidden-lg-and-up"
@@ -38,7 +35,7 @@
             justify="end"
           >
             <router-link
-              :to="{ name: 'auth-login' }"
+              :to="{ name: 'main-list' }"
               class="to-user hidden-md-and-down"
             >
               <v-list-item>
@@ -104,16 +101,11 @@
       temporary
     >
       <v-btn
-        v-for="(item, index) in menuItems"
-        :key="index"
         block
         depressed
-        :to="item.url"
         :ripple="false"
         class="menu-header--nav text-capitalize font-weight-bold mr-3"
-      >
-        {{ item.title }}
-      </v-btn>
+      />
 
       <v-spacer />
       <router-link
@@ -168,10 +160,6 @@
 <script>
 export default {
   props: {
-    menuItems: {
-      type: Array,
-      required: true,
-    },
     isAuthorized: {
       type: Boolean,
       default: false,
@@ -196,8 +184,6 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/scss/override.scss";
-
 .to-user {
   text-decoration: none;
 }
@@ -208,6 +194,6 @@ export default {
 }
 .to-user .v-list-item__title {
   font-family: 'Lato', sans-serif;
-  font-size: 18px;
+  font-size: 18px !important;
 }
 </style>

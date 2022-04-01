@@ -35,7 +35,9 @@
         class="greyBg fill-height--centred"
       >
         <div class="form--auth mx-auto my-auto mt-xs-10">
-          <router-link to="/">
+          <router-link
+            :to="{ name: 'home' }"
+          >
             <v-img
               class="mx-auto mx-md-0 my-5 my-md-0"
               max-height="38"
@@ -54,18 +56,16 @@
   lang="scss"
   scoped
 >
-@import "@/assets/scss/override.scss";
-
 .fill-height--centred {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  overflow-y: scroll;
   @media screen and (max-width: 959px) {
     height: auto;
   }
 }
+
 .form--auth {
   max-width: 320px;
   width: 100%;
@@ -73,7 +73,6 @@
 p {
   font-size: 18px;
 }
-
 .image--auth_dog {
   @media screen and (max-width: 959px) {
     max-width: 250px !important;

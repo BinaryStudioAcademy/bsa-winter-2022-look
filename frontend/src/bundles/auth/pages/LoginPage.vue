@@ -26,6 +26,8 @@
 import { ValidationObserver } from 'vee-validate';
 import { LOGIN_USER } from '../store/modules/auth/types/actions';
 import namespace from '@/bundles/auth/store/modules/auth/namespace';
+import userNamespace from '@/bundles/common/store/modules/user/namespace';
+import { FETCH_SESSION_USER } from '@/bundles/common/store/modules/user/types/actions';
 import { mapActions } from 'vuex';
 import LoginForm from '../components/LoginForm';
 
@@ -45,6 +47,9 @@ export default {
     ...mapActions(namespace, {
       loginUser: LOGIN_USER,
     }),
+    ...mapActions(userNamespace, {
+      fetchSessionUser: FETCH_SESSION_USER,
+    }),
     handleUserSubmit(payload) {
       if (this.processing) {
         return Promise.resolve();
@@ -53,9 +58,8 @@ export default {
       this.processing = true;
 
       return this.loginUser(payload)
-        .then(() =>
-          this.$router.push({ name: 'search' }), // TODO: need to specify correct route name
-        )
+        .then(() => this.fetchSessionUser())
+        .then(() => this.$router.push({ name: 'main-list' }))
         .catch((e) => this.$refs.observer.setErrors(e))
         .finally(() => {
           this.processing = false;
@@ -64,9 +68,3 @@ export default {
   },
 };
 </script>
-
-<style
-  lang="scss"
->
-@import "@/assets/scss/override.scss";
-</style>

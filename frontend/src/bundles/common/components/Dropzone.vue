@@ -67,8 +67,6 @@ export default {
   lang="scss"
   scoped
 >
-@import "@/assets/scss/override.scss";
-
 .dropzone {
   border: 1px solid;
   border-radius: 10px;

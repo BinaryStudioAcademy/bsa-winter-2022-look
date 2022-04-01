@@ -7,6 +7,9 @@ const RegisterMediaPage = () => import('./pages/RegisterMediaPage.vue').then(m =
 const LoginPage = () => import('./pages/LoginPage.vue').then(m => m.default);
 const ResetPasswordPage = () => import('./pages/ResetPasswordPage.vue').then(m => m.default);
 const ChangeEmailPasswordPage = () => import('./pages/ChangeEmailPasswordPage.vue').then(m => m.default);
+const ChangePasswordPage = () => import('./pages/ChangePasswordPage.vue').then(m => m.default);
+const EmailConfirmPage = () => import('./pages/EmailConfirmPage.vue').then(m => m.default);
+const EmailValidationRequestPage = () => import('./pages/EmailValidationRequestPage.vue').then(m => m.default);
 
 export function getAuthRoutes(): RouteConfig[] {
   return [
@@ -26,6 +29,23 @@ export function getAuthRoutes(): RouteConfig[] {
           path: 'reset-password',
           name: 'auth-reset_password',
           component: ResetPasswordPage,
+        },
+        {
+          path: 'change-password/:token',
+          name: 'auth-change_password',
+          props: true,
+          component: ChangePasswordPage,
+        },
+        {
+          path: 'email-confirm/:token',
+          name: 'auth-email_confirm',
+          props: true,
+          component: EmailConfirmPage,
+        },
+        {
+          path: 'email-validation',
+          name: 'auth-email_validation',
+          component: EmailValidationRequestPage,
         },
         {
           path: 'change-email-password',

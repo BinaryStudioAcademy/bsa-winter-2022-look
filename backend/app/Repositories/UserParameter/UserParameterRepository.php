@@ -14,4 +14,26 @@ final class UserParameterRepository extends BaseRepository implements UserParame
     {
         return UserParameter::all();
     }
+
+    public function findAllByUserId(int $userId): array
+    {
+        return UserParameter::where('user_id', $userId)->get()->pluck('parameter_value', 'parameter_key')->all();
+    }
+
+    public function getUserParameter(int $userId, string $parameter): ?UserParameter
+    {
+        return UserParameter::firstOrCreate(
+            [
+                'user_id' => $userId,
+                'parameter_key' => $parameter,
+            ]
+        );
+    }
+
+    public function save(UserParameter $userParameter): UserParameter
+    {
+        $userParameter->save();
+
+        return $userParameter;
+    }
 }

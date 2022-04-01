@@ -1,3 +1,5 @@
 <template>
-  <div>Change Email Password Page</div>
+  <div>
+    Change email-password template
+  </div>
 </template>

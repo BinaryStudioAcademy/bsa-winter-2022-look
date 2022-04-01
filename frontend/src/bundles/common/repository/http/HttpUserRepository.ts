@@ -4,6 +4,8 @@ import UserRepository from '../contracts/UserRepository';
 import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 import Storage from '@/services/storage';
+import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
+import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
 
 export default class HttpUserRepository implements UserRepository {
   private readonly httpTransport: HttpTransport;
@@ -42,8 +44,65 @@ export default class HttpUserRepository implements UserRepository {
       });
   }
 
+  public logout(): Promise<void> {
+    return this.httpTransport
+      .post(
+        '/auth/logout',
+      ).then(() => {
+        Storage.removeToken();
+      });
+  }
+
   public get(): Promise<User> {
     return this.httpTransport
       .get('/auth/me');
+  }
+
+  public resetPassword(email: string): Promise<void> {
+    return this.httpTransport
+      .post(
+        '/auth/forgot-password',
+        { email: email },
+      );
+  }
+
+  public changePassword(payload: ChangePasswordRequest): Promise<void> {
+    return this.httpTransport
+      .post(
+        '/auth/reset-password',
+        {
+          ...payload,
+          password_confirmation: payload.passwordConfirmation,
+        },
+      );
+  }
+
+  public emailConfirmation(token: string): Promise<void> {
+    return this.httpTransport
+      .post(
+        '/auth/email-confirm',
+        { token: token },
+      );
+  }
+
+  public sendValidationEmail(email: string): Promise<void> {
+    return this.httpTransport
+      .post(
+        'auth/send-validation-email',
+        { email: email },
+      );
+  }
+
+  public getUserAdditionalInfo(): Promise<void> {
+    return this.httpTransport
+      .get('user/user-additional-info');
+  }
+
+  public setUserAdditionalInfo(payload: ChangeUserInfoRequest): Promise<void> {
+    return this.httpTransport
+      .post('/user/change-user-info',
+        {
+          ...payload,
+        });
   }
 }

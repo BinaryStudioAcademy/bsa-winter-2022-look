@@ -16,11 +16,10 @@
         outlined
       />
     </validation-provider>
-
     <v-btn
       type="submit"
       :disabled="invalid"
-      class="white--text text-capitalize font-weight-bold mr-4"
+      class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
       color="primary"
       large
       rounded
@@ -28,7 +27,7 @@
       max-width="215"
       width="100%"
     >
-      Reset
+      Reset password
     </v-btn>
   </form>
 </template>
@@ -37,6 +36,8 @@
 import { ValidationProvider } from 'vee-validate';
 
 export default {
+  name: 'ResetPasswordForm',
+
   components: {
     ValidationProvider,
   },
@@ -46,23 +47,18 @@ export default {
       type: Boolean,
       default: false,
     },
-    processing: {
-      type: Boolean,
-      default: false,
-    },
   },
 
   data() {
     return {
       email: undefined,
+      success: false,
     };
   },
 
   methods: {
     handleSubmit() {
-      this.$emit('submit', {
-        email: this.email,
-      });
+      this.$emit('submit', this.email);
     },
   },
 };

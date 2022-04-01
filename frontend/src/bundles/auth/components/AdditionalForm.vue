@@ -22,7 +22,7 @@
     <validation-provider
       name="gender_preference"
     >
-      <p>Your preference selection <span class="orange--text font-weight-bold">{{ gender_preference }}</span></p>
+      <p>Your preference selection <span class="primary--text font-weight-bold">{{ gender_preference }}</span></p>
       <v-radio-group
         v-model="gender_preference"
         row
@@ -38,14 +38,15 @@
     <validation-provider
       v-slot="{ errors }"
       name="phone"
-      rules="phone"
+      rules="required|phone"
     >
       <v-text-field
         v-model="phone"
+        v-mask="'+##(###)###-##-##'"
         type="text"
         name="phone"
         label="Phone"
-        placeholder="(0XX) XXX-XXXX"
+        placeholder="+38(067)123-45-67"
         filled
         rounded
         background-color="#faf9f9"
@@ -69,6 +70,21 @@
         outlined
         clearable
         :error-messages="errors"
+      />
+    </validation-provider>
+    <validation-provider
+      v-slot="{ errors }"
+      name="Age"
+    >
+      <v-slider
+        v-model="age"
+        min="18"
+        max="120"
+        :thumb-size="25"
+        :error-messages="errors"
+        thumb-label="always"
+        label="Age, years"
+        inverse-label
       />
     </validation-provider>
     <validation-provider
@@ -162,10 +178,12 @@
     <validation-provider
       v-slot="{ errors }"
       name="about"
-      rules="required|min:10"
+      rules="required|min:10,description|max:500,description"
     >
       <v-textarea
         v-model="about"
+        auto-grow
+        counter="500"
         clearable
         clear-icon="mdi-close-circle"
         rounded
@@ -182,7 +200,7 @@
     <v-btn
       type="submit"
       :disabled="invalid"
-      class="white--text text-capitalize font-weight-bold mr-4"
+      class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-0"
       color="primary"
       large
       rounded
@@ -216,6 +234,7 @@ export default {
 
   data() {
     return {
+      age: 25,
       height: 150,
       weight: 140,
       about: undefined,
@@ -301,6 +320,7 @@ export default {
   methods: {
     handleSubmit() {
       this.$emit('submit', {
+        age: this.age,
         height: this.height,
         weight: this.weight,
         about: this.about,

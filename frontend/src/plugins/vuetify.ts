@@ -3,6 +3,8 @@ import Vuetify from 'vuetify/lib/framework';
 
 Vue.use(Vuetify);
 
+require('../assets/scss/override.scss');
+
 export default new Vuetify({
   theme: {
     themes: {
@@ -22,6 +24,10 @@ export default new Vuetify({
         purple: '#574f8c',
         purpleFooter: '#443748',
         border: '#979797',
+        lightPink: '#FFEBF5',
+        lightBlack: '#282828',
+        lightGrey: '#8E9396',
+        green: '#40BF13',
       },
     },
   },

@@ -14,4 +14,20 @@ final class UserInterestRepository extends BaseRepository implements UserInteres
     {
         return UserInterest::all();
     }
+
+    public function getUserInterests(int $userId): ?UserInterest
+    {
+        return UserInterest::firstOrCreate(
+            [
+                'user_id' => $userId,
+            ]
+        );
+    }
+
+    public function save(UserInterest $userInterest): UserInterest
+    {
+        $userInterest->save();
+
+        return $userInterest;
+    }
 }
