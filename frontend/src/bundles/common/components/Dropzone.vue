@@ -5,7 +5,8 @@
     :options="dropzoneOptions"
     :include-styling="false"
     :use-custom-slot=true
-    v-on:vdropzone-file-added="returnFile"
+    @vdropzone-file-added="file => $emit('file-upload', file)"
+    @vdropzone-removed-file="file => $emit('file-delete', file)"
   >
     <div class="dropzone border--text">
       <div class="dropzone-container border--text">
@@ -60,9 +61,6 @@ export default {
         -->
       </div>
         `;
-    },
-    returnFile(file) {
-      console.dir(file);
     },
   },
 };

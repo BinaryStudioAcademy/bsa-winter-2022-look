@@ -7,7 +7,10 @@
     <validation-provider
       name="Photo"
     >
-      <Dropzone />
+      <Dropzone
+        @file-upload="addMediaFile"
+        @file-delete="deleteFile"
+      />
     </validation-provider>
 
     <v-btn
@@ -58,6 +61,16 @@ export default {
       this.$emit('submit', {
         userFiles: this.userFiles,
       });
+    },
+    addMediaFile(file) {
+      this.userFiles = [
+        ...this.userFiles,
+        file,
+      ];
+      console.dir(this.userFiles);
+    },
+    deleteFile(file) {
+      this.userFiles = this.userFiles.filter(value => value.name !== file.name);
     },
   },
 };
