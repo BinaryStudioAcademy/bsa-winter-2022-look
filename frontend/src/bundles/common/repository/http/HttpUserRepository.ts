@@ -109,7 +109,7 @@ export default class HttpUserRepository implements UserRepository {
 
   public addUserMedia(payload: AddUserMediaRequest): Promise<void> {
     return this.httpTransport
-      .post('/test',
+      .post('user/upload-user-file',
         {
           ...payload,
         });

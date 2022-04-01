@@ -59,7 +59,8 @@ export default {
   methods: {
     handleSubmit() {
       this.$emit('submit', {
-        userFiles: this.userFiles,
+        files: this.userFiles,
+        id: this.$store.state.auth.user.id,
       });
     },
     addMediaFile(file) {
