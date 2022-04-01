@@ -5,19 +5,30 @@ declare(strict_types=1);
 namespace App\Actions\User;
 
 use App\Models\UserParameterNew;
+use App\Repositories\UserMedia\UserMediaRepository;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class GetUserAdditionalInfoResponse
 {
+    const DEFAULT_AVATAR = 'https://look-staging.s3.eu-central-1.amazonaws.com/user-files/user/5/vW1TxMFzhA2v1Uc4IQDm8WFDJUIlfe8FDifJR9YS.png';
+
     public function __construct(
         private UserParameterNew $userParameters,
         private string|null $userEmail = null
     ) {
     }
     // TODO change to the true avatar when ready
-    public function getAvatarUrl(): string
+    public function getAvatarUrl(UserMediaRepository $userMediaRepository, $userId): string
     {
-        return 'https://randomuser.me/api/portraits/women/56.jpg';
+        if (is_null($userMediaRepository->getUrlByUserId($userId))) {
+            return self::DEFAULT_AVATAR;
+        }
+
+        return Storage::disk(
+            config('filesystems.storage_type')
+        )
+            ->url($userMediaRepository->getUrlByUserId($userId)->filename);
     }
 
     public function getId()
