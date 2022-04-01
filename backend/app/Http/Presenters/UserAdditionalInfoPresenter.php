@@ -6,9 +6,16 @@ namespace App\Http\Presenters;
 
 use App\Actions\User\GetUserAdditionalInfoResponse;
 use App\Contracts\PresenterInterface;
+use App\Models\UserMedia;
+use App\Repositories\UserMedia\UserMediaRepository;
 
 class UserAdditionalInfoPresenter implements PresenterInterface
 {
+    public function __construct(
+        private UserMediaRepository $mediaRepository
+    ) {
+    }
+
     public function present(GetUserAdditionalInfoResponse $response): array
     {
         return [
@@ -27,7 +34,7 @@ class UserAdditionalInfoPresenter implements PresenterInterface
             'instagram' => $response->getInstagram(),
             'facebook' => $response->getFacebook(),
             'other' => $response->getOther(),
-            'avatar' => $response->getAvatarUrl(),
+            'avatar' => $response->getAvatarUrl($this->mediaRepository, $response->getId()),
             'distance' => $response->getDistance(),
             'online' => $response->onlineCheck(),
         ];
