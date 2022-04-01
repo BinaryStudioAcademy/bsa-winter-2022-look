@@ -59,7 +59,7 @@
 export default {
   props: {
     frequentlyChat: {
-      type: Array,
+      type: [],
       default: undefined,
     },
   },

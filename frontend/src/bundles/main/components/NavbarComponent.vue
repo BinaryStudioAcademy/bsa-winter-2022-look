@@ -47,7 +47,7 @@
               <router-link :to="{ name: 'main-settings-details'}" class="lightBlack--text">Settings</router-link>
             </v-list-item>
             <v-list-item>
-              <v-btn class="lightBlack--text" @click.prevent="handleLogout">Log out</v-btn>
+              <a class="lightBlack--text" @click.prevent="handleLogout">Log out</a>
             </v-list-item>
           </v-list>
         </v-menu>
