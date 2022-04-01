@@ -7,6 +7,7 @@ namespace App\Actions\User;
 use App\Models\UserParameterNew;
 use App\Repositories\UserMedia\UserMediaRepository;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class GetUserAdditionalInfoResponse
 {
@@ -24,7 +25,10 @@ class GetUserAdditionalInfoResponse
             return self::DEFAULT_AVATAR;
         }
 
-        return $userMediaRepository->getUrlByUserId($userId);
+        return Storage::disk(
+            config('filesystems.storage_type')
+        )
+            ->url($userMediaRepository->getUrlByUserId($userId)->filename);
     }
 
     public function getId()
