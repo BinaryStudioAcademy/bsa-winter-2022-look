@@ -13,4 +13,5 @@ interface UserMediaRepositoryInterface
     public function save(UserMedia $userMedia): ?UserMedia;
     public function getById(int $id): ?UserMedia;
     public function delete(UserMedia $userMedia): ?bool;
+    public function getUrlByUserId(int $id);
 }

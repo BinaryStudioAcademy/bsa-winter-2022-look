@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\User;
 
 use App\Models\UserParameterNew;
+use App\Repositories\UserMedia\UserMediaRepository;
 use Illuminate\Support\Facades\Cache;
 
 class GetUserAdditionalInfoResponse
@@ -15,9 +16,9 @@ class GetUserAdditionalInfoResponse
     ) {
     }
     // TODO change to the true avatar when ready
-    public function getAvatarUrl(): string
+    public function getAvatarUrl(UserMediaRepository $userMediaRepository, $userId): string
     {
-        return 'https://randomuser.me/api/portraits/women/56.jpg';
+        return $userMediaRepository->getUrlByUserId($userId);
     }
 
     public function getId()

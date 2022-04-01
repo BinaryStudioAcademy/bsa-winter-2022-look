@@ -39,4 +39,14 @@ final class UserMediaRepository extends BaseRepository implements UserMediaRepos
 
         return $userMedia->delete();
     }
+
+    public function getUrlByUserId(int $id)
+    {
+        return Storage::disk(
+            config('filesystems.storage_type')
+        )
+            ->url(
+                UserMedia::where('user_id', $id)->get()->firstOrfail()->filename
+            );
+    }
 }
