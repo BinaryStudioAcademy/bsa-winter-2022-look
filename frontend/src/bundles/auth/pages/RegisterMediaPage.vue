@@ -45,9 +45,6 @@ export default {
 
       this.processing = true;
 
-      /**
-       * TODO set user data when api completed
-       */
       return this.addUserMedia(payload)
         .then(() =>
           this.$router.push({ name: 'auth-email_validation' }),
