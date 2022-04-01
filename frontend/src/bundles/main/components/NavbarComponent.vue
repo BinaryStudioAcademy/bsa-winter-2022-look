@@ -26,20 +26,22 @@
           <template #activator="{ on, attrs }">
             <div
               v-bind="attrs"
-              class="lightPink pl-2 pr-5 py-2 mb-10 rounded-lg"
+              class="lightPink pl-5 pr-10 py-2 mb-10 rounded-lg"
               v-on="on"
             >
-              <v-list-item-avatar>
-                <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
-              </v-list-item-avatar>
-              <span class="h5 font-weight-regular mr-5">
-                {{ user.name }}
-              </span>
-              <v-icon
-                class="primary--text"
-              >
-                mdi-menu-down
-              </v-icon>
+              <v-row align="center">
+                <v-col cols="12" md="4">
+                  <v-list-item-avatar>
+                    <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
+                  </v-list-item-avatar>
+                </v-col>
+                <v-col cols="12" md="6">
+                  <span class="h5 font-weight-regular mr-4">{{ user.name }}</span>
+                </v-col>
+                <v-col cols="12" md="2">
+                  <v-icon class="primary--text">mdi-menu-down</v-icon>
+                </v-col>
+              </v-row>
             </div>
           </template>
           <v-list>
