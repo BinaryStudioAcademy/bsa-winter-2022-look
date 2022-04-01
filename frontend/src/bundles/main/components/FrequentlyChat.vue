@@ -11,7 +11,7 @@
     <v-list-item
       v-for="(item, index) in frequentlyChat"
       :key="index"
-      class="d-flex pa-0"
+      class="d-flex pa-0 mr-5"
       flat
     >
       <v-badge
