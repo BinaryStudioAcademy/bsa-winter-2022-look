@@ -206,14 +206,14 @@ export default {
           text: 'We’re not a fan of labels, so we offer a dating experience designed to connect you with new people outside your usual circles. On our app, we put everyone in front of you and let you choose who you want to chat with.',
         },
         {
-          icon: 'IconChat',
-          title: 'Get chatting',
-          text: 'Go beyond your distance settings and chat with people around the world.',
-        },
-        {
           icon: 'IconMail',
           title: 'Meet on a date',
           text: 'Meet people at the cinema, in a cafe or on the street.',
+        },
+        {
+          icon: 'IconChat',
+          title: 'Get chatting',
+          text: 'Go beyond your distance settings and chat with people around the world.',
         },
       ];
     },
