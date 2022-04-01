@@ -20,7 +20,11 @@ class UploadUserFileAction
 
     public function execute(UploadUserFileRequest $request): UploadUserFileResponse
     {
-        if (is_null($userId = Auth::id())) {
+        if ($request->getId() && is_null(Auth::id())) {
+            $userId = $request->getId();
+        } elseif (Auth::id()) {
+            $userId = Auth::id();
+        } else {
             throw new UserNotFoundException();
         }
 

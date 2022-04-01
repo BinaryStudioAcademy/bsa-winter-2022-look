@@ -12,6 +12,7 @@ class UploadUserFileRequest
 
     public function __construct(
         private array $files,
+        private int|null $id = null
     ) {
     }
 
@@ -33,5 +34,10 @@ class UploadUserFileRequest
     public function getFormat(): string
     {
         return $this->file->getMimeType();
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }

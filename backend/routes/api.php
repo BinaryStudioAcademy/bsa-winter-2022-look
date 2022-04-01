@@ -25,6 +25,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/reset-password', [ForgotPasswordController::class, 'passwordChange'])->name('password.reset');
     Route::post('/email-confirm', [AuthController::class, 'emailConfirmation'])->name('email-confirmation');
     Route::post('/send-validation-email', [AuthController::class, 'sendValidationEmail'])->name('send-validation-email');
+    Route::post('/register-add-file', [AuthController::class, 'addFile'])->name('register-upload-file');
 });
 
 Route::group(['prefix' => 'user'], function () {
