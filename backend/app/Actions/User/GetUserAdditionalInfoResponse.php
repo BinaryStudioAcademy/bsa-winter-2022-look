@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class GetUserAdditionalInfoResponse
 {
-    const DEFAULT_AVATAR = '';
+    const DEFAULT_AVATAR = 'https://look-staging.s3.eu-central-1.amazonaws.com/user-files/user/5/vW1TxMFzhA2v1Uc4IQDm8WFDJUIlfe8FDifJR9YS.png';
 
     public function __construct(
         private UserParameterNew $userParameters,

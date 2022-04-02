@@ -6,6 +6,8 @@ import UserRequest from '../requests/UserRequest';
 import Storage from '@/services/storage';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
+import UsersListRequest from '@/bundles/common/repository/requests/UsersListRequest';
+import RateUserRequest from '@/bundles/common/repository/requests/RateUserRequest';
 
 export default class HttpUserRepository implements UserRepository {
   private readonly httpTransport: HttpTransport;
@@ -95,7 +97,7 @@ export default class HttpUserRepository implements UserRepository {
 
   public getUserAdditionalInfo(): Promise<void> {
     return this.httpTransport
-      .get('user/user-additional-info');
+      .get('/user/user-additional-info');
   }
 
   public setUserAdditionalInfo(payload: ChangeUserInfoRequest): Promise<void> {
@@ -104,5 +106,35 @@ export default class HttpUserRepository implements UserRepository {
         {
           ...payload,
         });
+  }
+
+  public getUsersList(payload: UsersListRequest): Promise<void> {
+    return this.httpTransport
+      .post('/match/all-users-list',
+        {
+          ...payload,
+        });
+  }
+
+  public rateUser(payload: RateUserRequest): Promise<void> {
+    return this.httpTransport
+      .post('/match/set-like-status',
+        {
+          ...payload,
+        });
+  }
+
+  public getMatchedUsers(status: boolean): Promise<any> {
+    return this.httpTransport
+      .post('/match/all-matches',
+        { status: status },
+      );
+  }
+
+  public getLikedUsers(status: boolean): Promise<any> {
+    return this.httpTransport
+      .post('/match/all-liked',
+        { status: status },
+      );
   }
 }

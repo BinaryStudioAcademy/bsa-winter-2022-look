@@ -382,9 +382,10 @@ export default {
     handleSubmit() {
       this.$emit('submit',
         {
+          name: this.userInfo.name,
+          gender_preferences: this.localUserAdditionalInfo.genderPreferences,
           interests: this.localUserAdditionalInfo.interestSelected,
           hobbies: this.localUserAdditionalInfo.hobbiesSelected,
-          gender_preferences: this.localUserAdditionalInfo.genderPreferences,
           ...this.localUserAdditionalInfo,
         });
     },

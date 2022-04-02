@@ -118,17 +118,17 @@
         </v-col>
       </v-row>
     </div>
+
   </div>
 </template>
 
 <script>
-
 import PageTitle from '@/bundles/common/components/PageTitle';
 import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import NoLikeIcon from '@/bundles/main/components/icons/NoLikeIcon';
 import { mapActions } from 'vuex';
 import namespace from '../../auth/store/modules/auth/namespace';
-import { GET_USERS_MATCHED, RATE_USER } from '../../auth/store/modules/auth/types/actions';
+import { GET_USERS_LIKED, RATE_USER } from '../../auth/store/modules/auth/types/actions';
 
 export default {
   components: {
@@ -151,13 +151,13 @@ export default {
 
   methods: {
     ...mapActions(namespace, {
-      getMatchedUsers: GET_USERS_MATCHED,
+      getLikedUsers: GET_USERS_LIKED,
       rateUser: RATE_USER,
     },
 
     ),
     getUsers() {
-      return this.getMatchedUsers(this.onlineStatus)
+      return this.getLikedUsers(this.onlineStatus)
         .then(data => {
           this.users = data.users;
           this.totalUsers = data.usersTotal;
@@ -179,6 +179,8 @@ export default {
       this.onlineStatus = !this.onlineStatus;
       this.getUsers();
     },
+
   },
+
 };
 </script>
