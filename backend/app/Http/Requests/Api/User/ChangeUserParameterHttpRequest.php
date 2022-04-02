@@ -12,20 +12,19 @@ class ChangeUserParameterHttpRequest extends FormRequest
     {
         return [
             'name' => 'string|required|min:3',
-            'gender_preferences' => 'string|required',
+            'genderPreferences' => 'string|required',
             'gender' => 'string|required',
             'age' => 'int|required|min:18',
-            'weight' => 'int|nullable',
-            'height' => 'int|nullable',
-            'about' => 'string|required',
+            'weight' => 'int|required',
+            'height' => 'int|required',
+            'about' => 'string',
             'location' => 'required|string|min:1',
-            'interests' => 'array|nullable',
-            'interests.*' => 'string|distinct|min:2',
+            'interests' => 'required|array|min:1',
+            'interests.*' => 'required|string|distinct|min:3',
             'other' => 'string|nullable',
             'facebook' => 'string|nullable',
             'instagram' => 'string|nullable',
-            'hobbies' => 'array|nullable',
-            'hobbies.*' => 'string|distinct|min:2',
+            'hobbies' => 'required|min:1',
         ];
     }
 

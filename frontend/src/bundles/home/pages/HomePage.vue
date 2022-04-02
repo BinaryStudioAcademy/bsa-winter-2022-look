@@ -90,7 +90,7 @@
               md="6"
             >
               <v-row
-                align="center"
+                align="start"
               >
                 <v-col
                   v-for="(item, index) in itemsAbout"
@@ -145,7 +145,7 @@
                 More than a just app
               </h4>
               <p class="textMain--text text-center text-md-left">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum fermentum viverra amet id arcu. Id adipiscing risus pulvinar nisi, turpis.
+                We’re not a fan of labels, so we offer a dating experience designed to connect you with new people outside your usual circles. On our app, we put everyone in front of you and let you choose who you want to chat with.
               </p>
               <p class="textMain--text text-center text-md-left">
                 Malesuada elit nullam sollicitudin ante enim non tempus.
@@ -206,19 +206,14 @@ export default {
           text: 'You decide with a simple swipe who you would be interested in getting to know.',
         },
         {
-          icon: 'IconVideoChat',
-          title: 'Get video chatting',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
+          icon: 'IconMail',
+          title: 'Meet on a date',
+          text: 'Meet people at the cinema, in a cafe or on the street.',
         },
         {
           icon: 'IconChat',
           title: 'Get chatting',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
-        },
-        {
-          icon: 'IconMail',
-          title: 'Meet on a date',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus dui dictum.',
+          text: 'Go beyond your distance settings and chat with people around the world.',
         },
       ];
     },

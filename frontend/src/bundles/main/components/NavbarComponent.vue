@@ -2,7 +2,7 @@
   <div>
     <v-navigation-drawer
       v-model="drawer"
-      class="px-5 py-2"
+      class="pl-5 py-2 mr-5"
       color="greyMain"
       app
       overlay-color="white"
@@ -26,13 +26,13 @@
           <template #activator="{ on, attrs }">
             <div
               v-bind="attrs"
-              class="lightPink pl-2 pr-5 py-2 mb-10 rounded-lg"
+              class="lightPink px-3 py-3 mr-5 mb-10 rounded-lg info"
               v-on="on"
             >
               <v-list-item-avatar>
                 <v-img src="https://randomuser.me/api/portraits/men/78.jpg" />
               </v-list-item-avatar>
-              <span class="h5 font-weight-regular mr-5">
+              <span class="h5 font-weight-regular">
                 {{ user.name }}
               </span>
               <v-icon
@@ -47,7 +47,7 @@
               <router-link :to="{ name: 'main-settings-details'}" class="lightBlack--text">Settings</router-link>
             </v-list-item>
             <v-list-item>
-              <v-btn class="lightBlack--text" @click.prevent="handleLogout">Log out</v-btn>
+              <a class="lightBlack--text" @click.prevent="handleLogout">Log out</a>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -118,6 +118,7 @@ import MapIcon from '@/bundles/main/components/icons/MapIcon';
 import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
 import EventsIcon from '@/bundles/main/components/icons/EventsIcon';
 import HasMassageDotIcon from '@/bundles/main/components/icons/HasMassageDotIcon';
+import HalfHearth from '@/bundles/main/components/icons/HalfHearth';
 import FrequentlyChat from '@/bundles/main/components/FrequentlyChat';
 
 export default {
@@ -131,6 +132,7 @@ export default {
     ChatIcon,
     EventsIcon,
     HasMassageDotIcon,
+    HalfHearth,
   },
   props: {
     user: {
@@ -148,6 +150,7 @@ export default {
     menuApp() {
       return [
         { title: 'List', icon: 'ListIcon', name: 'main-list' },
+        { title: 'Liked', icon: 'HalfHearth', name: 'main-liked' },
         { title: 'Your match', icon: 'LikeIcon', name: 'main-match' },
         { title: 'Map', icon: 'MapIcon', name: 'main-map' },
         { title: 'Chat', icon: 'ChatIcon', name: 'main-chat' },
@@ -219,5 +222,21 @@ export default {
 
 .v-navigation-drawer__border {
   background: transparent !important;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info span {
+  display: inline-block;
+  max-width: 90px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 }
 </style>

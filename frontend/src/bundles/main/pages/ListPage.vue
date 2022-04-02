@@ -1,60 +1,102 @@
 <template>
   <div>
     <page-title
-      title="List"
+      class="d-none d-sm-flex"
+      title="Find your crash"
     />
-    <div class="lightBlack--text text-12 pb-md-4 pb-3">
-      There are <span class="orange--text">34098</span> candidates
+    <div
+      v-if="totalUsers"
+      class="lightBlack--text text-12 pb-md-4 pb-3 d-none d-sm-flex">
+      There are&nbsp;<span class="orange--text">{{ totalUsers }}</span>&nbsp;candidates
     </div>
 
-    <div class="block-filter d-flex">
-      <div
-        class="d-flex"
+    <div class="preference-button-positioner">
+      <v-btn
+        class="white--text text-capitalize font-weight-bold d-flex mx-auto mx-md-3 d-flex d-sm-none preference-button"
+        color="primary"
+        absolute
+        large
+        rounded
+        depressed
+        max-width="100"
+        width="50%"
+        @click="searchBar = !searchBar"
       >
-        <v-autocomplete
-          v-model="agesSelected"
-          :items="ages"
-          small-chips
+        Preference
+      </v-btn>
+    </div>
+    <div class="pt-4"></div>
+
+    <div
+      v-if="searchBar"
+      class="block-filter search-bar d-flex flex-column flex-sm-row"
+    >
+      <div class="slider-parent col-md-4 col-xl-3 col-sm-12">
+        <v-range-slider
+          v-model="age"
+          :max="age_max"
+          :min="age_min"
+          class="align-center"
+          thumb-label="always"
           label="Age"
-          placeholder="Age"
-          filled
-          rounded
-          background-color="#faf9f9"
-          outlined
-          multiple
-          clearable
-          class="mr-4 w-280"
         >
-          <template #selection="{ index }">
-            <span
-              v-if="index === 0"
-              class="text-overline grey--text text--darken-3 mx-2"
-            >
-              +{{ agesSelected.length }} Selected
-            </span>
+          <template>
+            <v-text-field
+              :value="age[0]"
+              class="mt-0 pt-0 slider-text"
+              single-line
+              type="number"
+              @change="$set(age, 0, $event)"
+            />
           </template>
-        </v-autocomplete>
-        <v-autocomplete
-          v-model="locationSelected"
-          :items="locations"
-          small-chips
-          label="Location"
-          placeholder="Location"
-          filled
-          rounded
-          background-color="#faf9f9"
-          outlined
-          clearable
-          class="mr-4 w-280"
+          <template>
+            <v-text-field
+              :value="age[1]"
+              class="mt-0 pt-0 slider-text"
+              single-line
+              type="number"
+              @change="$set(age, 1, $event)"
+            />
+          </template>
+        </v-range-slider>
+      </div>
+
+      <div class="slider-parent col-md-4 col-xl-3 col-sm-12">
+        <v-slider
+          v-model="range"
+          min="1"
+          max="1000"
+          thumb-label="always"
+          label="Range, km"
+          inverse-label
         />
       </div>
-      <v-spacer />
-      <v-checkbox
-        label="Only online"
-        color="primary"
-        value="false"
-        hide-details
-      />
+
+      <div class="status-check mt-0 col-md-1 ml-1 col-xl-1 col-sm-12">
+        <v-checkbox
+          class="mt-0 pt-1"
+          label="Only online"
+          color="primary"
+          hide-details
+          @click="onlineStatus = !onlineStatus"
+        />
+      </div>
+
+      <div class="col-md-2 col-xl-2 col-sm-12 pt-1">
+        <v-btn
+          class="white--text text-capitalize font-weight-bold d-flex mx-auto"
+          color="primary"
+          large
+          rounded
+          depressed
+          max-width="100"
+          width="50%"
+          @click="getUsers"
+        >
+          Save
+        </v-btn>
+      </div>
+
     </div>
 
     <div class="users">
@@ -68,9 +110,99 @@
           md="4"
           sm="6"
         >
-          <UserCard
-            :user="user"
-          />
+          <v-card
+            class="v-card__user"
+            elevation="0"
+          >
+            <v-img
+              :src="user.avatar"
+              height="255"
+              class="grey darken-4"
+              position="top center"
+            >
+              <v-app-bar
+                flat
+                color="rgba(0, 0, 0, 0)"
+              >
+                <v-spacer />
+                <v-btn
+                  v-model="user.id"
+                  class="greyMain mt-4 mr-3"
+                  depressed
+                  fab
+                  icon
+                  rounded
+                  small
+                  @click="rateUserById(user.id, rate.dislike, index)"
+                >
+                  <NoLikeIcon />
+                </v-btn>
+                <v-btn
+                  v-model="user.id"
+                  class="greyMain mt-4 mr-1"
+                  depressed
+                  fab
+                  icon
+                  rounded
+                  small
+                  @click="rateUserById(user.id, rate.like, index)"
+                >
+                  <HeartIcon />
+                </v-btn>
+              </v-app-bar>
+            </v-img>
+
+            <v-card-title class="text-h6 pa-5">
+              <v-row
+                justify="space-between"
+                align="center"
+              >
+                <v-col
+                  cols="9"
+                >
+                  <v-chip
+                    color="white"
+                    class="h6 font-weight-bold lightBlack--text"
+                    dot
+                    inline
+                    left
+                  >
+                    <v-icon
+                      left
+                      x-small
+                      :color="user.online ? 'green' : 'lightGrey'"
+                    >
+                      mdi-circle
+                    </v-icon>
+
+                    <div class="user-name">
+                      {{ user.name }}
+                    </div>
+                  </v-chip>
+                  <div
+                    class="text-12 font-weight-regular border--text"
+                  >
+                    {{ user.distance }} km
+                  </div>
+                </v-col>
+                <v-col
+                  cols="3"
+                  class="d-flex justify-end"
+                >
+                  <v-btn
+                    class="greyMain"
+                    depressed
+                    fab
+                    icon
+                    rounded
+                  >
+                    <ChatIcon />
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-card-title>
+          </v-card>
+
         </v-col>
       </v-row>
     </div>
@@ -79,122 +211,108 @@
 
 <script>
 import PageTitle from '@/bundles/common/components/PageTitle';
-import UserCard from '@/bundles/main/components/UserCard';
+import ChatIcon from '@/bundles/main/components/icons/ChatIcon';
+import NoLikeIcon from '@/bundles/main/components/icons/NoLikeIcon';
+import HeartIcon from '@/bundles/main/components/icons/HeartIcon';
+import { mapActions } from 'vuex';
+import namespace from '../../auth/store/modules/auth/namespace';
+import { GET_USERS_LIST, RATE_USER } from '../../auth/store/modules/auth/types/actions';
 
 export default {
   components: {
-    UserCard,
     PageTitle,
+    ChatIcon,
+    NoLikeIcon,
+    HeartIcon,
   },
   data() {
     return {
-      agesSelected: [],
-      locations: [
-        'Ukraine',
-        'Canada',
-        'USA',
-        'Germany',
-      ],
-      locationSelected: undefined,
+      users: undefined,
+      age_min: 18,
+      age_max: 100,
+      age: [18, 100],
+      range: 500,
+      rate: {
+        like: 'like',
+        dislike: 'dislike',
+      },
+      searchBar: true,
+      totalUsers: undefined,
+      onlineStatus: false,
     };
   },
 
-  computed: {
-    ages() {
-      return [
-        20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-        30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
-        40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
-      ];
+  beforeMount() {
+    this.getUsers();
+    this.hideSearchbar();
+  },
+
+  methods: {
+    ...mapActions(namespace, {
+      getUsersList: GET_USERS_LIST,
+      rateUser: RATE_USER,
+    }),
+    getUsers() {
+      return this.getUsersList({
+        min_age: this.age[0],
+        max_age: this.age[1],
+        range: this.range,
+        status: this.onlineStatus,
+      }).then(data => {
+        this.users = data.users;
+        this.totalUsers = data.usersTotal;
+      }).catch(error => {
+        console.dir(error);
+      });
     },
-    users() {
-      return [
-        {
-          image: 'https://randomuser.me/api/portraits/women/1.jpg',
-          id: 1,
-          name: 'Zoe Kim',
-          online: true,
-          distance: '500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/2.jpg',
-          id: 2,
-          name: 'Monica Biluc',
-          online: false,
-          distance: '1500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/3.jpg',
-          id: 3,
-          name: 'Tatiana Carder',
-          online: true,
-          distance: '700m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/4.jpg',
-          id: 4,
-          name: 'Gretchen Gouse',
-          online: false,
-          distance: '2500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/5.jpg',
-          id: 5,
-          name: 'Madelyn Geidt',
-          online: false,
-          distance: '1500 km',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/6.jpg',
-          id: 6,
-          name: 'Zoe Kim',
-          online: true,
-          distance: '500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/7.jpg',
-          id: 7,
-          name: 'Monica Biluc',
-          online: false,
-          distance: '1500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/8.jpg',
-          id: 8,
-          name: 'Tatiana Carder',
-          online: true,
-          distance: '700m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/9.jpg',
-          id: 9,
-          name: 'Gretchen Gouse',
-          online: false,
-          distance: '2500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/10.jpg',
-          id: 10,
-          name: 'Madelyn Geidt',
-          online: false,
-          distance: '1500 km',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/11.jpg',
-          id: 11,
-          name: 'Gretchen Gouse',
-          online: false,
-          distance: '2500m',
-        },
-        {
-          image: 'https://randomuser.me/api/portraits/women/12.jpg',
-          id: 12,
-          name: 'Madelyn Geidt',
-          online: false,
-          distance: '1500 km',
-        },
-      ];
+    rateUserById(id, rate, index) {
+      return this.rateUser({
+        id: id,
+        status: rate,
+      }).then(() => {
+        this.users.splice(index, 1);
+      }).catch(error => {
+        console.dir(error);
+      });
+    },
+    hideSearchbar() {
+      if (document.documentElement.clientWidth <= 600) {
+        this.searchBar = false;
+      }
     },
   },
+
 };
 </script>
+
+<style>
+
+.search-bar > * {
+  height: 80px;
+  z-index: 6;
+}
+
+.status-check {
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 12px !important;
+}
+
+.preference-button {
+  top: -66px;
+  right: 0px;
+}
+
+.user-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-icon {
+  z-index: 1;
+}
+
+</style>

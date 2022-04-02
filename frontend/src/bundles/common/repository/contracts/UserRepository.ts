@@ -3,6 +3,8 @@ import UserLoginRequest from '../requests/UserLoginRequest';
 import UserRequest from '../requests/UserRequest';
 import ChangePasswordRequest from '@/bundles/common/repository/requests/ChangePasswordRequest';
 import ChangeUserInfoRequest from '@/bundles/common/repository/requests/ChangeUserInfoRequest';
+import UsersListRequest from '@/bundles/common/repository/requests/UsersListRequest';
+import RateUserRequest from '@/bundles/common/repository/requests/RateUserRequest';
 
 export default interface UserRepository {
   /**
@@ -66,4 +68,29 @@ export default interface UserRepository {
    * @param {ChangeUserInfoRequest} payload
    */
   setUserAdditionalInfo(payload: ChangeUserInfoRequest): Promise<void>;
+  /**
+   * Change user info request
+   *
+   * @param {UsersListRequest} payload
+   */
+  getUsersList(payload: UsersListRequest): Promise<void>;
+  /**
+   * Rate user
+   *
+   * @param {RateUserRequest} payload
+   */
+  rateUser(payload: RateUserRequest): Promise<void>;
+
+  /**
+   * Get All matched users
+   *
+   * @param status
+   */
+  getMatchedUsers(status: boolean): Promise<void>;
+  /**
+   * Get All matched users
+   *
+   * @param status
+   */
+  getLikedUsers(status: boolean): Promise<void>;
 }
